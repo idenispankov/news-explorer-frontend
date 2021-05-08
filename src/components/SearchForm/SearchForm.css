@@ -44,6 +44,10 @@
   background: #347eff;
 }
 
+.search__button:active {
+  background: #2a65cc;
+}
+
 @media screen and (max-width: 770px) {
   .search {
     max-width: 448px;
