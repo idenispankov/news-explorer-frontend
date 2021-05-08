@@ -1,5 +1,5 @@
 .header {
-  background: url(../../images/banner.png);
+  background: url(../../images/banner.png) no-repeat center center/cover;
   width: 100%;
   min-height: 576px;
 }
@@ -27,4 +27,35 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 24px;
+}
+
+@media screen and (max-width: 770px) {
+  .header {
+    min-height: 400px;
+  }
+  .header__container {
+    max-width: 452px;
+    padding-top: 104px;
+  }
+  .header__title {
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 16px;
+  }
+  .header__subtitle {
+    margin-bottom: 48px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    min-height: 536px;
+  }
+  .header__container {
+    max-width: 285px;
+    padding-top: 86px;
+  }
+  .header__subtitle {
+    margin-bottom: 122px;
+  }
 }
