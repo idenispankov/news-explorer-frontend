@@ -1,4 +1,5 @@
 import './Header.css';
+import SearchForm from '../SearchForm/SearchForm.js';
 
 const Header = () => {
   return (
@@ -9,14 +10,7 @@ const Header = () => {
           Find the latest news on any topic and save them in your personal
           account.
         </p>
-        <div className='search'>
-          <input
-            type='text'
-            className='search__input'
-            placeholder='Enter topic'
-          />
-          <button className='search__button'>Search</button>
-        </div>
+        <SearchForm />
       </div>
     </header>
   );
