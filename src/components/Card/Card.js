@@ -18,7 +18,7 @@ const Card = () => {
         </p>
         <p className='card__footer'>treehugger</p>
         <button className='card__save'></button>
-        <p className='card__keyword'>Nature</p>
+        {/* <p className='card__keyword'>Nature</p> */}
         {/* <p className='card__signin'>Sign in to save articles</p> */}
       </div>
     </div>
