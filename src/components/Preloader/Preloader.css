@@ -1,0 +1,33 @@
+.preloader {
+  background: #f5f6f7;
+  min-height: 282px;
+  padding: 80px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.preloader__text {
+  margin: 24px 0 0 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #b6bcbf;
+}
+
+.preloader__spinner {
+  display: block;
+  width: 74px;
+  height: 74px;
+  border: 4px solid #444;
+  border-bottom-color: #888;
+  border-radius: 50%;
+  margin: auto;
+  animation: spin 0.75s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
