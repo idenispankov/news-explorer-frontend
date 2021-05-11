@@ -15,11 +15,11 @@ function App() {
     <div className='app'>
       <Navigation loggedin={loggedin} setLoggedin={setLoggedin} />
       <Header />
-      <Main />
-      <SavedNewsHeader />
-      <NotFound />
-      <About />
-      <Preloader />
+      {/* <Main /> */}
+      {/* <SavedNewsHeader /> */}
+      {/* <NotFound /> */}
+      {/* <About /> */}
+      {/* <Preloader /> */}
       <Footer />
     </div>
   );

@@ -70,8 +70,7 @@
   }
   .footer__icons {
     display: flex;
-    justify-content: start;
-    align-items: end;
+    justify-content: flex-start;
   }
   .footer__links {
     display: flex;
