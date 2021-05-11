@@ -1,7 +1,7 @@
 import './Card.css';
 import card from '../../images/card.png';
 
-const Card = () => {
+const Card = ({ loggedin }) => {
   return (
     <div className='card'>
       <img className='card__image' src={card} alt='dog' />
@@ -19,7 +19,7 @@ const Card = () => {
         <p className='card__footer'>treehugger</p>
         <button className='card__save'></button>
         {/* <p className='card__keyword'>Nature</p> */}
-        {/* <p className='card__signin'>Sign in to save articles</p> */}
+        {!loggedin && <p className='card__signin'>Sign in to save articles</p>}
       </div>
     </div>
   );

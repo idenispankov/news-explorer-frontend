@@ -118,10 +118,17 @@
   cursor: pointer;
   transition: 0.5s all linear;
   height: 40px;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .card__signin:hover {
   background-color: #e8e8e8;
+}
+
+.card__save:focus + .card__signin {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media screen and (max-width: 770px) {
