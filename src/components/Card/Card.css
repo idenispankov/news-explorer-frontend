@@ -164,6 +164,10 @@
     top: 8px;
     right: 8px;
   }
+  .card__delete {
+    top: 8px;
+    right: 8px;
+  }
   .card__keyword {
     top: 8px;
     left: 8px;
@@ -190,6 +194,10 @@
     margin: 0;
   }
   .card__save {
+    top: 16px;
+    right: 16px;
+  }
+  .card__delete {
     top: 16px;
     right: 16px;
   }

@@ -5,7 +5,11 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const onLogout = () => {
+    setIsArticles(false);
+    setLoggedin(false);
+  };
+
   return (
     <nav className={`navbar ${isArticles && 'navbar_type_light'}`}>
       <NavLink
@@ -35,27 +39,22 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
                 'navbar__link_type_light navbar__link-active_type_light'
               }`}
             >
-              Saved News
+              Saved Articles
+            </NavLink>
+            <NavLink to='/' onClick={onLogout}>
+              Sign out
             </NavLink>
           </>
         ) : (
-          ''
+          <NavLink to='/' onClick={() => setLoggedin(true)}>
+            Sign in
+          </NavLink>
         )}
       </div>
     </nav>
     //
     //     {loggedin ? (
     //       <>
-    //         <NavLink
-    //           onClick={() => setActive(true)}
-    //           to='/saved-news'
-    //           className={`navbar__link ${
-    //             active &&
-    //             'navbar__link_type_light navbar__link-active_type_light'
-    //           }`}
-    //         >
-    //           Saved Artciles
-    //         </NavLink>
     //         <NavLink
     //           onClick={() => setLoggedin(false)}
     //           to='signin'

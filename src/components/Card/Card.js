@@ -22,7 +22,6 @@ const Card = ({ loggedin, isArticles }) => {
         ) : (
           <button className='card__save'></button>
         )}
-        {/* <button className='card__save'></button> */}
         {isArticles && <p className='card__keyword'>Nature</p>}
         {!loggedin && <p className='card__signin'>Sign in to save articles</p>}
       </div>

@@ -11,7 +11,7 @@ import Main from '../Main/Main.js';
 import Navigation from '../Navigation/Navigation.js';
 
 function App() {
-  const [loggedin, setLoggedin] = useState(true);
+  const [loggedin, setLoggedin] = useState(false);
   const [isArticles, setIsArticles] = useState(false);
   return (
     <div className='app'>
