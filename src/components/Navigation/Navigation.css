@@ -82,3 +82,58 @@
   border-bottom: 3px solid #1a1b22;
   padding: 0 10px 26px 10px;
 }
+
+/* Hamburger Menu */
+.hamburger {
+  padding: 8px 4px;
+  width: 24px;
+  height: 24px;
+  background: #000;
+  position: relative;
+  background: transparent;
+}
+
+.hamburger__line-first {
+  position: absolute;
+  min-width: 16px;
+  height: 2px;
+  background: #fff;
+  top: 8px;
+}
+
+.hamburger__line-second {
+  position: absolute;
+  min-width: 16px;
+  height: 2px;
+  background: #fff;
+  bottom: 8px;
+}
+
+@media screen and (max-width: 900px) {
+  .navbar {
+    height: 66px;
+    padding: 0 40px;
+  }
+  .navbar__link {
+    font-size: 16px;
+  }
+  .navbar__link-signin {
+    width: 152px;
+  }
+  .navbar__link-active {
+    padding-bottom: 20px;
+  }
+  .navbar__link-active_type_light {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .navbar__links {
+    display: none;
+  }
+  .navbar {
+    height: 56px;
+    padding: 0 16px;
+  }
+}

@@ -1,10 +1,12 @@
 import './Navigation.css';
+import { useState } from 'react';
 import logoutDark from '../../images/logout-dark.svg';
 import logoutLight from '../../images/logout-light.png';
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const onLogout = () => {
     setIsArticles(false);
     setLoggedin(false);
@@ -68,38 +70,11 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
           </NavLink>
         )}
       </div>
+      <div className='hamburger'>
+        <div className='hamburger__line-first'></div>
+        <div className='hamburger__line-second'></div>
+      </div>
     </nav>
-    //
-    //     {loggedin ? (
-    //       <>
-    //         <NavLink
-    //           onClick={() => setLoggedin(false)}
-    //           to='signin'
-    //           className={`navbar__link navbar__link-signin ${
-    //             active && 'navbar__link-signin_type_light'
-    //           }`}
-    //         >
-    //           Elise
-    //           <img
-    //             className='logout__icon logout__icon_type_light'
-    //             src={!active ? logoutLight : logoutDark}
-    //             alt='logout icon'
-    //           ></img>
-    //         </NavLink>
-    //       </>
-    //     ) : (
-    //       <NavLink
-    //         onClick={() => setLoggedin(true)}
-    //         to='signin'
-    //         className={`navbar__link navbar__link-signin ${
-    //           active && 'navbar__link-signin_type_light'
-    //         }`}
-    //       >
-    //         Sign in
-    //       </NavLink>
-    //     )}
-    //   </div>
-    // </nav>
   );
 };
 
