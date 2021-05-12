@@ -12,8 +12,22 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
     setLoggedin(false);
   };
 
+  const onSavedArticles = () => {
+    setIsArticles(true);
+    setIsMobileMenuOpen(false);
+  };
+
+  const onHamburger = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsArticles(false);
+  };
+
   return (
-    <nav className={`navbar ${isArticles && 'navbar_type_light'}`}>
+    <nav
+      className={`navbar ${isArticles && 'navbar_type_light'} ${
+        isMobileMenuOpen && 'navbar-open'
+      }`}
+    >
       <NavLink
         onClick={() => setIsArticles(false)}
         to='/'
@@ -21,7 +35,9 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
       >
         NewsExplorer
       </NavLink>
-      <div className='navbar__links'>
+      <div
+        className={`navbar__links ${isMobileMenuOpen && 'navbar__links-open'}`}
+      >
         <NavLink
           onClick={() => setIsArticles(false)}
           to='/'
@@ -35,7 +51,7 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
           <>
             <NavLink
               to='/saved-news'
-              onClick={() => setIsArticles(true)}
+              onClick={onSavedArticles}
               className={`navbar__link ${
                 isArticles &&
                 'navbar__link_type_light navbar__link-active_type_light'
@@ -70,9 +86,17 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
           </NavLink>
         )}
       </div>
-      <div className='hamburger'>
-        <div className='hamburger__line-first'></div>
-        <div className='hamburger__line-second'></div>
+      <div className='hamburger' onClick={onHamburger}>
+        <div
+          className={`hamburger__line-first ${
+            isMobileMenuOpen && 'open-first'
+          } ${isArticles && 'hamburger__line-first_type_light'}`}
+        ></div>
+        <div
+          className={`hamburger__line-second ${
+            isMobileMenuOpen && 'open-second'
+          } ${isArticles && 'hamburger__line-second_type_light'}`}
+        ></div>
       </div>
     </nav>
   );
