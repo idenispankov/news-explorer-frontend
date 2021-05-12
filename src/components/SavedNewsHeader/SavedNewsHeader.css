@@ -1,5 +1,5 @@
 .saved-news {
-  padding: 40px 104px 56px 104px;
+  padding: 120px 104px 56px 104px;
   background: #fff;
 }
 
@@ -34,7 +34,7 @@
 
 @media screen and (max-width: 770px) {
   .saved-news {
-    padding: 24px 40px 32px 40px;
+    padding: 90px 40px 32px 40px;
   }
   .saved-news__text {
     font-size: 14px;
@@ -50,7 +50,7 @@
 
 @media screen and (max-width: 500px) {
   .saved-news {
-    padding: 8px 16px 32px 16px;
+    padding: 64pxpx 16px 32px 16px;
   }
   .saved-news__text {
     font-size: 12px;

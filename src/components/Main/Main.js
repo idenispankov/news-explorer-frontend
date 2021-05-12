@@ -1,16 +1,16 @@
 import './Main.css';
 import Card from '../Card/Card.js';
 
-const Main = ({ loggedin }) => {
+const Main = ({ loggedin, isArticles }) => {
   return (
     <section className='main'>
-      <h2 className='main__title'>Search Results</h2>
+      {isArticles || <h2 className='main__title'>Search Results</h2>}
       <div className='cards__list'>
-        <Card loggedin={loggedin} />
-        <Card loggedin={loggedin} />
-        <Card loggedin={loggedin} />
-        <Card loggedin={loggedin} />
-        <Card loggedin={loggedin} />
+        <Card loggedin={loggedin} isArticles={isArticles} />
+        <Card loggedin={loggedin} isArticles={isArticles} />
+        <Card loggedin={loggedin} isArticles={isArticles} />
+        <Card loggedin={loggedin} isArticles={isArticles} />
+        <Card loggedin={loggedin} isArticles={isArticles} />
       </div>
       <button className='main__button'>Show more</button>
     </section>

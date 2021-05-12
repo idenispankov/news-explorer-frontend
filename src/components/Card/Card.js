@@ -1,7 +1,7 @@
 import './Card.css';
 import card from '../../images/card.png';
 
-const Card = ({ loggedin }) => {
+const Card = ({ loggedin, isArticles }) => {
   return (
     <div className='card'>
       <img className='card__image' src={card} alt='dog' />
@@ -17,8 +17,13 @@ const Card = ({ loggedin }) => {
           for both adults and children to find...
         </p>
         <p className='card__footer'>treehugger</p>
-        <button className='card__save'></button>
-        {/* <p className='card__keyword'>Nature</p> */}
+        {isArticles ? (
+          <button className='card__delete'></button>
+        ) : (
+          <button className='card__save'></button>
+        )}
+        {/* <button className='card__save'></button> */}
+        {isArticles && <p className='card__keyword'>Nature</p>}
         {!loggedin && <p className='card__signin'>Sign in to save articles</p>}
       </div>
     </div>

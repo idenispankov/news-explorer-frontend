@@ -100,6 +100,28 @@
   background-color: #fff;
 }
 
+.card__delete {
+  background: url(../../images/trash-normal.svg) no-repeat center;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.card__delete:hover {
+  background: url(../../images//trash-hover.svg) no-repeat center;
+  background-color: #fff;
+}
+
 .card__signin {
   display: flex;
   align-items: center;
