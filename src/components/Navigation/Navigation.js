@@ -41,12 +41,29 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
             >
               Saved Articles
             </NavLink>
-            <NavLink to='/' onClick={onLogout}>
-              Sign out
+            <NavLink
+              to='/'
+              onClick={onLogout}
+              className={`navbar__link navbar__link-signin ${
+                isArticles && 'navbar__link-signin_type_light'
+              }`}
+            >
+              Elise
+              <img
+                className='logout__icon logout__icon_type_light'
+                src={!isArticles ? logoutLight : logoutDark}
+                alt='logout icon'
+              ></img>
             </NavLink>
           </>
         ) : (
-          <NavLink to='/' onClick={() => setLoggedin(true)}>
+          <NavLink
+            to='/'
+            onClick={() => setLoggedin(true)}
+            className={`navbar__link navbar__link-signin ${
+              isArticles && 'navbar__link-signin_type_light'
+            }`}
+          >
             Sign in
           </NavLink>
         )}
