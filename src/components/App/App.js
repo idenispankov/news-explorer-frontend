@@ -9,10 +9,12 @@ import Preloader from '../Preloader/Preloader.js';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import Main from '../Main/Main.js';
 import Navigation from '../Navigation/Navigation.js';
+import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 
 function App() {
   const [loggedin, setLoggedin] = useState(false);
   const [isArticles, setIsArticles] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   return (
     <div className='app'>
       <Navigation
@@ -28,6 +30,7 @@ function App() {
       <About />
       <Preloader />
       <Footer />
+      <PopupWithForm />
     </div>
   );
 }
