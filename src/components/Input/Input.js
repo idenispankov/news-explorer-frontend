@@ -3,7 +3,9 @@ import './Input.css';
 const Input = (props) => {
   return (
     <>
-      <label className='form__label' htmlFor={props.label} />
+      <label className='form__label' htmlFor={props.label}>
+        {props.label}
+      </label>
       <input
         className='form__input'
         type={props.type}

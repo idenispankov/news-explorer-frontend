@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
+import { CurrentUserContext } from '../../context/CurrentUserContext.js';
 import './App.css';
 import Header from '../Header/Header.js';
 import About from '../About/About.js';
@@ -8,36 +9,57 @@ import NotFound from '../NotFound/NotFound.js';
 import Preloader from '../Preloader/Preloader.js';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import Main from '../Main/Main.js';
-import Navigation from '../Navigation/Navigation.js';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
+import Login from '../Login/Login.js';
 
-function App() {
+function App(props) {
   const [loggedin, setLoggedin] = useState(false);
-  const [isArticles, setIsArticles] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
   return (
-    <div className='app'>
-      <Navigation
-        loggedin={loggedin}
-        setLoggedin={setLoggedin}
-        isArticles={isArticles}
-        setIsArticles={setIsArticles}
-        isPopupOpen={isPopupOpen}
-        setIsPopupOpen={setIsPopupOpen}
-      />
-      <Route exact path='/' component={Header} />
-      <Route path='/saved-news' component={SavedNewsHeader} />
-      <Main loggedin={loggedin} isArticles={isArticles} />
-      <NotFound />
-      <About />
-      <Preloader />
-      <Footer />
-      <PopupWithForm
-        isPopupOpen={isPopupOpen}
-        setIsPopupOpen={setIsPopupOpen}
-        setLoggedin={setLoggedin}
-      />
-    </div>
+    <CurrentUserContext.Provider>
+      <div className='app'>
+        <nav className='navbar'></nav>
+        <Switch>
+          {/* Signup Route */}
+          <Route path='/signup'>
+            <Header />
+            {/* Register Component with handleRegister and HandleToolTip */}
+          </Route>
+
+          {/* Signin Route */}
+          <Route path='/signin'>
+            {loggedin && <Redirect to='/' />}
+            <Header />
+            <Login
+              setLoggedin={setLoggedin}
+              setIsPopupOpen={setIsPopupOpen}
+              onClose={closePopup}
+              isPopupOpen={isPopupOpen}
+            />
+          </Route>
+
+          {/* SavedNews Route */}
+          <Route path='/saved-news'>
+            <SavedNewsHeader />
+          </Route>
+
+          {/* Home Route */}
+          <Route path='/'>
+            <Header />
+          </Route>
+        </Switch>
+
+        {/* All Routes Components */}
+        <Main />
+        <About />
+        <Footer />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
