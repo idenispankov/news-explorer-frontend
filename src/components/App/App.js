@@ -22,6 +22,8 @@ function App() {
         setLoggedin={setLoggedin}
         isArticles={isArticles}
         setIsArticles={setIsArticles}
+        isPopupOpen={isPopupOpen}
+        setIsPopupOpen={setIsPopupOpen}
       />
       <Route exact path='/' component={Header} />
       <Route path='/saved-news' component={SavedNewsHeader} />
@@ -30,7 +32,11 @@ function App() {
       <About />
       <Preloader />
       <Footer />
-      <PopupWithForm />
+      <PopupWithForm
+        isPopupOpen={isPopupOpen}
+        setIsPopupOpen={setIsPopupOpen}
+        setLoggedin={setLoggedin}
+      />
     </div>
   );
 }

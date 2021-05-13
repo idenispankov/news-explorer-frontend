@@ -4,7 +4,14 @@ import logoutDark from '../../images/logout-dark.svg';
 import logoutLight from '../../images/logout-light.png';
 import { NavLink } from 'react-router-dom';
 
-const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
+const Navigation = ({
+  loggedin,
+  setLoggedin,
+  isArticles,
+  setIsArticles,
+  isPopupOpen,
+  setIsPopupOpen,
+}) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const onLogout = () => {
@@ -14,8 +21,9 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
   };
 
   const onSignIn = () => {
-    setLoggedin(true);
+    // setLoggedin(true);
     setIsMobileMenuOpen(false);
+    setIsPopupOpen(true);
   };
 
   const onSavedArticles = () => {
