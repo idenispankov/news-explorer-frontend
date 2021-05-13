@@ -10,6 +10,12 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
   const onLogout = () => {
     setIsArticles(false);
     setLoggedin(false);
+    setIsMobileMenuOpen(false);
+  };
+
+  const onSignIn = () => {
+    setLoggedin(true);
+    setIsMobileMenuOpen(false);
   };
 
   const onSavedArticles = () => {
@@ -20,6 +26,11 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
   const onHamburger = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     setIsArticles(false);
+  };
+
+  const onHome = () => {
+    setIsArticles(false);
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -39,7 +50,7 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
         className={`navbar__links ${isMobileMenuOpen && 'navbar__links-open'}`}
       >
         <NavLink
-          onClick={() => setIsArticles(false)}
+          onClick={onHome}
           to='/'
           className={`navbar__link navbar__link-active ${
             isArticles && 'navbar__link_type_light navbar__link-inactive'
@@ -77,7 +88,7 @@ const Navigation = ({ loggedin, setLoggedin, isArticles, setIsArticles }) => {
         ) : (
           <NavLink
             to='/'
-            onClick={() => setLoggedin(true)}
+            onClick={onSignIn}
             className={`navbar__link navbar__link-signin ${
               isArticles && 'navbar__link-signin_type_light'
             }`}
