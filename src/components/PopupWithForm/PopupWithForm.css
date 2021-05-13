@@ -11,6 +11,7 @@
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s linear;
+  z-index: 1;
 }
 
 .modal-open {
@@ -68,22 +69,6 @@
   line-height: 24px;
   cursor: pointer;
 } */
-
-.form__button-close {
-  background: url(../../images/close_icon.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 40px 40px;
-  width: 40px;
-  height: 40px;
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  top: -35px;
-  right: -35px;
-  padding: 0;
-  cursor: pointer;
-}
 
 .form__text {
   padding: 0;

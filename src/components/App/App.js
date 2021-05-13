@@ -9,16 +9,13 @@ import NotFound from '../NotFound/NotFound.js';
 import Preloader from '../Preloader/Preloader.js';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import Main from '../Main/Main.js';
-import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Login from '../Login/Login.js';
+import Register from '../Register/Register.js';
 
 function App(props) {
   const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
-
-  const closePopup = () => {
-    setIsPopupOpen(false);
-  };
+  const history = useHistory();
 
   return (
     <CurrentUserContext.Provider>
@@ -28,18 +25,20 @@ function App(props) {
           {/* Signup Route */}
           <Route path='/signup'>
             <Header />
-            {/* Register Component with handleRegister and HandleToolTip */}
+            <Register
+              isPopupOpen={isPopupOpen}
+              setIsPopupOpen={setIsPopupOpen}
+            />
           </Route>
 
           {/* Signin Route */}
           <Route path='/signin'>
-            {loggedin && <Redirect to='/' />}
             <Header />
             <Login
+              loggedin={loggedin}
               setLoggedin={setLoggedin}
-              setIsPopupOpen={setIsPopupOpen}
-              onClose={closePopup}
               isPopupOpen={isPopupOpen}
+              setIsPopupOpen={setIsPopupOpen}
             />
           </Route>
 
@@ -57,6 +56,8 @@ function App(props) {
         {/* All Routes Components */}
         <Main />
         <About />
+        <Preloader />
+        <NotFound />
         <Footer />
       </div>
     </CurrentUserContext.Provider>

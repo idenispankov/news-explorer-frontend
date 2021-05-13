@@ -1,17 +1,15 @@
-import './Login.css';
+import './Register.css';
 import { useHistory, NavLink } from 'react-router-dom';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 
-const Login = (props) => {
+const Register = (props) => {
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.setLoggedin(true);
-    props.setIsPopupOpen(false);
     history.push('/');
   };
 
@@ -22,30 +20,39 @@ const Login = (props) => {
 
   return (
     <PopupWithForm
-      formHeadingText='Sign in'
+      formHeadingText='Sign up'
       onSubmit={handleSubmit}
+      onClose={props.onClose}
       isPopupOpen={props.isPopupOpen}
     >
       <Input
         label='Email'
         type='email'
-        placeholder='Email'
+        placeholder='Enter email'
         name='email'
         minLength='2'
         maxLength='50'
       />
+
       <Input
         label='Password'
         type='password'
-        placeholder='Password'
+        placeholder='Enter password'
         name='password'
       />
-      <p className='submit__text-error'>Email or Password invalid</p>
-      <FormSubmitButton submitButtonText='Sign in' />
+
+      <Input
+        label='Username'
+        type='text'
+        placeholder='Enter your username'
+        name='username'
+      />
+      <p className='submit__text-error'>Email is not available</p>
+      <FormSubmitButton submitButtonText='Sign up' />
       <p className='form__text'>
         or{' '}
-        <NavLink to='/signup' className='form__link'>
-          Sign up
+        <NavLink to='/signin' className='form__link'>
+          Sign in
         </NavLink>
       </p>
       <CloseFormButton onClose={onFormClose} />
@@ -53,4 +60,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Register;

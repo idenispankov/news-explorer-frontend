@@ -6,12 +6,6 @@ const PopupWithForm = (props) => {
       <form className='form' onSubmit={props.onSubmit}>
         <h2 className='form__heading'>{props.formHeadingText}</h2>
         {props.children}
-        <button
-          onClick={props.onClose}
-          className='form__button-close'
-          aria-label='close button'
-          type='reset'
-        ></button>
       </form>
     </div>
   );
