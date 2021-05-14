@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Header from '../Header/Header.js';
-import About from '../About/About.js';
-import Footer from '../Footer/Footer.js';
-import NotFound from '../NotFound/NotFound.js';
-import Preloader from '../Preloader/Preloader.js';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
-import Main from '../Main/Main.js';
-import Login from '../Login/Login.js';
-import Register from '../Register/Register.js';
+import Header from '../Header/Header';
+import About from '../About/About';
+import Footer from '../Footer/Footer';
+import NotFound from '../NotFound/NotFound';
+import Preloader from '../Preloader/Preloader';
+import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
+import Main from '../Main/Main';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import Navbar from '../Navbar/Navbar';
 
 function App() {
   const [loggedin, setLoggedin] = useState(false);
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <div className='app'>
-      <nav className='navbar'></nav>
+      <Navbar loggedin={loggedin} />
       <Switch>
         {/* Signup Route */}
         <Route path='/signup'>

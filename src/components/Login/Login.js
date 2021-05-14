@@ -11,7 +11,7 @@ const Login = (props) => {
 
   useEffect(() => {
     props.setIsPopupOpen(true);
-  }, []);
+  }, [props]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

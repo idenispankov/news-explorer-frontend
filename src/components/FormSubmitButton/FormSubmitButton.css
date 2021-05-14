@@ -17,6 +17,13 @@
   cursor: pointer;
 }
 
+.form__button-submit-disabled {
+  background: #e6e8eb;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #b6bcbf;
+}
+
 @media screen and (max-width: 600px) {
   .form__button-submit {
     margin-top: 23px;

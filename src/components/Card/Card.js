@@ -1,6 +1,6 @@
 import './Card.css';
 import card from '../../images/card.png';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import { useState } from 'react';
 
 const Card = ({ loggedin, setIsPopupOpen }) => {
@@ -41,7 +41,7 @@ const Card = ({ loggedin, setIsPopupOpen }) => {
           }`}
           onClick={onCardSave}
         ></button>
-        {/* {isArticles && <p className='card__keyword'>Nature</p>} */}
+        {savedNewsRoute && <p className='card__keyword'>Nature</p>}
         {!loggedin ? (
           <p className='card__signin' onClick={onTrySave}>
             Sign in to save articles
@@ -54,4 +54,4 @@ const Card = ({ loggedin, setIsPopupOpen }) => {
   );
 };
 
-export default Card;
+export default withRouter(Card);

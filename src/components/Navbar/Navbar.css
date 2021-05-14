@@ -1,0 +1,59 @@
+.navbar {
+  width: 100%;
+  min-height: 80px;
+  background: rgba(255, 255, 255, 0.01);
+  box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 104px;
+}
+
+.navbar_type_white {
+  box-shadow: inset 0px -1px 0px #d1d2d6;
+  background: #fff;
+}
+
+.navbar__logo {
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  color: #fff;
+  text-decoration: none;
+  margin: 0;
+}
+
+.navbar__logo_text-dark {
+  color: #000;
+}
+
+.navbar__links {
+}
+
+.navbar__link {
+  text-decoration: none;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  margin-right: 76px;
+  padding-bottom: 26px;
+}
+
+.navbar__link-active-home {
+  border-bottom: 3px solid #fff;
+}
+
+.navbar__link_text-dark {
+  color: #000;
+  border-bottom: none;
+}
+
+.navbar__link-active-news {
+  border-bottom: 3px solid #000;
+}
