@@ -41,14 +41,6 @@ const Card = ({ loggedin, setIsPopupOpen }) => {
           }`}
           onClick={onCardSave}
         ></button>
-        {/* {isArticles ? (
-          <button className='card__delete'></button>
-        ) : (
-          <button
-            className={`card__save ${isCardSaved && 'card__saved'}`}
-            onClick={onCardSave}
-          ></button>
-        )} */}
         {/* {isArticles && <p className='card__keyword'>Nature</p>} */}
         {!loggedin ? (
           <p className='card__signin' onClick={onTrySave}>

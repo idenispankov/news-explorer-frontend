@@ -78,17 +78,6 @@ const Register = (props) => {
           </form>
         </div>
       )}
-
-      {/* <PopupWithForm
-          formHeadingText='Registration successfully completed'
-          onClose={props.onClose}
-          isPopupOpen={props.isPopupOpen}
-        >
-          <NavLink to='/signin' className='form__link'>
-            Sign in
-          </NavLink>
-          <CloseFormButton onClose={onFormClose} />
-        </PopupWithForm> */}
     </>
   );
 };
