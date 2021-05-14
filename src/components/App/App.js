@@ -13,7 +13,7 @@ import Register from '../Register/Register';
 import Navbar from '../Navbar/Navbar';
 
 function App() {
-  const [loggedin, setLoggedin] = useState(false);
+  const [loggedin, setLoggedin] = useState(true);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isSuccessOpen, setIsSuccessOpen] = useState(true);
 

@@ -1,4 +1,5 @@
 import './Navbar.css';
+import LoginButton from '../LoginButton/LoginButton';
 import { useState } from 'react';
 import { useHistory, NavLink, withRouter } from 'react-router-dom';
 
@@ -25,15 +26,18 @@ const Navbar = ({ loggedin }) => {
         >
           Home
         </NavLink>
-        <NavLink
-          to='/saved-news'
-          className={`navbar__link ${
-            isSavedNewsRoute &&
-            'navbar__link_text-dark navbar__link-active-news '
-          }`}
-        >
-          SavedArticles
-        </NavLink>
+        {loggedin && (
+          <NavLink
+            to='/saved-news'
+            className={`navbar__link ${
+              isSavedNewsRoute &&
+              'navbar__link_text-dark navbar__link-active-news '
+            }`}
+          >
+            Saved Articles
+          </NavLink>
+        )}
+        {!loggedin && <LoginButton />}
       </div>
     </nav>
   );
