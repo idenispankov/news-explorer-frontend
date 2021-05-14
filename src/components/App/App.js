@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext.js';
 import './App.css';
 import Header from '../Header/Header.js';
@@ -15,7 +15,6 @@ import Register from '../Register/Register.js';
 function App(props) {
   const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
-  const history = useHistory();
 
   return (
     <CurrentUserContext.Provider>
@@ -54,7 +53,7 @@ function App(props) {
         </Switch>
 
         {/* All Routes Components */}
-        <Main setIsPopupOpen={setIsPopupOpen} />
+        <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
         <About />
         <Preloader />
         <NotFound />

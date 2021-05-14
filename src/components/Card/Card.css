@@ -89,13 +89,19 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  transition: 0.5s all linear;
 }
+
+.card__saved {
+  background: url(../../images/card__save-active.svg) no-repeat center;
+  background-color: #fff;
+}
+
 .card__save:hover {
   background: url(../../images/card__save-hover.svg) no-repeat center;
   background-color: #fff;
 }
-.card__save:active {
+
+.card__saved:hover {
   background: url(../../images/card__save-active.svg) no-repeat center;
   background-color: #fff;
 }
@@ -118,7 +124,7 @@
 }
 
 .card__delete:hover {
-  background: url(../../images//trash-hover.svg) no-repeat center;
+  background-image: url(../../images/trash-hover.svg);
   background-color: #fff;
 }
 
