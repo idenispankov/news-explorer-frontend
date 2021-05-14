@@ -54,7 +54,7 @@ function App(props) {
         </Switch>
 
         {/* All Routes Components */}
-        <Main />
+        <Main setIsPopupOpen={setIsPopupOpen} />
         <About />
         <Preloader />
         <NotFound />

@@ -1,7 +1,15 @@
 import './Card.css';
 import card from '../../images/card.png';
+import { useHistory } from 'react-router-dom';
 
-const Card = ({ loggedin, isArticles }) => {
+const Card = ({ loggedin, isArticles, setIsPopupOpen }) => {
+  const history = useHistory();
+
+  const onClick = () => {
+    history.push('/signin');
+    setIsPopupOpen(true);
+  };
+
   return (
     <div className='card'>
       <img className='card__image' src={card} alt='dog' />
@@ -23,7 +31,11 @@ const Card = ({ loggedin, isArticles }) => {
           <button className='card__save'></button>
         )}
         {isArticles && <p className='card__keyword'>Nature</p>}
-        {!loggedin && <p className='card__signin'>Sign in to save articles</p>}
+        {!loggedin && (
+          <p className='card__signin' onClick={onClick}>
+            Sign in to save articles
+          </p>
+        )}
       </div>
     </div>
   );
