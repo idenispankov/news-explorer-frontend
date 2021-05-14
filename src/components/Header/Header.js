@@ -1,6 +1,5 @@
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm.js';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 
 const Header = () => {
   return (

@@ -16,3 +16,9 @@
   line-height: 24px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 600px) {
+  .form__button-submit {
+    margin-top: 23px;
+  }
+}

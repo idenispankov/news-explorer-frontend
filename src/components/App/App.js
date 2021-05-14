@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { CurrentUserContext } from '../../context/CurrentUserContext.js';
 import './App.css';
 import Header from '../Header/Header.js';
 import About from '../About/About.js';
@@ -17,49 +16,44 @@ function App(props) {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
 
   return (
-    <CurrentUserContext.Provider>
-      <div className='app'>
-        <nav className='navbar'></nav>
-        <Switch>
-          {/* Signup Route */}
-          <Route path='/signup'>
-            <Header />
-            <Register
-              isPopupOpen={isPopupOpen}
-              setIsPopupOpen={setIsPopupOpen}
-            />
-          </Route>
+    <div className='app'>
+      <nav className='navbar'></nav>
+      <Switch>
+        {/* Signup Route */}
+        <Route path='/signup'>
+          <Header />
+          <Register isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} />
+        </Route>
 
-          {/* Signin Route */}
-          <Route path='/signin'>
-            <Header />
-            <Login
-              loggedin={loggedin}
-              setLoggedin={setLoggedin}
-              isPopupOpen={isPopupOpen}
-              setIsPopupOpen={setIsPopupOpen}
-            />
-          </Route>
+        {/* Signin Route */}
+        <Route path='/signin'>
+          <Header />
+          <Login
+            loggedin={loggedin}
+            setLoggedin={setLoggedin}
+            isPopupOpen={isPopupOpen}
+            setIsPopupOpen={setIsPopupOpen}
+          />
+        </Route>
 
-          {/* SavedNews Route */}
-          <Route path='/saved-news'>
-            <SavedNewsHeader />
-          </Route>
+        {/* SavedNews Route */}
+        <Route path='/saved-news'>
+          <SavedNewsHeader />
+        </Route>
 
-          {/* Home Route */}
-          <Route path='/'>
-            <Header />
-          </Route>
-        </Switch>
+        {/* Home Route */}
+        <Route path='/'>
+          <Header />
+        </Route>
+      </Switch>
 
-        {/* All Routes Components */}
-        <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
-        <About />
-        <Preloader />
-        <NotFound />
-        <Footer />
-      </div>
-    </CurrentUserContext.Provider>
+      {/* All Routes Components */}
+      <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
+      <About />
+      <Preloader />
+      <NotFound />
+      <Footer />
+    </div>
   );
 }
 

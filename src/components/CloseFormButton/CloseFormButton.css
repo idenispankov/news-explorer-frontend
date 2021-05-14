@@ -13,3 +13,13 @@
   padding: 0;
   cursor: pointer;
 }
+
+@media screen and (max-width: 600px) {
+  .form__button-close {
+    background-size: 24px 24px;
+    width: 24px;
+    height: 24px;
+    right: 20px;
+    top: -36px;
+  }
+}
