@@ -1,9 +1,10 @@
 import './Navbar.css';
 import LoginButton from '../LoginButton/LoginButton';
-import { useState } from 'react';
+import LogoutButton from '../LogoutButton/LogoutButton';
+
 import { useHistory, NavLink, withRouter } from 'react-router-dom';
 
-const Navbar = ({ loggedin }) => {
+const Navbar = ({ loggedin, setLoggedin }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
 
@@ -38,6 +39,12 @@ const Navbar = ({ loggedin }) => {
           </NavLink>
         )}
         {!loggedin && <LoginButton />}
+        {loggedin && (
+          <LogoutButton
+            isSavedNewsRoute={isSavedNewsRoute}
+            setLoggedin={setLoggedin}
+          />
+        )}
       </div>
     </nav>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import About from '../About/About';
@@ -13,13 +13,13 @@ import Register from '../Register/Register';
 import Navbar from '../Navbar/Navbar';
 
 function App() {
-  const [loggedin, setLoggedin] = useState(true);
+  const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isSuccessOpen, setIsSuccessOpen] = useState(true);
 
   return (
     <div className='app'>
-      <Navbar loggedin={loggedin} />
+      <Navbar loggedin={loggedin} setLoggedin={setLoggedin} />
       <Switch>
         {/* Signup Route */}
         <Route path='/signup'>
@@ -45,6 +45,7 @@ function App() {
 
         {/* SavedNews Route */}
         <Route path='/saved-news'>
+          {!loggedin && <Redirect to='/' />}
           <SavedNewsHeader />
         </Route>
 

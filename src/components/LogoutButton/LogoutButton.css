@@ -1,0 +1,26 @@
+.navbar__button-logout {
+  padding: 0 20px;
+}
+
+.navbar__button-logout-dark {
+  border: 1px solid #1a1b22;
+}
+
+.navbar__button-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+  padding: 0;
+  display: inline-block;
+  margin: 0;
+}
+
+.navbar__button-text-dark {
+  color: #000;
+}
+
+.navbar__button-icon {
+  width: 17.41px;
+  height: 16px;
+  margin-left: 20px;
+}
