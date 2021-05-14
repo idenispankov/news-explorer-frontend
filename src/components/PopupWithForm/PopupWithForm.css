@@ -88,13 +88,13 @@
 }
 
 /* Error Input */
-/* .form__input-error {
+.form__input-error {
   margin: 0;
   padding: 0;
   color: red;
   transform: translateY(-28px);
-  display: none;
-} */
+  /* display: none; */
+}
 
 .submit__text-error {
   text-align: center;
@@ -102,5 +102,5 @@
   padding: 0;
   color: red;
   transform: translateY(32px);
-  display: none;
+  /* display: none; */
 }

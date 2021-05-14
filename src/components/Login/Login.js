@@ -34,13 +34,17 @@ const Login = (props) => {
         minLength='2'
         maxLength='50'
       />
+      {/* <p className='form__input-error'>Invalid email address</p> */}
+
       <Input
         label='Password'
         type='password'
         placeholder='Password'
         name='password'
       />
-      <p className='submit__text-error'>Email or Password invalid</p>
+
+      {/* <p className='submit__text-error'>This email is not available</p> */}
+
       <FormSubmitButton submitButtonText='Sign in' />
       <p className='form__text'>
         or{' '}

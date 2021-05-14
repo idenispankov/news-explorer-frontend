@@ -47,7 +47,7 @@ const Register = (props) => {
         placeholder='Enter your username'
         name='username'
       />
-      <p className='submit__text-error'>Email is not available</p>
+      {/* <p className='submit__text-error'>This email is not available</p> */}
       <FormSubmitButton submitButtonText='Sign up' />
       <p className='form__text'>
         or{' '}
