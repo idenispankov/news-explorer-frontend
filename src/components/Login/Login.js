@@ -1,4 +1,5 @@
 import './Login.css';
+import { useEffect } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
@@ -7,6 +8,10 @@ import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 
 const Login = (props) => {
   const history = useHistory();
+
+  useEffect(() => {
+    props.setIsPopupOpen(true);
+  }, [props]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

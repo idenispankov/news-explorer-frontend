@@ -11,9 +11,10 @@ import Main from '../Main/Main.js';
 import Login from '../Login/Login.js';
 import Register from '../Register/Register.js';
 
-function App(props) {
+function App() {
   const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(true);
 
   return (
     <div className='app'>
@@ -22,7 +23,12 @@ function App(props) {
         {/* Signup Route */}
         <Route path='/signup'>
           <Header />
-          <Register isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} />
+          <Register
+            isPopupOpen={isPopupOpen}
+            setIsPopupOpen={setIsPopupOpen}
+            isSuccessOpen={isSuccessOpen}
+            setIsSuccessOpen={setIsSuccessOpen}
+          />
         </Route>
 
         {/* Signin Route */}
