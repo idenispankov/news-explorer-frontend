@@ -17,6 +17,7 @@ function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [isSearchHappened, setIsSearchHappened] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className='app'>
@@ -54,13 +55,15 @@ function App() {
         {/* Home Route */}
         <Route path='/'>
           <Header
-            isSearchHappened={isSearchHappened}
             setIsSearchHappened={setIsSearchHappened}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
           />
           <Main
             setIsPopupOpen={setIsPopupOpen}
             loggedin={loggedin}
             isSearchHappened={isSearchHappened}
+            isLoading={isLoading}
           />
           <About />
         </Route>
@@ -68,8 +71,7 @@ function App() {
 
       {/* All Routes Components */}
 
-      {/* <Preloader />
-      <NotFound /> */}
+      {/* <NotFound /> */}
       <Footer />
     </div>
   );

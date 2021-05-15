@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useState } from 'react';
 
-const SearchForm = ({ setIsSearchHappened }) => {
+const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
   const [searchInput, setSearchInput] = useState('');
 
   const handleChange = (e) => {
@@ -10,7 +10,15 @@ const SearchForm = ({ setIsSearchHappened }) => {
 
   const onSearch = () => {
     setSearchInput('');
-    setIsSearchHappened(true);
+    setTimeout(() => {
+      setIsSearchHappened(true);
+    }, 1000);
+    setTimeout(() => {
+      setIsLoading(true);
+    }, 0);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
