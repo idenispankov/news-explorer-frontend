@@ -9,10 +9,8 @@ import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 const Login = (props) => {
   const history = useHistory();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [value, setValue] = useState({ email, password });
+  const [value, setValue] = useState({ email: '', password: '' });
 
   useEffect(() => {
     props.setIsPopupOpen(true);

@@ -11,10 +11,7 @@ const Register = (props) => {
 
   const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [value, setValue] = useState({ email, password, username });
+  const [value, setValue] = useState({ email: '', password: '', username: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
