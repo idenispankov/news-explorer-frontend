@@ -1,6 +1,5 @@
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
-// import NotFound from '../NotFound/NotFound';
 
 const Header = ({ setIsSearchHappened, setIsLoading }) => {
   return (
@@ -18,7 +17,6 @@ const Header = ({ setIsSearchHappened, setIsLoading }) => {
           />
         </div>
       </header>
-      {/* <NotFound /> */}
     </>
   );
 };

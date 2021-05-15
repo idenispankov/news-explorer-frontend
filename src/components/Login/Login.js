@@ -15,6 +15,12 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isValid, setIsValid] = useState(false);
 
+  // CLOSE MODAL
+  const onFormClose = () => {
+    history.push('/');
+    setIsPopupOpen(false);
+  };
+
   const handleChange = (e) => {
     setValue({
       ...value,
@@ -22,15 +28,7 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
     });
   };
 
-  useEffect(() => {
-    setIsPopupOpen(true);
-    if (value.email && value.password) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [value, setIsPopupOpen]);
-
+  // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors(validateLogin(value));
@@ -42,10 +40,15 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
     }
   };
 
-  const onFormClose = () => {
-    history.push('/');
-    setIsPopupOpen(false);
-  };
+  // Use Effect
+  useEffect(() => {
+    setIsPopupOpen(true);
+    if (value.email && value.password) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [value, setIsPopupOpen, isPopupOpen]);
 
   return (
     <PopupWithForm

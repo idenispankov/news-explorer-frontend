@@ -1,23 +1,56 @@
-import { useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
-// import NotFound from '../NotFound/NotFound';
-// import Preloader from '../Preloader/Preloader';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Navbar from '../Navbar/Navbar';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
+  const history = useHistory();
+
   const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Close Popup Outside
+  const setEventListener = (listen) => {
+    listen
+      ? document.addEventListener('keyup', closeOnEsc)
+      : document.removeEventListener('keyup', closeOnEsc);
+    listen
+      ? document.addEventListener('click', closeOutSide)
+      : document.removeEventListener('click', closeOutSide);
+  };
+
+  const closeOnEsc = (e) => {
+    if (e.key === 'Escape') {
+      setIsPopupOpen(false);
+      history.push('/');
+    }
+  };
+
+  const closeOutSide = (e) => {
+    if (e.target.classList.contains('modal')) {
+      setIsPopupOpen(false);
+      history.push('/');
+    }
+  };
+
+  // UseEffect for Popup
+  useEffect(() => {
+    if (isPopupOpen) {
+      setEventListener(true);
+    }
+  }, [isPopupOpen]);
 
   return (
     <div className='app'>
@@ -26,6 +59,8 @@ function App() {
         {/* Sign Up Route */}
         <Route path='/signup'>
           <Header />
+          <NotFound />
+          <About />
           <Register
             isPopupOpen={isPopupOpen}
             setIsPopupOpen={setIsPopupOpen}
@@ -37,6 +72,8 @@ function App() {
         {/* Sign In Route */}
         <Route path='/signin'>
           <Header />
+          <NotFound />
+          <About />
           <Login
             loggedin={loggedin}
             setLoggedin={setLoggedin}
@@ -68,10 +105,6 @@ function App() {
           <About />
         </Route>
       </Switch>
-
-      {/* All Routes Components */}
-
-      {/* <NotFound /> */}
       <Footer />
     </div>
   );
