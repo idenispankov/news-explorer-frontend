@@ -10,13 +10,21 @@ const Register = (props) => {
   const history = useHistory();
 
   const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [value, setValue] = useState({ email, password, username });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!value.email || !value.password || !value.email) {
+      setButtonDisabled(true);
+      return;
+    }
     setIsRegisterSuccessful(true);
     props.setIsPopupOpen(false);
     props.setIsSuccessOpen(true);
-    // history.push('/signin');
   };
 
   const onFormClose = () => {
@@ -24,12 +32,21 @@ const Register = (props) => {
     props.setIsPopupOpen(false);
   };
 
+  const handleChange = (e) => {
+    setValue({
+      ...value,
+      [e.target.name]: e.target.value,
+    });
+    if (value.email && value.password && value.username) {
+      setButtonDisabled(false);
+    }
+  };
+
   return (
     <>
       <PopupWithForm
         formHeadingText='Sign up'
         onSubmit={handleSubmit}
-        onClose={props.onClose}
         isPopupOpen={props.isPopupOpen}
       >
         <Input
@@ -39,6 +56,8 @@ const Register = (props) => {
           name='email'
           minLength='2'
           maxLength='50'
+          handleChange={handleChange}
+          value={value.email}
         />
 
         <Input
@@ -46,6 +65,8 @@ const Register = (props) => {
           type='password'
           placeholder='Enter password'
           name='password'
+          handleChange={handleChange}
+          value={value.password}
         />
 
         <Input
@@ -53,9 +74,14 @@ const Register = (props) => {
           type='text'
           placeholder='Enter your username'
           name='username'
+          handleChange={handleChange}
+          value={value.username}
         />
-        <p className='submit__text-error'>This email is not available</p>
-        <FormSubmitButton submitButtonText='Sign up' />
+        {/* <p className='submit__text-error'>This email is not available</p> */}
+        <FormSubmitButton
+          submitButtonText='Sign up'
+          buttonDisabled={buttonDisabled}
+        />
         <p className='form__text'>
           or{' '}
           <NavLink to='/signin' className='form__link'>

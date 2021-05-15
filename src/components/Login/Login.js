@@ -9,8 +9,10 @@ import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 const Login = (props) => {
   const history = useHistory();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [value, setValue] = useState({});
+  const [value, setValue] = useState({ email, password });
 
   useEffect(() => {
     props.setIsPopupOpen(true);
@@ -26,7 +28,6 @@ const Login = (props) => {
     props.setLoggedin(true);
     props.setIsPopupOpen(false);
     history.push('/');
-    props.setErrorMessage(false);
   };
 
   const onFormClose = () => {
@@ -59,7 +60,6 @@ const Login = (props) => {
         maxLength='50'
         handleChange={handleChange}
         value={value.email}
-        errorMessage={props.errorMessage}
       />
       {props.errorMessage && (
         <span className='form__input-error'>Please enter valid email</span>
@@ -72,19 +72,17 @@ const Login = (props) => {
         name='password'
         handleChange={handleChange}
         value={value.password}
-        errorMessage={props.errorMessage}
       />
-      {props.errorMessage && (
+      {/* {props.errorMessage && (
         <span className='form__input-error'>Please enter valid password</span>
-      )}
+      )} */}
 
-      {props.errorMessage && (
+      {/* {props.errorMessage && (
         <span className='submit__text-error'>Invalid email or password</span>
-      )}
+      )} */}
 
       <FormSubmitButton
         submitButtonText='Sign in'
-        errorMessage={props.errorMessage}
         buttonDisabled={buttonDisabled}
       />
       <p className='form__text'>
