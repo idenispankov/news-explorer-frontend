@@ -3,9 +3,8 @@ import card from '../../images/card.png';
 import { useHistory, withRouter } from 'react-router-dom';
 import { useState } from 'react';
 
-const Card = ({ loggedin, setIsPopupOpen }) => {
+const Card = ({ loggedin, setIsPopupOpen, savedNewsRoute }) => {
   const history = useHistory();
-  const savedNewsRoute = history.location.pathname.includes('saved-news');
 
   const [isCardSaved, setIsCardSaved] = useState(false);
 

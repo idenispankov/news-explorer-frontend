@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useState } from 'react';
 
-const SearchForm = (props) => {
+const SearchForm = ({ setIsSearchHappened }) => {
   const [searchInput, setSearchInput] = useState('');
 
   const handleChange = (e) => {
@@ -10,6 +10,7 @@ const SearchForm = (props) => {
 
   const onSearch = () => {
     setSearchInput('');
+    setIsSearchHappened(true);
   };
 
   return (

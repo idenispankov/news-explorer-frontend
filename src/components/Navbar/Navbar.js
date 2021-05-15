@@ -22,7 +22,6 @@ const Navbar = ({ loggedin, setLoggedin }) => {
     setIsHamburgerMenuOpen(false);
   };
 
-  // ${isHamburgerMenuOpen && 'navbar-dark'}
   return (
     <nav
       className={`navbar ${isSavedNewsRoute && 'navbar_type_white'} ${

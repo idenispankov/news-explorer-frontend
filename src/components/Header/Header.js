@@ -1,7 +1,7 @@
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
 
-const Header = () => {
+const Header = ({ isSearchHappened, setIsSearchHappened }) => {
   return (
     <header className='header'>
       <div className='header__container'>
@@ -10,7 +10,7 @@ const Header = () => {
           Find the latest news on any topic and save them in your personal
           account.
         </p>
-        <SearchForm />
+        <SearchForm setIsSearchHappened={setIsSearchHappened} />
       </div>
     </header>
   );

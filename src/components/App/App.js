@@ -4,8 +4,8 @@ import './App.css';
 import Header from '../Header/Header';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
-import NotFound from '../NotFound/NotFound';
-import Preloader from '../Preloader/Preloader';
+// import NotFound from '../NotFound/NotFound';
+// import Preloader from '../Preloader/Preloader';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
@@ -16,6 +16,7 @@ function App() {
   const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [isSearchHappened, setIsSearchHappened] = useState(false);
 
   return (
     <div className='app'>
@@ -47,19 +48,28 @@ function App() {
         <Route path='/saved-news'>
           {!loggedin && <Redirect to='/' />}
           <SavedNewsHeader />
+          <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
         </Route>
 
         {/* Home Route */}
         <Route path='/'>
-          <Header loggedin={loggedin} />
+          <Header
+            isSearchHappened={isSearchHappened}
+            setIsSearchHappened={setIsSearchHappened}
+          />
+          <Main
+            setIsPopupOpen={setIsPopupOpen}
+            loggedin={loggedin}
+            isSearchHappened={isSearchHappened}
+          />
+          <About />
         </Route>
       </Switch>
 
       {/* All Routes Components */}
-      <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
-      <About />
-      <Preloader />
-      <NotFound />
+
+      {/* <Preloader />
+      <NotFound /> */}
       <Footer />
     </div>
   );
