@@ -1,5 +1,5 @@
 import './Header.css';
-import SearchForm from '../SearchForm/SearchForm.js';
+import SearchForm from '../SearchForm/SearchForm';
 
 const Header = () => {
   return (

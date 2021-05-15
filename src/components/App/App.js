@@ -21,7 +21,7 @@ function App() {
     <div className='app'>
       <Navbar loggedin={loggedin} setLoggedin={setLoggedin} />
       <Switch>
-        {/* Signup Route */}
+        {/* Sign Up Route */}
         <Route path='/signup'>
           <Header />
           <Register
@@ -32,7 +32,7 @@ function App() {
           />
         </Route>
 
-        {/* Signin Route */}
+        {/* Sign In Route */}
         <Route path='/signin'>
           <Header />
           <Login
@@ -51,7 +51,7 @@ function App() {
 
         {/* Home Route */}
         <Route path='/'>
-          <Header />
+          <Header loggedin={loggedin} />
         </Route>
       </Switch>
 

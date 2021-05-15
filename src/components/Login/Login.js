@@ -29,9 +29,8 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
     } else {
       setButtonDisabled(true);
     }
-  }, [value]);
+  }, [value, setIsPopupOpen]);
 
-  // SUBMIT HANDLER
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors(validateLogin(value));
