@@ -19,7 +19,6 @@
 
 .form__button-submit-disabled {
   background: #e6e8eb;
-  cursor: not-allowed;
   box-shadow: none;
   color: #b6bcbf;
 }

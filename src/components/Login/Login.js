@@ -5,63 +5,66 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
+import validateLogin from '../validateLogin';
 
-const Login = (props) => {
+const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
   const history = useHistory();
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [value, setValue] = useState({ email: '', password: '' });
-
-  useEffect(() => {
-    props.setIsPopupOpen(true);
-  }, [props]);
-
-  // Errors presentational, will refactor on stage-3
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!value.email || !value.password) {
-      setButtonDisabled(true);
-      return;
-    }
-    props.setLoggedin(true);
-    props.setIsPopupOpen(false);
-    history.push('/');
-  };
-
-  const onFormClose = () => {
-    history.push('/');
-    props.setIsPopupOpen(false);
-  };
+  const [errors, setErrors] = useState({});
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (e) => {
     setValue({
       ...value,
       [e.target.name]: e.target.value,
     });
+  };
+
+  useEffect(() => {
+    setIsPopupOpen(true);
     if (value.email && value.password) {
       setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
     }
+  }, [value]);
+
+  // SUBMIT HANDLER
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors(validateLogin(value));
+    setIsValid(e.target.closest('form').checkValidity());
+    if (isValid) {
+      setIsPopupOpen(false);
+      setLoggedin(true);
+      history.push('/');
+    }
+  };
+
+  const onFormClose = () => {
+    history.push('/');
+    setIsPopupOpen(false);
   };
 
   return (
     <PopupWithForm
       formHeadingText='Sign in'
       onSubmit={handleSubmit}
-      isPopupOpen={props.isPopupOpen}
+      isPopupOpen={isPopupOpen}
     >
       <Input
         label='Email'
         type='email'
         placeholder='Email'
         name='email'
-        minLength='2'
         maxLength='50'
         handleChange={handleChange}
         value={value.email}
+        isValid={isValid}
       />
-      {props.errorMessage && (
-        <span className='form__input-error'>Please enter valid email</span>
-      )}
+      {errors.email && <span className='form__span-error'>{errors.email}</span>}
 
       <Input
         label='Password'
@@ -70,14 +73,11 @@ const Login = (props) => {
         name='password'
         handleChange={handleChange}
         value={value.password}
+        isValid={isValid}
       />
-      {/* {props.errorMessage && (
-        <span className='form__input-error'>Please enter valid password</span>
-      )} */}
-
-      {/* {props.errorMessage && (
-        <span className='submit__text-error'>Invalid email or password</span>
-      )} */}
+      {errors.password && (
+        <span className='form__span-error'>{errors.password}</span>
+      )}
 
       <FormSubmitButton
         submitButtonText='Sign in'

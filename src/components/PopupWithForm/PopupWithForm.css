@@ -44,6 +44,7 @@
   color: #2f71e5;
   display: block;
   margin-bottom: 9px;
+  margin-top: 31px;
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -69,7 +70,7 @@
 }
 
 /* Error Input */
-.form__input-error {
+.form__span-error {
   margin: 0;
   padding: 0;
   color: red;
@@ -77,13 +78,13 @@
   margin-bottom: 13px;
 }
 
-.submit__text-error {
+/* .submit__text-error {
   display: block;
   text-align: center;
   margin: 0;
   padding: 0;
   color: red;
-}
+} */
 
 @media screen and (max-width: 600px) {
   .form {
