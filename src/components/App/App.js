@@ -45,7 +45,7 @@ function App() {
 
         {/* SavedNews Route */}
         <Route path='/saved-news'>
-          {!loggedin && <Redirect to='/' />}
+          {/* {!loggedin && <Redirect to='/' />} */}
           <SavedNewsHeader />
         </Route>
 
