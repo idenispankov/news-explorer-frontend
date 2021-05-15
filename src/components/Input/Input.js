@@ -7,7 +7,7 @@ const Input = (props) => {
         {props.label}
       </label>
       <input
-        className='form__input'
+        className={`form__input`}
         type={props.type}
         name={props.name}
         placeholder={props.placeholder}

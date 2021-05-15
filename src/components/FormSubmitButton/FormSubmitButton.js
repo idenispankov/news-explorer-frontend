@@ -1,13 +1,15 @@
 import './FormSubmitButton.css';
 
-const FormSubmitButton = (props) => {
+const FormSubmitButton = ({ submitButtonText, buttonDisabled }) => {
   return (
     <button
       // form__button-submit-disabled - Disabled class
-      className='form__button-submit'
+      className={`form__button-submit ${
+        buttonDisabled && 'form__button-submit-disabled'
+      }`}
       aria-label='submit button'
     >
-      {props.submitButtonText}
+      {submitButtonText}
     </button>
   );
 };

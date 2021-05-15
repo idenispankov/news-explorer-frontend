@@ -15,7 +15,7 @@ import Navbar from '../Navbar/Navbar';
 function App() {
   const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
-  const [isSuccessOpen, setIsSuccessOpen] = useState(true);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
 
   return (
     <div className='app'>
@@ -45,7 +45,7 @@ function App() {
 
         {/* SavedNews Route */}
         <Route path='/saved-news'>
-          {/* {!loggedin && <Redirect to='/' />} */}
+          {!loggedin && <Redirect to='/' />}
           <SavedNewsHeader />
         </Route>
 

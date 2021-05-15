@@ -17,6 +17,10 @@
   line-height: 24px;
 }
 
+.navbar__button-with-error {
+  margin-top: 0;
+}
+
 @media screen and (max-width: 900px) {
   .navbar__button {
     width: 128px;

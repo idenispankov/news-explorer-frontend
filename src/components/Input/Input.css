@@ -16,3 +16,7 @@
 .form__input:last-of-type {
   margin: 0;
 }
+
+.form__input-error-active {
+  margin-bottom: 0;
+}
