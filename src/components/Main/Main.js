@@ -16,33 +16,43 @@ const Main = ({ loggedin, setIsPopupOpen, isSearchHappened, isLoading }) => {
         <section className='main'>
           <div className='main__container'>
             <h2 className='main__title'>Search Results</h2>
-            <div className='cards__list'>
-              <Card
-                loggedin={loggedin}
-                setIsPopupOpen={setIsPopupOpen}
-                savedNewsRoute={savedNewsRoute}
-              />
-              <Card
-                loggedin={loggedin}
-                setIsPopupOpen={setIsPopupOpen}
-                savedNewsRoute={savedNewsRoute}
-              />
-              <Card
-                loggedin={loggedin}
-                setIsPopupOpen={setIsPopupOpen}
-                savedNewsRoute={savedNewsRoute}
-              />
-              <Card
-                loggedin={loggedin}
-                setIsPopupOpen={setIsPopupOpen}
-                savedNewsRoute={savedNewsRoute}
-              />
-              <Card
-                loggedin={loggedin}
-                setIsPopupOpen={setIsPopupOpen}
-                savedNewsRoute={savedNewsRoute}
-              />
-            </div>
+            <ul className='cards__list'>
+              <li className='card'>
+                <Card
+                  loggedin={loggedin}
+                  setIsPopupOpen={setIsPopupOpen}
+                  savedNewsRoute={savedNewsRoute}
+                />
+              </li>
+              <li className='card'>
+                <Card
+                  loggedin={loggedin}
+                  setIsPopupOpen={setIsPopupOpen}
+                  savedNewsRoute={savedNewsRoute}
+                />
+              </li>
+              <li className='card'>
+                <Card
+                  loggedin={loggedin}
+                  setIsPopupOpen={setIsPopupOpen}
+                  savedNewsRoute={savedNewsRoute}
+                />
+              </li>
+              <li className='card'>
+                <Card
+                  loggedin={loggedin}
+                  setIsPopupOpen={setIsPopupOpen}
+                  savedNewsRoute={savedNewsRoute}
+                />
+              </li>
+              <li className='card'>
+                <Card
+                  loggedin={loggedin}
+                  setIsPopupOpen={setIsPopupOpen}
+                  savedNewsRoute={savedNewsRoute}
+                />
+              </li>
+            </ul>
             {savedNewsRoute ? null : (
               <button className='main__button'>Show more</button>
             )}

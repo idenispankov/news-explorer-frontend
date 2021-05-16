@@ -9,7 +9,6 @@
 .main__title {
   margin: 0;
   display: inline-block;
-  /* padding: 80px 104px 0 104px; */
   min-width: 288px;
   font-family: 'Roboto Slab', sans-serif;
   font-weight: 400;
@@ -19,6 +18,8 @@
 }
 
 .cards__list {
+  list-style: none;
+  padding: 0;
   margin: 0 auto;
   width: 100%;
   display: grid;
