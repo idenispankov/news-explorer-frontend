@@ -45,9 +45,9 @@ const Main = ({ loggedin, setIsPopupOpen, isSearchHappened, isLoading }) => {
           {savedNewsRoute ? null : (
             <button className='main__button'>Show more</button>
           )}
+          {isSearchHappened && <NotFound />}
         </section>
       ) : null}
-      <NotFound />
     </>
   );
 };
