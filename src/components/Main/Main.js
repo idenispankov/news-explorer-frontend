@@ -14,38 +14,40 @@ const Main = ({ loggedin, setIsPopupOpen, isSearchHappened, isLoading }) => {
 
       {isSearchHappened || savedNewsRoute ? (
         <section className='main'>
-          <h2 className='main__title'>Search Results</h2>
-          <div className='cards__list'>
-            <Card
-              loggedin={loggedin}
-              setIsPopupOpen={setIsPopupOpen}
-              savedNewsRoute={savedNewsRoute}
-            />
-            <Card
-              loggedin={loggedin}
-              setIsPopupOpen={setIsPopupOpen}
-              savedNewsRoute={savedNewsRoute}
-            />
-            <Card
-              loggedin={loggedin}
-              setIsPopupOpen={setIsPopupOpen}
-              savedNewsRoute={savedNewsRoute}
-            />
-            <Card
-              loggedin={loggedin}
-              setIsPopupOpen={setIsPopupOpen}
-              savedNewsRoute={savedNewsRoute}
-            />
-            <Card
-              loggedin={loggedin}
-              setIsPopupOpen={setIsPopupOpen}
-              savedNewsRoute={savedNewsRoute}
-            />
+          <div className='main__container'>
+            <h2 className='main__title'>Search Results</h2>
+            <div className='cards__list'>
+              <Card
+                loggedin={loggedin}
+                setIsPopupOpen={setIsPopupOpen}
+                savedNewsRoute={savedNewsRoute}
+              />
+              <Card
+                loggedin={loggedin}
+                setIsPopupOpen={setIsPopupOpen}
+                savedNewsRoute={savedNewsRoute}
+              />
+              <Card
+                loggedin={loggedin}
+                setIsPopupOpen={setIsPopupOpen}
+                savedNewsRoute={savedNewsRoute}
+              />
+              <Card
+                loggedin={loggedin}
+                setIsPopupOpen={setIsPopupOpen}
+                savedNewsRoute={savedNewsRoute}
+              />
+              <Card
+                loggedin={loggedin}
+                setIsPopupOpen={setIsPopupOpen}
+                savedNewsRoute={savedNewsRoute}
+              />
+            </div>
+            {savedNewsRoute ? null : (
+              <button className='main__button'>Show more</button>
+            )}
+            {isSearchHappened && <NotFound />}
           </div>
-          {savedNewsRoute ? null : (
-            <button className='main__button'>Show more</button>
-          )}
-          {isSearchHappened && <NotFound />}
         </section>
       ) : null}
     </>

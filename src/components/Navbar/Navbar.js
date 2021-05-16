@@ -7,6 +7,8 @@ import LogoutButton from '../LogoutButton/LogoutButton';
 const Navbar = ({ loggedin, setLoggedin, isPopupOpen }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
+  const isSigninRoute = history.location.pathname.includes('signin');
+  const isRegisterRoute = history.location.pathname.includes('signup');
 
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
 
@@ -27,7 +29,9 @@ const Navbar = ({ loggedin, setLoggedin, isPopupOpen }) => {
       <nav
         className={`navbar ${isSavedNewsRoute && 'navbar_type_white'} ${
           isHamburgerMenuOpen && 'navbar-dark'
-        } ${isPopupOpen && 'navbar_is-hidden'}`}
+        } ${isSigninRoute && 'navbar_is-hidden'} ${
+          isRegisterRoute && 'navbar_is-hidden'
+        }`}
       >
         <NavLink
           onClick={onLogoClick}
