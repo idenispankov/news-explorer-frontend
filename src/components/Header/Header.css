@@ -32,6 +32,8 @@
 @media screen and (max-width: 770px) {
   .header {
     min-height: 400px;
+    background: url(../../images/banner-tablet.png) no-repeat center
+      center/cover;
   }
   .header__container {
     max-width: 452px;
@@ -50,6 +52,8 @@
 @media screen and (max-width: 500px) {
   .header {
     min-height: 536px;
+    background: url(../../images/banner-mobile.png) no-repeat center
+      center/cover;
   }
   .header__container {
     max-width: 285px;
