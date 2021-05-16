@@ -14,7 +14,7 @@
   z-index: 1;
 }
 
-.modal-open {
+.modal_is-open {
   visibility: visible;
   opacity: 1;
 }
