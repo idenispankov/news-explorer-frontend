@@ -54,7 +54,11 @@ function App() {
 
   return (
     <div className='app'>
-      <Navbar loggedin={loggedin} setLoggedin={setLoggedin} />
+      <Navbar
+        loggedin={loggedin}
+        setLoggedin={setLoggedin}
+        isPopupOpen={isPopupOpen}
+      />
       <Switch>
         {/* Sign Up Route */}
         <Route path='/signup'>

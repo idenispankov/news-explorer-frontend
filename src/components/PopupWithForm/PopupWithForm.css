@@ -90,11 +90,23 @@
   .form {
     padding-bottom: 152px;
     max-width: 320px;
+    top: 56px;
+    height: 520px;
   }
   .modal {
-    padding: 0 20px;
+    padding: 0;
   }
   .submit__text-error {
     transform: translateY(16px);
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .form {
+    margin-top: 16px;
+  }
+  .modal {
+    padding-top: 56px;
+    height: 450px;
   }
 }

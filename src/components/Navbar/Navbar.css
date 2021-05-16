@@ -24,6 +24,10 @@
   background: #fff;
 }
 
+.navbar_is-hidden {
+  display: none;
+}
+
 .navbar__logo {
   font-family: 'Roboto Slab', sans-serif;
   font-weight: bold;

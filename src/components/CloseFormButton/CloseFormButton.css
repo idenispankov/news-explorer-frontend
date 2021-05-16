@@ -23,3 +23,10 @@
     top: -36px;
   }
 }
+
+@media screen and (max-width: 321px) {
+  .form__button-close {
+    top: -40px;
+    right: 16px;
+  }
+}

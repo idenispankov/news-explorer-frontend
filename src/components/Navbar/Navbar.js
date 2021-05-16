@@ -4,7 +4,7 @@ import { useState } from 'react';
 import LoginButton from '../LoginButton/LoginButton';
 import LogoutButton from '../LogoutButton/LogoutButton';
 
-const Navbar = ({ loggedin, setLoggedin }) => {
+const Navbar = ({ loggedin, setLoggedin, isPopupOpen }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
 
@@ -27,7 +27,7 @@ const Navbar = ({ loggedin, setLoggedin }) => {
       <nav
         className={`navbar ${isSavedNewsRoute && 'navbar_type_white'} ${
           isHamburgerMenuOpen && 'navbar-dark'
-        }`}
+        } ${isPopupOpen && 'navbar_is-hidden'}`}
       >
         <NavLink
           onClick={onLogoClick}
