@@ -23,72 +23,74 @@ const Navbar = ({ loggedin, setLoggedin }) => {
   };
 
   return (
-    <nav
-      className={`navbar ${isSavedNewsRoute && 'navbar_type_white'} ${
-        isHamburgerMenuOpen && 'navbar-dark'
-      }`}
-    >
-      <NavLink
-        onClick={onLogoClick}
-        to='/'
-        className={`navbar__logo ${
-          isSavedNewsRoute && 'navbar__logo_text-dark'
+    <div className='navbar__container'>
+      <nav
+        className={`navbar ${isSavedNewsRoute && 'navbar_type_white'} ${
+          isHamburgerMenuOpen && 'navbar-dark'
         }`}
       >
-        NewsExplorer
-      </NavLink>
-      <div
-        className={`navbar__links ${
-          isHamburgerMenuOpen && 'navbar__links-mobile'
-        } ${isSavedNewsRoute && 'navbar__link-mobile-white'}`}
-      >
         <NavLink
-          onClick={onHomeClick}
+          onClick={onLogoClick}
           to='/'
-          className={`navbar__link navbar__link-active-home ${
-            isSavedNewsRoute && 'navbar__link_text-dark'
-          } ${isHamburgerMenuOpen && 'navbar__link-disabled'}`}
+          className={`navbar__logo ${
+            isSavedNewsRoute && 'navbar__logo_text-dark'
+          }`}
         >
-          Home
+          NewsExplorer
         </NavLink>
-        {loggedin && (
+        <div
+          className={`navbar__links ${
+            isHamburgerMenuOpen && 'navbar__links-mobile'
+          } ${isSavedNewsRoute && 'navbar__link-mobile-white'}`}
+        >
           <NavLink
-            onClick={onSavedArticlesClick}
-            to='/saved-news'
-            className={`navbar__link ${
-              isSavedNewsRoute &&
-              'navbar__link_text-dark navbar__link-active-news '
+            onClick={onHomeClick}
+            to='/'
+            className={`navbar__link navbar__link-active-home ${
+              isSavedNewsRoute && 'navbar__link_text-dark'
             } ${isHamburgerMenuOpen && 'navbar__link-disabled'}`}
           >
-            Saved Articles
+            Home
           </NavLink>
-        )}
-        {!loggedin && <LoginButton />}
-        {loggedin && (
-          <LogoutButton
-            isSavedNewsRoute={isSavedNewsRoute}
-            setLoggedin={setLoggedin}
-          />
-        )}
-      </div>
-      <div
-        className='hamburger'
-        onClick={() => {
-          setIsHamburgerMenuOpen(!isHamburgerMenuOpen);
-        }}
-      >
+          {loggedin && (
+            <NavLink
+              onClick={onSavedArticlesClick}
+              to='/saved-news'
+              className={`navbar__link ${
+                isSavedNewsRoute &&
+                'navbar__link_text-dark navbar__link-active-news '
+              } ${isHamburgerMenuOpen && 'navbar__link-disabled'}`}
+            >
+              Saved Articles
+            </NavLink>
+          )}
+          {!loggedin && <LoginButton />}
+          {loggedin && (
+            <LogoutButton
+              isSavedNewsRoute={isSavedNewsRoute}
+              setLoggedin={setLoggedin}
+            />
+          )}
+        </div>
         <div
-          className={`hamburger-first ${isSavedNewsRoute && 'hamburger-dark'} ${
-            isHamburgerMenuOpen && 'hamburger-open-first'
-          }`}
-        ></div>
-        <div
-          className={`hamburger-last ${isSavedNewsRoute && 'hamburger-dark'} ${
-            isHamburgerMenuOpen && 'hamburger-open-second'
-          }`}
-        ></div>
-      </div>
-    </nav>
+          className='hamburger'
+          onClick={() => {
+            setIsHamburgerMenuOpen(!isHamburgerMenuOpen);
+          }}
+        >
+          <div
+            className={`hamburger-first ${
+              isSavedNewsRoute && 'hamburger-dark'
+            } ${isHamburgerMenuOpen && 'hamburger-open-first'}`}
+          ></div>
+          <div
+            className={`hamburger-last ${
+              isSavedNewsRoute && 'hamburger-dark'
+            } ${isHamburgerMenuOpen && 'hamburger-open-second'}`}
+          ></div>
+        </div>
+      </nav>
+    </div>
   );
 };
 

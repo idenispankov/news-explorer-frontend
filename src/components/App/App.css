@@ -8,4 +8,7 @@
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
