@@ -8,7 +8,8 @@ const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
     setSearchInput(e.target.value);
   };
 
-  const onSearch = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     setSearchInput('');
     setTimeout(() => {
       setIsSearchHappened(true);
@@ -22,7 +23,7 @@ const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
   };
 
   return (
-    <div className='search'>
+    <form className='search' onSubmit={onSubmit}>
       <input
         className='search__input'
         type='text'
@@ -31,10 +32,8 @@ const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
         value={searchInput}
         onChange={handleChange}
       />
-      <button className='search__button' onClick={onSearch}>
-        Search
-      </button>
-    </div>
+      <button className='search__button'>Search</button>
+    </form>
   );
 };
 
