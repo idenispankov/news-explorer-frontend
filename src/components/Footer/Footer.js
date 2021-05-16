@@ -37,8 +37,8 @@ const Footer = () => {
             />
           </a>
           <a
-            href='https://www.linkedin.com/in/denis-pankov-46a4a91b9'
-            alt='link to LinkedIn'
+            href='https://www.facebook.com/progiratel'
+            alt='link to Facebook'
             rel='noreferrer'
             target='_blank'
             className='footer__icon'
