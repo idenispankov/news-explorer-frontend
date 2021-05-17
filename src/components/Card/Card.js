@@ -1,22 +1,14 @@
 import './Card.css';
 import card from '../../images/card.png';
-import { useHistory, withRouter } from 'react-router-dom';
 import { useState } from 'react';
 
-const Card = ({ loggedin, setIsPopupOpen, savedNewsRoute }) => {
-  const history = useHistory();
-
+const Card = ({ loggedin, savedNewsRoute }) => {
   const [isCardSaved, setIsCardSaved] = useState(false);
 
   const onCardSave = () => {
     if (loggedin) {
       setIsCardSaved(!isCardSaved);
     }
-  };
-
-  const onTrySave = () => {
-    history.push('/signin');
-    setIsPopupOpen(true);
   };
 
   return (
@@ -35,22 +27,25 @@ const Card = ({ loggedin, setIsPopupOpen, savedNewsRoute }) => {
         </p>
         <p className='card__footer'>treehugger</p>
         <button
-          className={`card__save ${isCardSaved && 'card__saved'} ${
-            savedNewsRoute && 'card__delete'
-          }`}
+          className={`card__save-icon ${isCardSaved && 'card__saved-icon'}`}
           onClick={onCardSave}
         ></button>
-        {savedNewsRoute && <p className='card__keyword'>Nature</p>}
-        {!loggedin ? (
-          <p className='card__signin' onClick={onTrySave}>
-            Sign in to save articles
-          </p>
-        ) : (
-          ''
+        {!loggedin && (
+          <>
+            <button className='card__save-icon' onClick={onCardSave}></button>
+            <p className='card__tooltip'>Sign in to save articles</p>
+          </>
         )}
+        {loggedin && savedNewsRoute && (
+          <>
+            <button className='card__delete-icon' onClick={onCardSave}></button>
+            <p className='card__tooltip'>Remove from saved</p>
+          </>
+        )}
+        {savedNewsRoute && <p className='card__keyword'>Nature</p>}
       </div>
     </div>
   );
 };
 
-export default withRouter(Card);
+export default Card;

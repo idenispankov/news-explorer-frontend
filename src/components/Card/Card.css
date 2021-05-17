@@ -75,7 +75,8 @@
   font-family: 'Roboto Slab', sans-serif;
 }
 
-.card__save {
+/* Save icons and hover*/
+.card__save-icon {
   background: url(../../images/card__save-normal.svg) no-repeat center;
   position: absolute;
   top: 24px;
@@ -90,46 +91,27 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
+  transition: 0.5s all linear;
 }
 
-.card__saved {
-  background: url(../../images/card__save-active.svg) no-repeat center;
-  background-color: #fff;
-}
-
-.card__save:hover {
+.card__save-icon:hover {
   background: url(../../images/card__save-hover.svg) no-repeat center;
   background-color: #fff;
 }
 
-.card__saved:hover {
+.card__saved-icon {
   background: url(../../images/card__save-active.svg) no-repeat center;
   background-color: #fff;
 }
 
-.card__delete {
-  background: url(../../images/trash-normal.svg) no-repeat center;
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  padding: 0;
-  width: 40px;
-  height: 40px;
+.card__saved-icon:hover {
+  background: url(../../images/card__save-active.svg) no-repeat center;
+  background-color: #fff;
+}
+
+/* SAVE FOCUS STATE */
+.card__tooltip {
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-}
-
-.card__delete:hover {
-  background-image: url(../../images/trash-hover.svg);
-  background-color: #fff;
-}
-
-.card__signin {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,17 +129,39 @@
   cursor: pointer;
   transition: 0.5s all linear;
   height: 40px;
-  visibility: hidden;
-  opacity: 0;
+  display: none;
+  z-index: 1;
 }
 
-.card__signin:hover {
-  background-color: #e8e8e8;
+.card__save-icon:hover + .card__tooltip {
+  display: flex;
 }
 
-.card__save:focus + .card__signin {
-  visibility: visible;
-  opacity: 1;
+.card__delete-icon {
+  background: url(../../images/trash-normal.svg) no-repeat center;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  transition: 0.5s all linear;
+}
+
+.card__delete-icon:hover {
+  background: url(../../images/trash-hover.svg) no-repeat center;
+  background-color: #fff;
+}
+
+.card__delete-icon:hover + .card__tooltip {
+  display: flex;
 }
 
 @media screen and (max-width: 1280px) {
@@ -178,17 +182,25 @@
   .card__image {
     height: 150px;
   }
-  .card__save {
+  .card__save-icon {
     top: 8px;
     right: 8px;
   }
-  .card__saved {
+  .card__saved-icon {
     top: 8px;
     right: 8px;
   }
-  .card__delete {
+  .card__delete-icon {
     top: 8px;
     right: 8px;
+  }
+  .card__tooltip {
+    top: 8px;
+    width: 60%;
+  }
+  .card__keyword {
+    top: 8px;
+    left: 8px;
   }
   .card__title {
     font-size: 22px;
@@ -213,17 +225,25 @@
   .card__image {
     height: 196px;
   }
-  .card__save {
+  .card__save-icon {
     top: 16px;
     right: 16px;
   }
-  .card__saved {
+  .card__saved-icon {
     top: 16px;
     right: 16px;
   }
-  .card__delete {
+  .card__delete-icon {
     top: 16px;
     right: 16px;
+  }
+  .card__tooltip {
+    top: 16px;
+    width: 70%;
+  }
+  .card__keyword {
+    top: 16px;
+    left: 16px;
   }
   .card__title {
     margin-bottom: 14px;

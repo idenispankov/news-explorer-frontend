@@ -4,7 +4,7 @@ import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
 import { useHistory } from 'react-router-dom';
 
-const Main = ({ loggedin, setIsPopupOpen, isSearchHappened, isLoading }) => {
+const Main = ({ loggedin, isSearchHappened, isLoading }) => {
   const history = useHistory();
   const savedNewsRoute = history.location.pathname.includes('saved-news');
 
@@ -18,39 +18,19 @@ const Main = ({ loggedin, setIsPopupOpen, isSearchHappened, isLoading }) => {
             <h2 className='main__title'>Search Results</h2>
             <ul className='cards__list'>
               <li className='card'>
-                <Card
-                  loggedin={loggedin}
-                  setIsPopupOpen={setIsPopupOpen}
-                  savedNewsRoute={savedNewsRoute}
-                />
+                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
               </li>
               <li className='card'>
-                <Card
-                  loggedin={loggedin}
-                  setIsPopupOpen={setIsPopupOpen}
-                  savedNewsRoute={savedNewsRoute}
-                />
+                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
               </li>
               <li className='card'>
-                <Card
-                  loggedin={loggedin}
-                  setIsPopupOpen={setIsPopupOpen}
-                  savedNewsRoute={savedNewsRoute}
-                />
+                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
               </li>
               <li className='card'>
-                <Card
-                  loggedin={loggedin}
-                  setIsPopupOpen={setIsPopupOpen}
-                  savedNewsRoute={savedNewsRoute}
-                />
+                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
               </li>
               <li className='card'>
-                <Card
-                  loggedin={loggedin}
-                  setIsPopupOpen={setIsPopupOpen}
-                  savedNewsRoute={savedNewsRoute}
-                />
+                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
               </li>
             </ul>
             {savedNewsRoute ? null : (
