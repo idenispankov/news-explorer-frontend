@@ -1,0 +1,65 @@
+.header {
+  background: url(../../images/banner.png) no-repeat center center/cover;
+  width: 100%;
+  min-height: 576px;
+}
+
+.header__container {
+  max-width: 608px;
+  margin: auto;
+  padding: 160px 0 0 0;
+  color: #fff;
+}
+
+.header__title {
+  margin: 0 0 32px 0;
+  font-family: 'Roboto Slab', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 64px;
+}
+
+.header__subtitle {
+  margin: 0 0 88px 0;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+@media screen and (max-width: 770px) {
+  .header {
+    min-height: 400px;
+    background: url(../../images/banner-tablet.png) no-repeat center
+      center/cover;
+  }
+  .header__container {
+    max-width: 452px;
+    padding-top: 104px;
+  }
+  .header__title {
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 16px;
+  }
+  .header__subtitle {
+    margin-bottom: 48px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    min-height: 536px;
+    background: url(../../images/banner-mobile.png) no-repeat center
+      center/cover;
+  }
+  .header__container {
+    max-width: 285px;
+    padding-top: 86px;
+  }
+  .header__subtitle {
+    margin-bottom: 122px;
+  }
+}

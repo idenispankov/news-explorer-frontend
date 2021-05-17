@@ -1,0 +1,32 @@
+.nothingfound {
+  min-height: 374px;
+  box-sizing: border-box;
+  background: #f5f6f7;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.nothingfound__image {
+  display: block;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+.nothingfound__title {
+  margin: 0 0 16px 0;
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+}
+
+.nothingfound__text {
+  width: 236px;
+  display: block;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #b6bcbf;
+}
