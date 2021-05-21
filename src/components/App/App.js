@@ -11,6 +11,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
+import { CurrentUserContext } from '../context/CurrentUserContext';
 
 function App() {
   const history = useHistory();
@@ -54,62 +55,64 @@ function App() {
 
   return (
     <div className='app'>
-      <Navbar
-        loggedin={loggedin}
-        setLoggedin={setLoggedin}
-        isPopupOpen={isPopupOpen}
-      />
-      <Switch>
-        {/* Sign Up Route */}
-        <Route path='/signup'>
-          <Header />
-          <NotFound />
-          <About />
-          <Register
-            isPopupOpen={isPopupOpen}
-            setIsPopupOpen={setIsPopupOpen}
-            isSuccessOpen={isSuccessOpen}
-            setIsSuccessOpen={setIsSuccessOpen}
-          />
-        </Route>
+      <CurrentUserContext.Provider>
+        <Navbar
+          loggedin={loggedin}
+          setLoggedin={setLoggedin}
+          isPopupOpen={isPopupOpen}
+        />
+        <Switch>
+          {/* Sign Up Route */}
+          <Route path='/signup'>
+            <Header />
+            <NotFound />
+            <About />
+            <Register
+              isPopupOpen={isPopupOpen}
+              setIsPopupOpen={setIsPopupOpen}
+              isSuccessOpen={isSuccessOpen}
+              setIsSuccessOpen={setIsSuccessOpen}
+            />
+          </Route>
 
-        {/* Sign In Route */}
-        <Route path='/signin'>
-          <Header />
-          <NotFound />
-          <About />
-          <Login
-            loggedin={loggedin}
-            setLoggedin={setLoggedin}
-            isPopupOpen={isPopupOpen}
-            setIsPopupOpen={setIsPopupOpen}
-          />
-        </Route>
+          {/* Sign In Route */}
+          <Route path='/signin'>
+            <Header />
+            <NotFound />
+            <About />
+            <Login
+              loggedin={loggedin}
+              setLoggedin={setLoggedin}
+              isPopupOpen={isPopupOpen}
+              setIsPopupOpen={setIsPopupOpen}
+            />
+          </Route>
 
-        {/* SavedNews Route */}
-        <Route path='/saved-news'>
-          {!loggedin && <Redirect to='/' />}
-          <SavedNewsHeader />
-          <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
-        </Route>
+          {/* SavedNews Route */}
+          <Route path='/saved-news'>
+            {!loggedin && <Redirect to='/' />}
+            <SavedNewsHeader />
+            <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
+          </Route>
 
-        {/* Home Route */}
-        <Route path='/'>
-          <Header
-            setIsSearchHappened={setIsSearchHappened}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-          />
-          <Main
-            setIsPopupOpen={setIsPopupOpen}
-            loggedin={loggedin}
-            isSearchHappened={isSearchHappened}
-            isLoading={isLoading}
-          />
-          <About />
-        </Route>
-      </Switch>
-      <Footer />
+          {/* Home Route */}
+          <Route path='/'>
+            <Header
+              setIsSearchHappened={setIsSearchHappened}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+            />
+            <Main
+              setIsPopupOpen={setIsPopupOpen}
+              loggedin={loggedin}
+              isSearchHappened={isSearchHappened}
+              isLoading={isLoading}
+            />
+            <About />
+          </Route>
+        </Switch>
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }
