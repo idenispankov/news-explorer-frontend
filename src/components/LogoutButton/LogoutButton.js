@@ -4,6 +4,10 @@ import darkLogoutIcon from '../../images/logout-dark.svg';
 import { NavLink } from 'react-router-dom';
 
 const LogoutButton = ({ isSavedNewsRoute, handleLogout }) => {
+  const onLogout = () => {
+    handleLogout();
+  };
+
   return (
     <button
       className={`navbar__button navbar__button-logout ${
@@ -17,7 +21,7 @@ const LogoutButton = ({ isSavedNewsRoute, handleLogout }) => {
       >
         Denis
       </p>{' '}
-      <NavLink to='/' onClick={() => handleLogout()}>
+      <NavLink to='/' onClick={onLogout}>
         {isSavedNewsRoute ? (
           <img
             className='navbar__button-icon'

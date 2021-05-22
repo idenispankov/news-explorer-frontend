@@ -13,6 +13,7 @@ const Register = ({
   isSuccessOpen,
   setIsSuccessOpen,
   handleRegister,
+  registered,
 }) => {
   const history = useHistory();
 
@@ -24,7 +25,7 @@ const Register = ({
   // const [errors, setErrors] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState(true);
   // const [isValid, setIsValid] = useState(false);
-  // const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
+  const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
 
   useEffect(() => {
     setIsPopupOpen(true);
@@ -69,9 +70,9 @@ const Register = ({
     // setErrors(validateRegister(value));
     // setIsValid(e.target.closest('form').checkValidity());
     // if (isValid) {
-    //   setIsRegisterSuccessful(true);
+    setIsRegisterSuccessful(true);
     //   setIsPopupOpen(false);
-    //   setIsSuccessOpen(true);
+    // setIsSuccessOpen(true);
     // }
   };
 
@@ -138,7 +139,7 @@ const Register = ({
         <CloseFormButton onClose={onFormClose} />
       </PopupWithForm>
 
-      {/* {isRegisterSuccessful && (
+      {isRegisterSuccessful && (
         <div className={`modal ${isSuccessOpen && 'modal-open'}`}>
           <form className='form'>
             <h2 className='form__heading'>
@@ -150,7 +151,7 @@ const Register = ({
             <CloseFormButton onClose={onFormClose} />
           </form>
         </div>
-      )} */}
+      )}
     </>
   );
 };

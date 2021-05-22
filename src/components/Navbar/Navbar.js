@@ -4,7 +4,7 @@ import { useState } from 'react';
 import LoginButton from '../LoginButton/LoginButton';
 import LogoutButton from '../LogoutButton/LogoutButton';
 
-const Navbar = ({ loggedin, setLoggedin, isPopupOpen, handleLogout }) => {
+const Navbar = ({ loggedin, handleLogout }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
   const isSigninRoute = history.location.pathname.includes('signin');
