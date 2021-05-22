@@ -7,13 +7,12 @@ import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 // import validateLogin from '../validateLogin';
 
-const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin, handleLogin }) => {
+const Login = ({ setIsPopupOpen, isPopupOpen, handleLogin }) => {
   const history = useHistory();
 
-  const [value, setValue] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  // const [isValid, setIsValid] = useState(false);
 
   // CLOSE MODAL
   const onFormClose = () => {
@@ -21,12 +20,12 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin, handleLogin }) => {
     setIsPopupOpen(false);
   };
 
-  const handleChange = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-    // setErrors(validateLogin(value));
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   // Submit
@@ -38,12 +37,12 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin, handleLogin }) => {
   // Use Effect
   useEffect(() => {
     setIsPopupOpen(true);
-    if (value.email && value.password) {
+    if (email && password) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [value, setIsPopupOpen, isPopupOpen]);
+  }, [email, password, setIsPopupOpen, isPopupOpen]);
 
   return (
     <PopupWithForm
@@ -57,24 +56,22 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin, handleLogin }) => {
         placeholder='Email'
         name='email'
         maxLength='50'
-        handleChange={handleChange}
-        value={value.email}
+        handleChange={handleEmailChange}
+        value={email}
         // isValid={isValid}
       />
-      {errors.email && <span className='form__span-error'>{errors.email}</span>}
+      {/* {email && <span className='form__span-error'>{email}</span>} */}
 
       <Input
         label='Password'
         type='password'
         placeholder='Password'
         name='password'
-        handleChange={handleChange}
-        value={value.password}
+        handleChange={handlePasswordChange}
+        value={password}
         // isValid={isValid}
       />
-      {errors.password && (
-        <span className='form__span-error'>{errors.password}</span>
-      )}
+      {/* {password && <span className='form__span-error'>{password}</span>} */}
 
       <FormSubmitButton
         submitButtonText='Sign in'
