@@ -31,7 +31,7 @@ const Login = ({ setIsPopupOpen, isPopupOpen, handleLogin }) => {
   // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin();
+    handleLogin(email, password);
   };
 
   // Use Effect
@@ -58,9 +58,7 @@ const Login = ({ setIsPopupOpen, isPopupOpen, handleLogin }) => {
         maxLength='50'
         handleChange={handleEmailChange}
         value={email}
-        // isValid={isValid}
       />
-      {/* {email && <span className='form__span-error'>{email}</span>} */}
 
       <Input
         label='Password'
@@ -69,9 +67,7 @@ const Login = ({ setIsPopupOpen, isPopupOpen, handleLogin }) => {
         name='password'
         handleChange={handlePasswordChange}
         value={password}
-        // isValid={isValid}
       />
-      {/* {password && <span className='form__span-error'>{password}</span>} */}
 
       <FormSubmitButton
         submitButtonText='Sign in'

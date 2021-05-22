@@ -11,7 +11,9 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
-// import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+import Api from '../utils/api';
+import * as auth from '../utils/auth';
 
 // handleRegister
 
@@ -27,6 +29,15 @@ import NotFound from '../NotFound/NotFound';
 
 function App() {
   const history = useHistory();
+  const [token, setToken] = useState(localStorage.getItem('jwt'));
+
+  const api = new Api({
+    baseUrl: 'https://cryptic-ridge-14112.herokuapp.com',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${token}`,
+    },
+  });
 
   const [loggedin, setLoggedin] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
@@ -35,11 +46,53 @@ function App() {
   const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [currentUser, setCurrentUser] = useState({});
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    history.push('/');
-    setLoggedin(true);
+  const [registered, setIsregestered] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState({
+    _id: '',
+    email: '',
+    name: '',
+  });
+
+  const handleRegister = (email, password, name) => {
+    auth
+      .register(email, password, name)
+      .then((res) => {
+        console.log(res, 'res!');
+        if (res.email) {
+          setIsregestered(true);
+          history.push('/signin');
+        } else if (!res.email) {
+          setIsregestered(false);
+          history.push('/signup');
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleLogin = (email, password) => {
+    auth
+      .login(email, password)
+      .then((data) => {
+        if (data.email) {
+          setLoggedin(true);
+          setToken(localStorage.getItem('jwt'));
+          history.push('/');
+        } else if (!data.email) {
+          setLoggedin(false);
+          history.push('/signin');
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setToken('');
+    setLoggedin(false);
   };
 
   /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
@@ -78,63 +131,67 @@ function App() {
 
   return (
     <div className='app'>
-      <Navbar
-        loggedin={loggedin}
-        setLoggedin={setLoggedin}
-        isPopupOpen={isPopupOpen}
-      />
-      <Switch>
-        {/* Sign In Route */}
-        <Route path='/signin'>
-          <Header />
-          <NotFound />
-          <About />
-          <Login
-            loggedin={loggedin}
-            setLoggedin={setLoggedin}
-            isPopupOpen={isPopupOpen}
-            setIsPopupOpen={setIsPopupOpen}
-            handleLogin={handleLogin}
-          />
-        </Route>
+      <CurrentUserContext.Provider value={currentUser}>
+        <Navbar
+          loggedin={loggedin}
+          setLoggedin={setLoggedin}
+          isPopupOpen={isPopupOpen}
+          handleLogout={handleLogout}
+        />
+        <Switch>
+          {/* Sign In Route */}
+          <Route path='/signin'>
+            <Header />
+            <NotFound />
+            <About />
+            <Login
+              loggedin={loggedin}
+              setLoggedin={setLoggedin}
+              isPopupOpen={isPopupOpen}
+              setIsPopupOpen={setIsPopupOpen}
+              handleLogin={handleLogin}
+            />
+          </Route>
 
-        {/* Sign Up Route */}
-        <Route path='/signup'>
-          <Header />
-          <NotFound />
-          <About />
-          <Register
-            isPopupOpen={isPopupOpen}
-            setIsPopupOpen={setIsPopupOpen}
-            isSuccessOpen={isSuccessOpen}
-            setIsSuccessOpen={setIsSuccessOpen}
-          />
-        </Route>
+          {/* Sign Up Route */}
+          <Route path='/signup'>
+            <Header />
+            <NotFound />
+            <About />
+            <Register
+              isPopupOpen={isPopupOpen}
+              setIsPopupOpen={setIsPopupOpen}
+              isSuccessOpen={isSuccessOpen}
+              setIsSuccessOpen={setIsSuccessOpen}
+              handleRegister={handleRegister}
+            />
+          </Route>
 
-        {/* SavedNews Route */}
-        <Route path='/saved-news'>
-          {!loggedin && <Redirect to='/' />}
-          <SavedNewsHeader />
-          <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
-        </Route>
+          {/* SavedNews Route */}
+          <Route path='/saved-news'>
+            {!loggedin && <Redirect to='/' />}
+            <SavedNewsHeader />
+            <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
+          </Route>
 
-        {/* Home Route */}
-        <Route path='/'>
-          <Header
-            setIsSearchHappened={setIsSearchHappened}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-          />
-          <Main
-            setIsPopupOpen={setIsPopupOpen}
-            loggedin={loggedin}
-            isSearchHappened={isSearchHappened}
-            isLoading={isLoading}
-          />
-          <About />
-        </Route>
-      </Switch>
-      <Footer />
+          {/* Home Route */}
+          <Route path='/'>
+            <Header
+              setIsSearchHappened={setIsSearchHappened}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+            />
+            <Main
+              setIsPopupOpen={setIsPopupOpen}
+              loggedin={loggedin}
+              isSearchHappened={isSearchHappened}
+              isLoading={isLoading}
+            />
+            <About />
+          </Route>
+        </Switch>
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }
