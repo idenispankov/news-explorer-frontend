@@ -5,15 +5,15 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
-import validateLogin from '../validateLogin';
+// import validateLogin from '../validateLogin';
 
-const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
+const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin, handleLogin }) => {
   const history = useHistory();
 
   const [value, setValue] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [isValid, setIsValid] = useState(false);
+  // const [isValid, setIsValid] = useState(false);
 
   // CLOSE MODAL
   const onFormClose = () => {
@@ -26,18 +26,13 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
       ...value,
       [e.target.name]: e.target.value,
     });
+    // setErrors(validateLogin(value));
   };
 
   // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors(validateLogin(value));
-    setIsValid(e.target.closest('form').checkValidity());
-    if (isValid) {
-      setIsPopupOpen(false);
-      setLoggedin(true);
-      history.push('/');
-    }
+    handleLogin();
   };
 
   // Use Effect
@@ -64,7 +59,7 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
         maxLength='50'
         handleChange={handleChange}
         value={value.email}
-        isValid={isValid}
+        // isValid={isValid}
       />
       {errors.email && <span className='form__span-error'>{errors.email}</span>}
 
@@ -75,7 +70,7 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
         name='password'
         handleChange={handleChange}
         value={value.password}
-        isValid={isValid}
+        // isValid={isValid}
       />
       {errors.password && (
         <span className='form__span-error'>{errors.password}</span>
