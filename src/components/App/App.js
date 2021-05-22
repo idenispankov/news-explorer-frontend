@@ -11,7 +11,19 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
-import { CurrentUserContext } from '../context/CurrentUserContext';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+
+// handleRegister
+
+// handleLogin
+
+// handleLogOut
+
+// handleRegisterPopup
+
+// handleLoginPopup
+
+// SuccessTooltip
 
 function App() {
   const history = useHistory();
