@@ -2,13 +2,11 @@ import './Card.css';
 import card from '../../images/card.png';
 import { useState } from 'react';
 
-const Card = ({ loggedin, savedNewsRoute }) => {
+const Card = ({ loggedin, savedNewsRoute, handleSigninClick }) => {
   const [isCardSaved, setIsCardSaved] = useState(false);
 
   const onCardSave = () => {
-    if (loggedin) {
-      setIsCardSaved(!isCardSaved);
-    }
+    setIsCardSaved(!isCardSaved);
   };
 
   return (
@@ -32,7 +30,10 @@ const Card = ({ loggedin, savedNewsRoute }) => {
         ></button>
         {!loggedin && (
           <>
-            <button className='card__save-icon' onClick={onCardSave}></button>
+            <button
+              className='card__save-icon'
+              onClick={handleSigninClick}
+            ></button>
             <p className='card__tooltip'>Sign in to save articles</p>
           </>
         )}

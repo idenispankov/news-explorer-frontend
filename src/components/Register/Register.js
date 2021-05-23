@@ -1,20 +1,15 @@
 import './Register.css';
 import { useState, useEffect } from 'react';
-import { useHistory, NavLink } from 'react-router-dom';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 
 const Register = (props) => {
-  const history = useHistory();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  // const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
 
   const onSigninLinkClick = () => {
     props.setIsRegisterPopupOpen(false);
@@ -68,12 +63,7 @@ const Register = (props) => {
           maxLength='50'
           handleChange={handleEmailChange}
           value={email}
-          // isValid={isValid}
         />
-
-        {/* {errors.email && (
-          <span className='form__span-error'>{errors.email}</span>
-        )} */}
 
         <Input
           label='Password'
@@ -82,11 +72,7 @@ const Register = (props) => {
           name='password'
           handleChange={handlePasswordChange}
           value={password}
-          // isValid={isValid}
         />
-        {/* {errors.password && (
-          <span className='form__span-error'>{errors.password}</span>
-        )} */}
 
         <Input
           label='Username'
@@ -95,13 +81,8 @@ const Register = (props) => {
           name='username'
           handleChange={handleNameChange}
           value={name}
-          // isValid={isValid}
         />
-        {/* {errors.username && (
-          <span className='form__span-error'>{errors.username}</span>
-        )} */}
 
-        {/* <p className='submit__text-error'>This email is not available</p> */}
         <FormSubmitButton
           submitButtonText='Sign up'
           buttonDisabled={buttonDisabled}
@@ -114,7 +95,7 @@ const Register = (props) => {
         </p>
         <CloseFormButton onClose={onFormClose} />
       </PopupWithForm>
-      )}
+      )
     </>
   );
 };

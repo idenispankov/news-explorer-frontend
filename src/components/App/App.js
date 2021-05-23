@@ -14,7 +14,7 @@ import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 // import Api from '../utils/api';
-import * as auth from '../utils/auth';
+import * as mainApi from '../utils/MainApi';
 
 function App() {
   const history = useHistory();
@@ -30,14 +30,10 @@ function App() {
 
   const [loggedin, setLoggedin] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
-
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-
   const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  // const [registered, setIsregestered] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     _id: '',
@@ -45,7 +41,7 @@ function App() {
     name: '',
   });
 
-  // Close Popups
+  //////////////////////////////// POPUPS
   const closeAllPopups = () => {
     setIsLoginPopupOpen(false);
     setIsRegisterPopupOpen(false);
@@ -74,16 +70,7 @@ function App() {
     }
   };
 
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
+  //////////////////////////// AUTHENTICATION
 
   const handleSigninClick = () => {
     setIsLoginPopupOpen(true);
@@ -91,22 +78,21 @@ function App() {
   };
 
   const handleRegister = (email, password, name) => {
-    auth
+    mainApi
       .register(email, password, name)
       .then((res) => {
         if (res.email) {
-          // setIsregestered(true);
           setIsRegisterPopupOpen(false);
           setIsTooltipOpen(true);
         } else if (!res.email) {
-          // setIsregestered(false);
+          return;
         }
       })
       .catch((err) => console.log(err));
   };
 
   const handleLogin = (email, password) => {
-    auth
+    mainApi
       .login(email, password)
       .then((data) => {
         if (data.email) {
@@ -128,11 +114,12 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      auth
+      mainApi
         .checkToken(token)
         .then((res) => {
           if (res) {
             setLoggedin(true);
+            setCurrentUser(res);
           }
         })
         .catch((err) => console.log(err));
@@ -158,6 +145,7 @@ function App() {
               loggedin={loggedin}
               isSearchHappened={isSearchHappened}
               isLoading={isLoading}
+              handleSigninClick={handleSigninClick}
             />
             <About />
           </Route>
@@ -194,3 +182,12 @@ function App() {
 }
 
 export default App;
+
+// Register - Done
+// Login - Done
+// Tooltip - Done
+// Keywords - ?
+// Search - ?
+// Cards - ?
+// Save Cards to saved-news - ?
+// Remove Cards from saved-news

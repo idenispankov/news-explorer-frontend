@@ -1,12 +1,14 @@
 import './Navbar.css';
 import { useHistory, NavLink, withRouter } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import whiteLogoutIcon from '../../images/logout-light.png';
 import darkLogoutIcon from '../../images/logout-dark.svg';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-const Navbar = ({ loggedin, handleLogout, onSigninClick }) => {
+const Navbar = ({ loggedin, handleLogout, onSigninClick, name }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
+  const currentUser = useContext(CurrentUserContext);
 
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
 
@@ -91,7 +93,7 @@ const Navbar = ({ loggedin, handleLogout, onSigninClick }) => {
                   isSavedNewsRoute && 'navbar__button-text-dark'
                 }`}
               >
-                Denis
+                {currentUser.name}
               </p>{' '}
               <NavLink to='/' onClick={onLogoutClick}>
                 {isSavedNewsRoute ? (
