@@ -1,18 +1,20 @@
 import './Login.css';
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
-// import validateLogin from '../validateLogin';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  // CLOSE MODAL
+  const onSignupLinkClick = () => {
+    props.setIsLoginPopupOpen(false);
+    props.setIsRegisterPopupOpen(true);
+  };
+
   const onFormClose = () => {
     props.onClose();
   };
@@ -73,9 +75,9 @@ const Login = (props) => {
       />
       <p className='form__text'>
         or{' '}
-        <NavLink to='/' className='form__link'>
+        <span className='form__link' onClick={onSignupLinkClick}>
           Sign up
-        </NavLink>
+        </span>
       </p>
       <CloseFormButton onClose={onFormClose} />
     </PopupWithForm>

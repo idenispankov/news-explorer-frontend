@@ -15,18 +15,6 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 // import Api from '../utils/api';
 import * as auth from '../utils/auth';
 
-// handleRegister
-
-// handleLogin
-
-// handleLogOut
-
-// handleRegisterPopup
-
-// handleLoginPopup
-
-// SuccessTooltip
-
 function App() {
   const history = useHistory();
   const [token, setToken] = useState(localStorage.getItem('jwt'));
@@ -40,10 +28,10 @@ function App() {
   // });
 
   const [loggedin, setLoggedin] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +47,7 @@ function App() {
   // Close Popups
   const closeAllPopups = () => {
     setIsLoginPopupOpen(false);
+    setIsRegisterPopupOpen(false);
     setEventListener(false);
   };
 
@@ -105,9 +94,8 @@ function App() {
       .then((res) => {
         if (res.email) {
           setIsregestered(true);
-          // setIsPopupOpen(false);
+          setIsRegisterPopupOpen(false);
           // setIsSuccessOpen(true);
-          history.push('/signin');
         } else if (!res.email) {
           setIsregestered(false);
         }
@@ -149,17 +137,6 @@ function App() {
     }
   }, [token]);
 
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-  //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='app'>
@@ -192,8 +169,17 @@ function App() {
       </div>
       <Login
         isPopupOpen={isLoginPopupOpen}
+        setIsLoginPopupOpen={setIsLoginPopupOpen}
+        setIsRegisterPopupOpen={setIsRegisterPopupOpen}
         handleLogin={handleLogin}
         onClose={closeAllPopups}
+      />
+      <Register
+        isPopupOpen={isRegisterPopupOpen}
+        onClose={closeAllPopups}
+        setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+        setIsLoginPopupOpen={setIsLoginPopupOpen}
+        handleRegister={handleRegister}
       />
     </CurrentUserContext.Provider>
   );

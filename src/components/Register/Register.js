@@ -5,83 +5,59 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
-// import validateRegister from '../validateRegister';
 
-const Register = ({
-  isPopupOpen,
-  setIsPopupOpen,
-  isSuccessOpen,
-  setIsSuccessOpen,
-  handleRegister,
-  registered,
-}) => {
+const Register = (props) => {
   const history = useHistory();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  // const [value, setValue] = useState({ email: '', password: '', name: '' });
-  // const [errors, setErrors] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  // const [isValid, setIsValid] = useState(false);
-  const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
+  // const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
+
+  const onSigninLinkClick = () => {
+    props.setIsRegisterPopupOpen(false);
+    props.setIsLoginPopupOpen(true);
+  };
+
+  const onFormClose = () => {
+    props.onClose();
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.handleRegister(email, password, name);
+    setEmail('');
+    setPassword('');
+    setName('');
+  };
 
   useEffect(() => {
-    setIsPopupOpen(true);
     if (email && password && name) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [email, password, name, setIsPopupOpen]);
-
-  const onFormClose = () => {
-    history.push('/');
-    setIsPopupOpen(false);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    // setValue({
-    //   ...value,
-    //   [e.target.name]: e.target.value,
-    // });
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    // setValue({
-    //   ...value,
-    //   [e.target.name]: e.target.value,
-    // });
-  };
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-    // setValue({
-    //   ...value,
-    //   [e.target.name]: e.target.value,
-    // });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleRegister(email, password, name);
-    // setErrors(validateRegister(value));
-    // setIsValid(e.target.closest('form').checkValidity());
-    // if (isValid) {
-    setIsRegisterSuccessful(true);
-    //   setIsPopupOpen(false);
-    // setIsSuccessOpen(true);
-    // }
-  };
+  }, [email, password, name]);
 
   return (
     <>
       <PopupWithForm
         formHeadingText='Sign up'
         onSubmit={handleSubmit}
-        isPopupOpen={isPopupOpen}
+        isPopupOpen={props.isPopupOpen}
       >
         <Input
           label='Email'
@@ -132,15 +108,14 @@ const Register = ({
         />
         <p className='form__text'>
           or{' '}
-          <NavLink to='/signin' className='form__link'>
+          <span className='form__link' onClick={onSigninLinkClick}>
             Sign in
-          </NavLink>
+          </span>
         </p>
         <CloseFormButton onClose={onFormClose} />
       </PopupWithForm>
-
-      {isRegisterSuccessful && (
-        <div className={`modal ${isSuccessOpen && 'modal-open'}`}>
+      {/* {isRegisterSuccessful && (
+        <div className={`modal ${props.isSuccessOpen && 'modal-open'}`}>
           <form className='form'>
             <h2 className='form__heading'>
               Registration successfully completed!
@@ -150,7 +125,8 @@ const Register = ({
             </NavLink>
             <CloseFormButton onClose={onFormClose} />
           </form>
-        </div>
+
+        </div> */}
       )}
     </>
   );
