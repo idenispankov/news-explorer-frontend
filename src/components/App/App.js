@@ -182,51 +182,14 @@ function App() {
   return (
     <div className='app'>
       <CurrentUserContext.Provider value={currentUser}>
-        <Navbar
-          loggedin={loggedin}
-          setLoggedin={setLoggedin}
-          isPopupOpen={isPopupOpen}
-          handleLogout={handleLogout}
-        />
         <Switch>
-          {/* Sign Up Route */}
-          <Route path='/signup'>
-            <Header />
-            <NotFound />
-            <About />
-            <Register
-              isPopupOpen={isPopupOpen}
-              setIsPopupOpen={setIsPopupOpen}
-              isSuccessOpen={isSuccessOpen}
-              setIsSuccessOpen={setIsSuccessOpen}
-              handleRegister={handleRegister}
-              registered={registered}
-            />
-          </Route>
-
-          {/* Sign In Route */}
-          <Route path='/signin'>
-            <Header />
-            <NotFound />
-            <About />
-            <Login
+          <Route exact path='/'>
+            <Navbar
               loggedin={loggedin}
               setLoggedin={setLoggedin}
               isPopupOpen={isPopupOpen}
-              setIsPopupOpen={setIsPopupOpen}
-              handleLogin={handleLogin}
+              handleLogout={handleLogout}
             />
-          </Route>
-
-          {/* SavedNews Route */}
-          <Route path='/saved-news'>
-            {!loggedin && <Redirect to='/' />}
-            <SavedNewsHeader />
-            <Main setIsPopupOpen={setIsPopupOpen} loggedin={loggedin} />
-          </Route>
-
-          {/* Home Route */}
-          <Route path='/'>
             <Header
               setIsSearchHappened={setIsSearchHappened}
               isLoading={isLoading}
@@ -239,6 +202,16 @@ function App() {
               isLoading={isLoading}
             />
             <About />
+          </Route>
+          <Route path='/saved-news'>
+            <Navbar
+              loggedin={loggedin}
+              setLoggedin={setLoggedin}
+              isPopupOpen={isPopupOpen}
+              handleLogout={handleLogout}
+            />
+            <SavedNewsHeader />
+            <Main loggedin={loggedin} />
           </Route>
         </Switch>
         <Footer />

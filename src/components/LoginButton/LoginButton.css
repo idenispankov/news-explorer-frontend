@@ -1,4 +1,4 @@
-.navbar__button {
+/* .navbar__button {
   width: 176px;
   height: 48px;
   border: 1px solid #fff;
@@ -19,9 +19,9 @@
 
 .navbar__button-with-error {
   margin-top: 0;
-}
+} */
 
-@media screen and (max-width: 900px) {
+/* @media screen and (max-width: 900px) {
   .navbar__button {
     width: 128px;
     height: 40px;
@@ -29,12 +29,12 @@
   .navbar__button-signin {
     font-size: 16px;
   }
-}
+} */
 
-@media screen and (max-width: 700px) {
+/* @media screen and (max-width: 700px) {
   .navbar__button {
     width: 100%;
     height: 56px;
     margin-top: 22px;
   }
-}
+} */
