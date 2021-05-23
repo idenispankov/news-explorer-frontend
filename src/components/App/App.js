@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 import Header from '../Header/Header';
 import About from '../About/About';
@@ -11,13 +12,12 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Tooltip from '../Tooltip/Tooltip';
 import Navbar from '../Navbar/Navbar';
-import NotFound from '../NotFound/NotFound';
+// import NotFound from '../NotFound/NotFound';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 // import Api from '../utils/api';
 import * as mainApi from '../utils/MainApi';
 
 function App() {
-  const history = useHistory();
   const [token, setToken] = useState(localStorage.getItem('jwt'));
 
   // const api = new Api({
@@ -149,10 +149,15 @@ function App() {
             />
             <About />
           </Route>
-          <Route path='/saved-news'>
+
+          <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
             <Navbar loggedin={loggedin} handleLogout={handleLogout} />
             <SavedNewsHeader />
             <Main loggedin={loggedin} />
+          </ProtectedRoute>
+
+          <Route>
+            <Redirect to='/' />
           </Route>
         </Switch>
         <Footer />
@@ -186,8 +191,9 @@ export default App;
 // Register - Done
 // Login - Done
 // Tooltip - Done
+// Protected Route - ? - need help
 // Keywords - ?
 // Search - ?
 // Cards - ?
 // Save Cards to saved-news - ?
-// Remove Cards from saved-news
+// Remove Cards from saved-news - ?

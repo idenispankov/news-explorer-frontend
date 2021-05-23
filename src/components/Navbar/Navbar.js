@@ -5,7 +5,7 @@ import whiteLogoutIcon from '../../images/logout-light.png';
 import darkLogoutIcon from '../../images/logout-dark.svg';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-const Navbar = ({ loggedin, handleLogout, onSigninClick, name }) => {
+const Navbar = ({ loggedin, handleLogout, onSigninClick }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
   const currentUser = useContext(CurrentUserContext);
