@@ -114,19 +114,6 @@ const Register = (props) => {
         </p>
         <CloseFormButton onClose={onFormClose} />
       </PopupWithForm>
-      {/* {isRegisterSuccessful && (
-        <div className={`modal ${props.isSuccessOpen && 'modal-open'}`}>
-          <form className='form'>
-            <h2 className='form__heading'>
-              Registration successfully completed!
-            </h2>
-            <NavLink to='/signin' className='form__link'>
-              Sign in
-            </NavLink>
-            <CloseFormButton onClose={onFormClose} />
-          </form>
-
-        </div> */}
       )}
     </>
   );

@@ -68,6 +68,11 @@
   color: #2f71e5;
   text-decoration: none;
   cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 /* Error Input */

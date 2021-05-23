@@ -9,6 +9,7 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Tooltip from '../Tooltip/Tooltip';
 import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -31,12 +32,12 @@ function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [registered, setIsregestered] = useState(false);
+  // const [registered, setIsregestered] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     _id: '',
@@ -48,6 +49,7 @@ function App() {
   const closeAllPopups = () => {
     setIsLoginPopupOpen(false);
     setIsRegisterPopupOpen(false);
+    setIsTooltipOpen(false);
     setEventListener(false);
   };
 
@@ -93,11 +95,11 @@ function App() {
       .register(email, password, name)
       .then((res) => {
         if (res.email) {
-          setIsregestered(true);
+          // setIsregestered(true);
           setIsRegisterPopupOpen(false);
-          // setIsSuccessOpen(true);
+          setIsTooltipOpen(true);
         } else if (!res.email) {
-          setIsregestered(false);
+          // setIsregestered(false);
         }
       })
       .catch((err) => console.log(err));
@@ -180,6 +182,12 @@ function App() {
         setIsRegisterPopupOpen={setIsRegisterPopupOpen}
         setIsLoginPopupOpen={setIsLoginPopupOpen}
         handleRegister={handleRegister}
+      />
+      <Tooltip
+        isPopupOpen={isTooltipOpen}
+        onClose={closeAllPopups}
+        setIsLoginPopupOpen={setIsLoginPopupOpen}
+        setIsTooltipOpen={setIsTooltipOpen}
       />
     </CurrentUserContext.Provider>
   );
