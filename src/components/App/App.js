@@ -40,8 +40,10 @@ function App() {
   // });
 
   const [loggedin, setLoggedin] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +56,33 @@ function App() {
     name: '',
   });
 
+  // Close Popups
+  const closeAllPopups = () => {
+    setIsLoginPopupOpen(false);
+    setEventListener(false);
+  };
+
+  const setEventListener = (listen) => {
+    listen
+      ? document.addEventListener('keyup', closeOnEsc)
+      : document.removeEventListener('keyup', closeOnEsc);
+    listen
+      ? document.addEventListener('click', closeOutSide)
+      : document.removeEventListener('click', closeOutSide);
+  };
+
+  const closeOnEsc = (e) => {
+    if (e.key === 'Escape') {
+      closeAllPopups();
+    }
+  };
+
+  const closeOutSide = (e) => {
+    if (e.target.classList.contains('modal')) {
+      closeAllPopups();
+    }
+  };
+
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
@@ -64,18 +93,23 @@ function App() {
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
+
+  const handleSigninClick = () => {
+    setIsLoginPopupOpen(true);
+    setEventListener(true);
+  };
+
   const handleRegister = (email, password, name) => {
     auth
       .register(email, password, name)
       .then((res) => {
         if (res.email) {
           setIsregestered(true);
-          setIsPopupOpen(false);
-          setIsSuccessOpen(true);
+          // setIsPopupOpen(false);
+          // setIsSuccessOpen(true);
           history.push('/signin');
         } else if (!res.email) {
           setIsregestered(false);
-          history.push('/signup');
         }
       })
       .catch((err) => console.log(err));
@@ -88,10 +122,9 @@ function App() {
         if (data.email) {
           setLoggedin(true);
           setToken(localStorage.getItem('jwt'));
-          history.push('/');
+          setIsLoginPopupOpen(false);
         } else if (!data.email) {
           setLoggedin(false);
-          history.push('/signin');
         }
       })
       .catch((err) => console.log(err));
@@ -127,68 +160,15 @@ function App() {
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
   //////////////////////////// AUTHENTICATION ////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-
-  // Close Popup Outside
-  const setEventListener = (listen) => {
-    listen
-      ? document.addEventListener('keyup', closeOnEsc)
-      : document.removeEventListener('keyup', closeOnEsc);
-    listen
-      ? document.addEventListener('click', closeOutSide)
-      : document.removeEventListener('click', closeOutSide);
-  };
-
-  const closeOnEsc = (e) => {
-    if (e.key === 'Escape') {
-      setIsPopupOpen(false);
-      history.push('/');
-    }
-  };
-
-  const closeOutSide = (e) => {
-    if (e.target.classList.contains('modal')) {
-      setIsPopupOpen(false);
-      history.push('/');
-    }
-  };
-
-  // UseEffect for Popup
-  useEffect(() => {
-    if (isPopupOpen) {
-      setEventListener(true);
-    }
-  }, [isPopupOpen]);
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-  /////////////////////////////////////////////// POPUP /////////////////////////////////////////////////
-
   return (
-    <div className='app'>
-      <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='app'>
         <Switch>
           <Route exact path='/'>
             <Navbar
               loggedin={loggedin}
-              setLoggedin={setLoggedin}
-              isPopupOpen={isPopupOpen}
               handleLogout={handleLogout}
+              onSigninClick={handleSigninClick}
             />
             <Header
               setIsSearchHappened={setIsSearchHappened}
@@ -196,7 +176,6 @@ function App() {
               setIsLoading={setIsLoading}
             />
             <Main
-              setIsPopupOpen={setIsPopupOpen}
               loggedin={loggedin}
               isSearchHappened={isSearchHappened}
               isLoading={isLoading}
@@ -204,19 +183,19 @@ function App() {
             <About />
           </Route>
           <Route path='/saved-news'>
-            <Navbar
-              loggedin={loggedin}
-              setLoggedin={setLoggedin}
-              isPopupOpen={isPopupOpen}
-              handleLogout={handleLogout}
-            />
+            <Navbar loggedin={loggedin} handleLogout={handleLogout} />
             <SavedNewsHeader />
             <Main loggedin={loggedin} />
           </Route>
         </Switch>
         <Footer />
-      </CurrentUserContext.Provider>
-    </div>
+      </div>
+      <Login
+        isPopupOpen={isLoginPopupOpen}
+        handleLogin={handleLogin}
+        onClose={closeAllPopups}
+      />
+    </CurrentUserContext.Provider>
   );
 }
 

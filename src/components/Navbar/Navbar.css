@@ -79,6 +79,8 @@
   background: transparent;
   color: #fff;
   padding: 0;
+  cursor: pointer;
+  outline: none;
 }
 
 .navbar__button-signin {

@@ -1,16 +1,12 @@
 import './Navbar.css';
 import { useHistory, NavLink, withRouter } from 'react-router-dom';
 import { useState } from 'react';
-// import LoginButton from '../LoginButton/LoginButton';
-// import LogoutButton from '../LogoutButton/LogoutButton';
 import whiteLogoutIcon from '../../images/logout-light.png';
 import darkLogoutIcon from '../../images/logout-dark.svg';
 
-const Navbar = ({ loggedin, handleLogout, setLoggedin }) => {
+const Navbar = ({ loggedin, handleLogout, onSigninClick }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
-  // const isSigninRoute = history.location.pathname.includes('signin');
-  // const isRegisterRoute = history.location.pathname.includes('signup');
 
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
 
@@ -26,8 +22,8 @@ const Navbar = ({ loggedin, handleLogout, setLoggedin }) => {
     setIsHamburgerMenuOpen(false);
   };
 
-  const onSigninClick = () => {
-    setLoggedin(true);
+  const onLogoutClick = () => {
+    handleLogout();
   };
 
   return (
@@ -97,7 +93,7 @@ const Navbar = ({ loggedin, handleLogout, setLoggedin }) => {
               >
                 Denis
               </p>{' '}
-              <NavLink to='/' onClick={() => setLoggedin(false)}>
+              <NavLink to='/' onClick={onLogoutClick}>
                 {isSavedNewsRoute ? (
                   <img
                     className='navbar__button-icon'
