@@ -23,7 +23,7 @@ const Main = ({
           <div className='main__container'>
             <h2 className='main__title'>Search Results</h2>
             <ul className='cards__list'>
-              {articles.map((article, i) => (
+              {articles.slice(0, 3).map((article, i) => (
                 <li className='card' key={i}>
                   <Card
                     loggedin={loggedin}
@@ -33,24 +33,11 @@ const Main = ({
                   />
                 </li>
               ))}
-
-              {/* <li className='card'>
-                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
-              </li>
-              <li className='card'>
-                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
-              </li>
-              <li className='card'>
-                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
-              </li>
-              <li className='card'>
-                <Card loggedin={loggedin} savedNewsRoute={savedNewsRoute} />
-              </li> */}
             </ul>
             {savedNewsRoute ? null : (
               <button className='main__button'>Show more</button>
             )}
-            {isSearchHappened && <NotFound />}
+            {!articles && <NotFound />}
           </div>
         </section>
       ) : null}

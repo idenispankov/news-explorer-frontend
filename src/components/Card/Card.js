@@ -1,5 +1,4 @@
 import './Card.css';
-import card from '../../images/card.png';
 import { useState } from 'react';
 
 const Card = ({ loggedin, savedNewsRoute, handleSigninClick, article }) => {
@@ -9,14 +8,22 @@ const Card = ({ loggedin, savedNewsRoute, handleSigninClick, article }) => {
     setIsCardSaved(!isCardSaved);
   };
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
   return (
     <div className='card'>
-      <img className='card__image' src={card} alt='dog' />
+      <img className='card__image' src={article.urlToImage} alt='dog' />
       <div className='card__description'>
-        <p className='card__date'>date</p>
-        <p className='card__title'>title</p>
-        <p className='card__text'>description</p>
-        <p className='card__footer'>source</p>
+        <p className='card__date'>{formatDate(article.publishedAt)}</p>
+        <p className='card__title'>{article.title}</p>
+        <p className='card__text'>{article.description}</p>
+        <p className='card__footer'>{article.source.name}</p>
         <button
           className={`card__save-icon ${isCardSaved && 'card__saved-icon'}`}
           onClick={onCardSave}

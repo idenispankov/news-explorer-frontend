@@ -4,14 +4,20 @@ class NewsApi {
     this._headers = headers;
   }
 
-  date() {
-    return new Date(Date.now() - 604800000).toISOString().slice(0, 10);
+  dateFrom() {
+    return Date.now() - 7 * 24 * 3600 * 1000;
   }
 
-  getArticles(query) {
+  dateTo() {
+    return Date.now();
+  }
+
+  getArticles(keyword) {
     return fetch(
       this._baseUrl +
-        `q=${query}&from${this.date()}&sortBypopularity&apiKey=eab01bb5989c40c7bd3efb7728a944be`,
+        `q=${keyword}&from${this.dateFrom()}&to=${
+          this.dateTo
+        }&sortBypopularity&apiKey=eab01bb5989c40c7bd3efb7728a944be`,
       {
         headers: this._headers,
       }
