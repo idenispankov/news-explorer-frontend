@@ -1,7 +1,11 @@
 import './SearchForm.css';
 import { useState } from 'react';
 
-const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
+const SearchForm = ({
+  setIsSearchHappened,
+  setIsLoading,
+  searchForArticles,
+}) => {
   const [searchInput, setSearchInput] = useState('');
 
   const handleChange = (e) => {
@@ -10,16 +14,23 @@ const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (searchInput === '') {
+      console.log('empty search');
+      setSearchInput('');
+      return;
+    }
     setSearchInput('');
-    setTimeout(() => {
-      setIsSearchHappened(true);
-    }, 1000);
-    setTimeout(() => {
-      setIsLoading(true);
-    }, 0);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    searchForArticles(searchInput);
+    setIsSearchHappened(true);
+    // setTimeout(() => {
+    //   setIsSearchHappened(true);
+    // }, 1000);
+    // setTimeout(() => {
+    //   setIsLoading(true);
+    // }, 0);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 1000);
   };
 
   return (

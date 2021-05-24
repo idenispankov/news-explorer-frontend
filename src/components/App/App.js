@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
@@ -12,16 +12,17 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Tooltip from '../Tooltip/Tooltip';
 import Navbar from '../Navbar/Navbar';
-// import NotFound from '../NotFound/NotFound';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-// import Api from '../utils/api';
-import * as mainApi from '../utils/MainApi';
+import * as auth from '../utils/auth';
+import NewsApi from '../utils/NewsApi';
+// import MainApi from '../utils/MainApi';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
 
-  // const api = new Api({
-  //   baseUrl: 'https://cryptic-ridge-14112.herokuapp.com',
+  // const mainApi = new MainApi({
+  //   baseUrl:
+  //     'https://newsapi.org/v2/everything?q=tesla&from=2021-05-24&sortBy=popularity&apiKey=eab01bb5989c40c7bd3efb7728a944be',
   //   headers: {
   //     'Content-Type': 'application/json',
   //     authorization: `Bearer ${token}`,
@@ -34,6 +35,12 @@ function App() {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // const [notFound, setNotFound] = useState(false);
+  const [articles, setArticles] = useState([]);
+  // const [savedArticles, setSavedArticles] = useState([]);
+  const [keyWord, setKeyWord] = useState('');
+  // const [savedKeyWord, setSavedKeyWord] = '';
 
   const [currentUser, setCurrentUser] = useState({
     _id: '',
@@ -78,7 +85,7 @@ function App() {
   };
 
   const handleRegister = (email, password, name) => {
-    mainApi
+    auth
       .register(email, password, name)
       .then((res) => {
         if (res.email) {
@@ -92,7 +99,7 @@ function App() {
   };
 
   const handleLogin = (email, password) => {
-    mainApi
+    auth
       .login(email, password)
       .then((data) => {
         if (data.email) {
@@ -114,7 +121,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      mainApi
+      auth
         .checkToken(token)
         .then((res) => {
           if (res) {
@@ -125,6 +132,20 @@ function App() {
         .catch((err) => console.log(err));
     }
   }, [token]);
+
+  // ARTICLES SEARCHING
+  const searchForArticles = (keyWord) => {
+    setIsLoading(true);
+    NewsApi.getArticles(keyWord)
+      .then((res) => {
+        if (res) {
+          console.log('RES', res);
+          setIsLoading(false);
+          setArticles(res.articles);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -140,12 +161,14 @@ function App() {
               setIsSearchHappened={setIsSearchHappened}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              searchForArticles={searchForArticles}
             />
             <Main
               loggedin={loggedin}
               isSearchHappened={isSearchHappened}
               isLoading={isLoading}
               handleSigninClick={handleSigninClick}
+              articles={articles}
             />
             <About />
           </Route>

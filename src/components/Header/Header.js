@@ -1,7 +1,7 @@
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
 
-const Header = ({ setIsSearchHappened, setIsLoading }) => {
+const Header = ({ setIsSearchHappened, setIsLoading, searchForArticles }) => {
   return (
     <>
       <header className='header'>
@@ -14,6 +14,7 @@ const Header = ({ setIsSearchHappened, setIsLoading }) => {
           <SearchForm
             setIsSearchHappened={setIsSearchHappened}
             setIsLoading={setIsLoading}
+            searchForArticles={searchForArticles}
           />
         </div>
       </header>

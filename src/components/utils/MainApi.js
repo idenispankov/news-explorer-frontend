@@ -1,46 +1,8 @@
-export const BASE_URL = 'http://localhost:3000';
+export default class MainApi {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
+  }
+}
 
-export const register = (email, password, name) => {
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password, name }),
-  })
-    .then((res) => res.json())
-    .then((res) => res)
-    .catch((err) => console.log(err));
-};
-
-export const login = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      localStorage.setItem('jwt', data.token);
-      return checkToken(data.token);
-    })
-    .catch((err) => console.log(err));
-};
-
-export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => res)
-    .catch((err) => console.log(err));
-};
+// https://newsapi.org/v2/everything?q=tesla&from=2021-04-24&sortBy=publishedAt&apiKey=eab01bb5989c40c7bd3efb7728a944be
