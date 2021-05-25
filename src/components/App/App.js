@@ -38,12 +38,9 @@ function App() {
   const [searchInput, setSearchInput] = useState('');
 
   const [articles, setArticles] = useState([]);
-  // const [savedArticles, setSavedArticles] = useState([]);
-  // const [keyWord, setKeyWord] = useState('');
-  // const [savedKeyWord, setSavedKeyWord] = '';
-  // const [articlesFound, setArticlesFound] = useState(false);
-  const [inputEmpty, setInputEmpty] = useState(false);
+  const [inputEmpty, setInputEmpty] = useState(false); // Search Form Component
   const [notFound, setNotFound] = useState(false);
+  const [index, setIndex] = useState(0); // for show more button
 
   const [currentUser, setCurrentUser] = useState({
     _id: '',
@@ -151,9 +148,11 @@ function App() {
           console.log('RES', res);
           setIsLoading(false);
           setArticles(res.articles);
+          setIndex(1);
         } else {
           setIsLoading(false);
           setNotFound(true);
+          setArticles([]);
           console.log('No Articles Found');
         }
       })
@@ -183,6 +182,8 @@ function App() {
               handleSigninClick={handleSigninClick}
               articles={articles}
               notFound={notFound}
+              index={index}
+              setIndex={setIndex}
             />
             <About />
           </Route>

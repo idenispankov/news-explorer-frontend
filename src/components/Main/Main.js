@@ -10,6 +10,8 @@ const Main = ({
   handleSigninClick,
   articles,
   notFound,
+  index,
+  setIndex,
 }) => {
   const history = useHistory();
   const savedNewsRoute = history.location.pathname.includes('saved-news');
@@ -23,7 +25,7 @@ const Main = ({
           <div className='main__container'>
             <h2 className='main__title'>Search Results</h2>
             <ul className='cards__list'>
-              {articles.slice(0, 3).map((article) => (
+              {articles.slice(0, index * 3).map((article) => (
                 <li className='card' key={article.url}>
                   <Card
                     loggedin={loggedin}
@@ -35,7 +37,14 @@ const Main = ({
               ))}
             </ul>
 
-            <button className='main__button'>Show more</button>
+            {articles.length && index * 3 <= articles.length ? (
+              <button
+                className='main__button'
+                onClick={() => setIndex(index + 1)}
+              >
+                Show more
+              </button>
+            ) : null}
           </div>
         </section>
       )}
