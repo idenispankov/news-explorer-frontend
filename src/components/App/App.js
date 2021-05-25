@@ -15,6 +15,7 @@ import Navbar from '../Navbar/Navbar';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
+// import NotFound from '../NotFound/NotFound';
 // import MainApi from '../utils/MainApi';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
 
   // const mainApi = new MainApi({
   //   baseUrl:
-  //     'https://newsapi.org/v2/everything?q=tesla&from=2021-05-24&sortBy=popularity&apiKey=eab01bb5989c40c7bd3efb7728a944be',
+  //     'http://localhost:3000',
   //   headers: {
   //     'Content-Type': 'application/json',
   //     authorization: `Bearer ${token}`,
@@ -33,14 +34,16 @@ function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-  const [isSearchHappened, setIsSearchHappened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
 
-  // const [notFound, setNotFound] = useState(false);
   const [articles, setArticles] = useState([]);
   // const [savedArticles, setSavedArticles] = useState([]);
-  const [keyWord, setKeyWord] = useState('');
+  // const [keyWord, setKeyWord] = useState('');
   // const [savedKeyWord, setSavedKeyWord] = '';
+  // const [articlesFound, setArticlesFound] = useState(false);
+  const [inputEmpty, setInputEmpty] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     _id: '',
@@ -136,12 +139,22 @@ function App() {
   // ARTICLES SEARCHING
   const searchForArticles = (keyWord) => {
     setIsLoading(true);
+    if (searchInput.trim() === '') {
+      setIsLoading(false);
+      setNotFound(true);
+    } else {
+      setNotFound(false);
+    }
     NewsApi.getArticles(keyWord)
       .then((res) => {
-        if (res) {
+        if (res && res.articles.length > 0) {
           console.log('RES', res);
           setIsLoading(false);
           setArticles(res.articles);
+        } else {
+          setIsLoading(false);
+          setNotFound(true);
+          console.log('No Articles Found');
         }
       })
       .catch((err) => console.log(err));
@@ -158,26 +171,26 @@ function App() {
               onSigninClick={handleSigninClick}
             />
             <Header
-              setIsSearchHappened={setIsSearchHappened}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
               searchForArticles={searchForArticles}
+              inputEmpty={inputEmpty}
+              setInputEmpty={setInputEmpty}
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
             />
             <Main
               loggedin={loggedin}
-              isSearchHappened={isSearchHappened}
               isLoading={isLoading}
               handleSigninClick={handleSigninClick}
               articles={articles}
+              notFound={notFound}
             />
             <About />
           </Route>
 
-          <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
+          {/* <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
             <Navbar loggedin={loggedin} handleLogout={handleLogout} />
             <SavedNewsHeader />
-            <Main loggedin={loggedin} />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
           <Route>
             <Redirect to='/' />
@@ -210,13 +223,3 @@ function App() {
 }
 
 export default App;
-
-// Register - Done
-// Login - Done
-// Tooltip - Done
-// Protected Route - ? - need help
-// Keywords - ?
-// Search - ?
-// Cards - ?
-// Save Cards to saved-news - ?
-// Remove Cards from saved-news - ?
