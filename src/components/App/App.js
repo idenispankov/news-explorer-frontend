@@ -15,7 +15,6 @@ import Navbar from '../Navbar/Navbar';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
-// import NotFound from '../NotFound/NotFound';
 // import MainApi from '../utils/MainApi';
 
 function App() {
@@ -41,6 +40,8 @@ function App() {
   const [inputEmpty, setInputEmpty] = useState(false); // Search Form Component
   const [notFound, setNotFound] = useState(false);
   const [index, setIndex] = useState(0); // for show more button
+  const [keyWord, setKeyWord] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([]);
 
   const [currentUser, setCurrentUser] = useState({
     _id: '',
@@ -136,6 +137,7 @@ function App() {
   // ARTICLES SEARCHING
   const searchForArticles = (keyWord) => {
     setIsLoading(true);
+    setSearchInput('');
     if (searchInput.trim() === '') {
       setIsLoading(false);
       setNotFound(true);
@@ -145,15 +147,22 @@ function App() {
     NewsApi.getArticles(keyWord)
       .then((res) => {
         if (res && res.articles.length > 0) {
-          console.log('RES', res);
           setIsLoading(false);
           setArticles(res.articles);
           setIndex(1);
+          setKeyWord(keyWord);
+          localStorage.setItem(
+            'articles',
+            JSON.stringify([
+              { articles: res.articles, keyWord: keyWord },
+              ...articles,
+            ])
+          );
         } else {
           setIsLoading(false);
           setNotFound(true);
           setArticles([]);
-          console.log('No Articles Found');
+          setKeyWord([]);
         }
       })
       .catch((err) => console.log(err));
@@ -188,10 +197,10 @@ function App() {
             <About />
           </Route>
 
-          {/* <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
+          <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
             <Navbar loggedin={loggedin} handleLogout={handleLogout} />
             <SavedNewsHeader />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
 
           <Route>
             <Redirect to='/' />

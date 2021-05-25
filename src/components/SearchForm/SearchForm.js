@@ -7,7 +7,6 @@ const SearchForm = ({ searchForArticles, searchInput, setSearchInput }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setSearchInput('');
     searchForArticles(searchInput);
   };
 

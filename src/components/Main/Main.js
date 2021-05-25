@@ -16,6 +16,10 @@ const Main = ({
   const history = useHistory();
   const savedNewsRoute = history.location.pathname.includes('saved-news');
 
+  const showMore = () => {
+    setIndex(index + 1);
+  };
+
   return (
     <>
       {isLoading && <Preloader />}
@@ -25,8 +29,8 @@ const Main = ({
           <div className='main__container'>
             <h2 className='main__title'>Search Results</h2>
             <ul className='cards__list'>
-              {articles.slice(0, index * 3).map((article) => (
-                <li className='card' key={article.url}>
+              {articles.slice(0, index * 3).map((article, i) => (
+                <li className='card' key={i}>
                   <Card
                     loggedin={loggedin}
                     savedNewsRoute={savedNewsRoute}
@@ -38,10 +42,7 @@ const Main = ({
             </ul>
 
             {articles.length && index * 3 <= articles.length ? (
-              <button
-                className='main__button'
-                onClick={() => setIndex(index + 1)}
-              >
+              <button className='main__button' onClick={showMore}>
                 Show more
               </button>
             ) : null}
@@ -49,6 +50,22 @@ const Main = ({
         </section>
       )}
       {notFound && <NotFound />}
+      {savedNewsRoute && (
+        <section className='main'>
+          <div className='main__container'>
+            <h2 className='main__title'>Search Results</h2>
+            <ul className='cards__list'>
+              <li className='card'>
+                <Card
+                  loggedin={loggedin}
+                  savedNewsRoute={savedNewsRoute}
+                  handleSigninClick={handleSigninClick}
+                />
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
     </>
   );
 };
