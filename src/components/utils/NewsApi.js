@@ -12,7 +12,7 @@ class NewsApi {
     return Date.now();
   }
 
-  getArticles(keyword) {
+  searchArticles(keyword) {
     return fetch(
       this._baseUrl +
         `q=${keyword}&from${this.dateFrom()}&to=${

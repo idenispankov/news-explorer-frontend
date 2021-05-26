@@ -15,39 +15,38 @@ import Navbar from '../Navbar/Navbar';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
-// import MainApi from '../utils/MainApi';
+import MainApi from '../utils/MainApi';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
 
-  // const mainApi = new MainApi({
-  //   baseUrl:
-  //     'http://localhost:3000',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     authorization: `Bearer ${token}`,
-  //   },
-  // });
+  const mainApi = new MainApi({
+    baseUrl: 'http://localhost:3000',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${token}`,
+    },
+  });
 
   const [loggedin, setLoggedin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchInput, setSearchInput] = useState('');
 
-  const [articles, setArticles] = useState([]);
   const [inputEmpty, setInputEmpty] = useState(false); // Search Form Component
   const [notFound, setNotFound] = useState(false);
   const [index, setIndex] = useState(0); // for show more button
-  const [keyWord, setKeyWord] = useState([]);
+
+  const [keyword, setKeyword] = useState();
+
+  const [articles, setArticles] = useState([]);
   const [savedArticles, setSavedArticles] = useState([]);
 
-  const [currentUser, setCurrentUser] = useState({
-    _id: '',
-    email: '',
-    name: '',
-  });
+  const [isCardSaved, setIsCardSaved] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState({});
 
   //////////////////////////////// POPUPS
   const closeAllPopups = () => {
@@ -116,8 +115,11 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('searchedArticles');
+    localStorage.removeItem('keyword');
     setToken('');
     setLoggedin(false);
+    setSavedArticles([]);
   };
 
   useEffect(() => {
@@ -135,37 +137,44 @@ function App() {
   }, [token]);
 
   // ARTICLES SEARCHING
-  const searchForArticles = (keyWord) => {
-    setIsLoading(true);
+
+  const searchForArticles = (keyword) => {
     setSearchInput('');
-    if (searchInput.trim() === '') {
-      setIsLoading(false);
-      setNotFound(true);
+    setNotFound(false);
+    if (keyword) {
+      setIsLoading(true);
+      setKeyword(keyword);
+      NewsApi.searchArticles(keyword)
+        .then((res) => {
+          if (res && res.articles.length > 0) {
+            setIsLoading(false);
+            setArticles(res.articles);
+            setIndex(1);
+          }
+          if (loggedin) {
+            localStorage.setItem(
+              'searchedArticles',
+              JSON.stringify(res.articles)
+            );
+            localStorage.setItem('keyword', keyword);
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
-      setNotFound(false);
+      setNotFound(true);
     }
-    NewsApi.getArticles(keyWord)
-      .then((res) => {
-        if (res && res.articles.length > 0) {
-          setIsLoading(false);
-          setArticles(res.articles);
-          setIndex(1);
-          setKeyWord(keyWord);
-          localStorage.setItem(
-            'articles',
-            JSON.stringify([
-              { articles: res.articles, keyWord: keyWord },
-              ...articles,
-            ])
-          );
-        } else {
-          setIsLoading(false);
-          setNotFound(true);
-          setArticles([]);
-          setKeyWord([]);
-        }
-      })
-      .catch((err) => console.log(err));
+  };
+
+  // Save Article
+  const SaveArticle = (articleData) => {
+    if (articleData) {
+      mainApi
+        .saveArticle(articleData)
+        .then((data) => {
+          console.log(data, 'DATA !!!');
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -193,6 +202,8 @@ function App() {
               notFound={notFound}
               index={index}
               setIndex={setIndex}
+              SaveArticle={SaveArticle}
+              keyword={keyword}
             />
             <About />
           </Route>

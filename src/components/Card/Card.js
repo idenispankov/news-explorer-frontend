@@ -1,10 +1,18 @@
 import './Card.css';
 import { useState } from 'react';
 
-const Card = ({ loggedin, savedNewsRoute, handleSigninClick, article }) => {
+const Card = ({
+  loggedin,
+  savedNewsRoute,
+  handleSigninClick,
+  article,
+  SaveArticle,
+  keyword,
+}) => {
   const [isCardSaved, setIsCardSaved] = useState(false);
 
   const onCardSave = () => {
+    SaveArticle(article);
     setIsCardSaved(!isCardSaved);
   };
 
@@ -43,7 +51,7 @@ const Card = ({ loggedin, savedNewsRoute, handleSigninClick, article }) => {
             <p className='card__tooltip'>Remove from saved</p>
           </>
         )}
-        {savedNewsRoute && <p className='card__keyword'>Any</p>}
+        {savedNewsRoute && <p className='card__keyword'>{keyword}</p>}
       </div>
     </div>
   );

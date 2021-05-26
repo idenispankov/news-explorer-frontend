@@ -3,6 +3,20 @@ export default class MainApi {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
-}
 
-// https://newsapi.org/v2/everything?q=tesla&from=2021-04-24&sortBy=publishedAt&apiKey=eab01bb5989c40c7bd3efb7728a944be
+  saveArticle(data) {
+    console.log(data, 'DATAAAAA');
+    return fetch(this._baseUrl + '/articles', {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data),
+    }).then((res) => {
+      console.log(res, 'RES');
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject('Error! ' + res.statusText);
+      }
+    });
+  }
+}
