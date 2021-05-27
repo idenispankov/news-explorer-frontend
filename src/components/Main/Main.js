@@ -2,23 +2,19 @@ import './Main.css';
 import Card from '../Card/Card.js';
 import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
-import { useHistory } from 'react-router-dom';
 
 const Main = ({
   loggedin,
   isLoading,
   handleSigninClick,
-  articles,
+  searchedArticles,
   notFound,
   index,
   setIndex,
   saveArticle,
   keyword,
-  isCardSaved,
+  isArticleSaved,
 }) => {
-  const history = useHistory();
-  const savedNewsRoute = history.location.pathname.includes('saved-news');
-
   const showMore = () => {
     setIndex(index + 1);
   };
@@ -27,27 +23,26 @@ const Main = ({
     <>
       {isLoading && <Preloader />}
 
-      {articles.length > 0 && (
+      {searchedArticles.length > 0 && (
         <section className='main'>
           <div className='main__container'>
             <h2 className='main__title'>Search Results</h2>
             <ul className='cards__list'>
-              {articles.slice(0, index * 3).map((article, i) => (
+              {searchedArticles.slice(0, index * 3).map((article, i) => (
                 <li className='card' key={i}>
                   <Card
                     loggedin={loggedin}
-                    savedNewsRoute={savedNewsRoute}
                     handleSigninClick={handleSigninClick}
                     article={article}
                     saveArticle={saveArticle}
                     keyword={keyword}
-                    isCardSaved={isCardSaved}
+                    isArticleSaved={isArticleSaved}
                   />
                 </li>
               ))}
             </ul>
 
-            {articles.length && index * 3 <= articles.length ? (
+            {searchedArticles.length && index * 3 <= searchedArticles.length ? (
               <button className='main__button' onClick={showMore}>
                 Show more
               </button>
@@ -58,7 +53,7 @@ const Main = ({
 
       {notFound && <NotFound />}
 
-      {savedNewsRoute && (
+      {/* {loggedin && savedNewsRoute && (
         <section className='main'>
           <div className='main__container'>
             <ul className='cards__list'>
@@ -66,14 +61,13 @@ const Main = ({
                 <Card
                   loggedin={loggedin}
                   savedNewsRoute={savedNewsRoute}
-                  handleSigninClick={handleSigninClick}
-                  saveArticle={saveArticle}
+                  savedArticles={savedArticles}
                 />
               </li>
             </ul>
           </div>
         </section>
-      )}
+      )} */}
     </>
   );
 };

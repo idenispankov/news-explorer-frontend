@@ -1,16 +1,20 @@
 import './Card.css';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Card = ({
   loggedin,
-  savedNewsRoute,
   handleSigninClick,
   article,
   saveArticle,
-  keyword,
-  // isCardSaved,
+  // keyword,
+  isArticleSaved,
+  savedArticles,
 }) => {
   const [isCardSaved, setIsCardSaved] = useState(false);
+
+  const history = useHistory();
+  const savedNewsRoute = history.location.pathname.includes('saved-news');
 
   const onCardSave = () => {
     saveArticle(article);
@@ -52,7 +56,9 @@ const Card = ({
             <p className='card__tooltip'>Remove from saved</p>
           </>
         )}
-        {/* {savedNewsRoute && <p className='card__keyword'>{keyword}</p>} */}
+        {savedNewsRoute && (
+          <p className='card__keyword'>{savedArticles.keyword}</p>
+        )}
       </div>
     </div>
   );

@@ -20,10 +20,6 @@ import MainApi from '../utils/MainApi';
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
 
-  useEffect(() => {
-    mainApi.getSavedArticles().then((res) => console.log(res, 'SavedArticles'));
-  }, []);
-
   const mainApi = new MainApi({
     baseUrl: 'http://localhost:3000',
     headers: {
@@ -42,13 +38,11 @@ function App() {
   const [inputEmpty, setInputEmpty] = useState(false); // Search Form Component
   const [notFound, setNotFound] = useState(false);
   const [index, setIndex] = useState(0); // for show more button
-
+  const [searchedArticles, setSearchedArticles] = useState([]);
   const [keyword, setKeyword] = useState();
 
-  const [articles, setArticles] = useState([]);
-  // const [savedArticles, setSavedArticles] = useState([]);
-
-  const [isCardSaved, setIsCardSaved] = useState(false);
+  const [savedArticles, setSavedArticles] = useState([]);
+  const [isArticleSaved, setIsArticleSaved] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({ id: '', email: '' });
 
@@ -126,26 +120,12 @@ function App() {
     setCurrentUser({});
   };
 
-  useEffect(() => {
-    if (token) {
-      auth
-        .checkToken(token)
-        .then((res) => {
-          if (res) {
-            setLoggedin(true);
-            setCurrentUser(res);
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [token]);
-
   // ARTICLES SEARCHING
 
   const searchForArticles = (keyword) => {
     setSearchInput('');
     setNotFound(false);
-    setArticles([]);
+    setSearchedArticles([]);
     if (keyword) {
       setIsLoading(true);
       setKeyword(keyword);
@@ -153,7 +133,7 @@ function App() {
         .then((res) => {
           if (res && res.totalResults > 0) {
             setIsLoading(false);
-            setArticles(res.articles);
+            setSearchedArticles(res.articles);
             setIndex(1);
           } else if (res && res.totalResults === 0) {
             setIsLoading(false);
@@ -177,25 +157,43 @@ function App() {
 
   // Save Article
   const saveArticle = (article) => {
-    // const savedArticle = {
-    //   keyword: keyword,
-    //   title: article.title,
-    //   text: article.description,
-    //   date: article.publishedAt,
-    //   source: article.source.name,
-    //   link: article.url,
-    //   image: article.urlToImage,
-    //   owner: currentUser._id,
-    // };
-    // if (!isCardSaved) {
-    //   mainApi
-    //     .saveArticle(savedArticle)
-    //     .then((res) => {
-    //       console.log(res, 'res');
-    //       setIsCardSaved(true);
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
+    const modifiedArticleDB = {
+      keyword: keyword,
+      title: article.title,
+      text: article.description,
+      date: article.publishedAt,
+      source: article.source.name,
+      link: article.url,
+      image: article.urlToImage,
+      owner: currentUser._id,
+    };
+    mainApi.saveArticle(modifiedArticleDB).then((res) => {
+      setSavedArticles([...savedArticles, res]);
+    });
+  };
+
+  useEffect(() => {
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedin(true);
+            setCurrentUser(res);
+            getSavedArticles();
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [token]);
+
+  const getSavedArticles = () => {
+    mainApi
+      .getSavedArticles()
+      .then((res) => {
+        setSavedArticles([...savedArticles, res]);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -219,21 +217,26 @@ function App() {
               loggedin={loggedin}
               isLoading={isLoading}
               handleSigninClick={handleSigninClick}
-              articles={articles}
+              searchedArticles={searchedArticles}
               notFound={notFound}
               index={index}
               setIndex={setIndex}
               saveArticle={saveArticle}
               keyword={keyword}
-              isCardSaved={isCardSaved}
+              isArticleSaved={isArticleSaved}
             />
             <About />
           </Route>
 
-          {/* <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
+          <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
             <Navbar loggedin={loggedin} handleLogout={handleLogout} />
             <SavedNewsHeader />
-          </ProtectedRoute> */}
+            {/* <Main
+              loggedin={loggedin}
+              savedArticles={savedArticles}
+              keyword={keyword}
+            /> */}
+          </ProtectedRoute>
 
           <Route>
             <Redirect to='/' />
