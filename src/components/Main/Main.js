@@ -12,8 +12,9 @@ const Main = ({
   notFound,
   index,
   setIndex,
-  SaveArticle,
+  saveArticle,
   keyword,
+  isCardSaved,
 }) => {
   const history = useHistory();
   const savedNewsRoute = history.location.pathname.includes('saved-news');
@@ -38,8 +39,9 @@ const Main = ({
                     savedNewsRoute={savedNewsRoute}
                     handleSigninClick={handleSigninClick}
                     article={article}
-                    SaveArticle={SaveArticle}
+                    saveArticle={saveArticle}
                     keyword={keyword}
+                    isCardSaved={isCardSaved}
                   />
                 </li>
               ))}
@@ -59,14 +61,13 @@ const Main = ({
       {savedNewsRoute && (
         <section className='main'>
           <div className='main__container'>
-            <h2 className='main__title'>Search Results</h2>
             <ul className='cards__list'>
               <li className='card'>
                 <Card
                   loggedin={loggedin}
                   savedNewsRoute={savedNewsRoute}
                   handleSigninClick={handleSigninClick}
-                  SaveArticle={SaveArticle}
+                  saveArticle={saveArticle}
                 />
               </li>
             </ul>

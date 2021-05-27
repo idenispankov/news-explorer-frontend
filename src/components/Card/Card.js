@@ -6,14 +6,15 @@ const Card = ({
   savedNewsRoute,
   handleSigninClick,
   article,
-  SaveArticle,
+  saveArticle,
   keyword,
+  isCardSaved,
 }) => {
-  const [isCardSaved, setIsCardSaved] = useState(false);
+  // const [isCardSaved, setIsCardSaved] = useState(false);
 
   const onCardSave = () => {
-    SaveArticle(article);
-    setIsCardSaved(!isCardSaved);
+    saveArticle(article);
+    // setIsCardSaved(!isCardSaved);
   };
 
   const formatDate = (date) => {
