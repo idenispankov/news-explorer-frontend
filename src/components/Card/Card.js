@@ -8,13 +8,13 @@ const Card = ({
   article,
   saveArticle,
   keyword,
-  isCardSaved,
+  // isCardSaved,
 }) => {
-  // const [isCardSaved, setIsCardSaved] = useState(false);
+  const [isCardSaved, setIsCardSaved] = useState(false);
 
   const onCardSave = () => {
     saveArticle(article);
-    // setIsCardSaved(!isCardSaved);
+    setIsCardSaved(!isCardSaved);
   };
 
   const formatDate = (date) => {
@@ -48,11 +48,11 @@ const Card = ({
         )}
         {loggedin && savedNewsRoute && (
           <>
-            <button className='card__delete-icon' onClick={onCardSave}></button>
+            <button className='card__delete-icon'></button>
             <p className='card__tooltip'>Remove from saved</p>
           </>
         )}
-        {savedNewsRoute && <p className='card__keyword'>{keyword}</p>}
+        {/* {savedNewsRoute && <p className='card__keyword'>{keyword}</p>} */}
       </div>
     </div>
   );

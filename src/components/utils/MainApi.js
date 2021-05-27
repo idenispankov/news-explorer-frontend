@@ -29,4 +29,17 @@ export default class MainApi {
       }
     });
   }
+
+  removeArticle(articleId) {
+    return fetch(this._baseUrl + '/articles' + articleId, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject('Error! ' + res.statusText);
+      }
+    });
+  }
 }

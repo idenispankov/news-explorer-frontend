@@ -170,31 +170,32 @@ function App() {
         .catch((err) => console.log(err));
     } else {
       setNotFound(true);
+      localStorage.removeItem('searchedArticles');
+      localStorage.removeItem('keyword');
     }
   };
 
   // Save Article
   const saveArticle = (article) => {
-    const savedArticle = {
-      keyword: keyword,
-      title: article.title,
-      text: article.description,
-      date: article.publishedAt,
-      source: article.source.name,
-      link: article.url,
-      image: article.urlToImage,
-      owner: currentUser._id,
-    };
-    if (!isCardSaved) {
-      mainApi
-        .saveArticle(savedArticle)
-
-        .then((res) => {
-          console.log(res, 'res');
-          setIsCardSaved(true);
-        })
-        .catch((err) => console.log(err));
-    }
+    // const savedArticle = {
+    //   keyword: keyword,
+    //   title: article.title,
+    //   text: article.description,
+    //   date: article.publishedAt,
+    //   source: article.source.name,
+    //   link: article.url,
+    //   image: article.urlToImage,
+    //   owner: currentUser._id,
+    // };
+    // if (!isCardSaved) {
+    //   mainApi
+    //     .saveArticle(savedArticle)
+    //     .then((res) => {
+    //       console.log(res, 'res');
+    //       setIsCardSaved(true);
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
   };
 
   return (
@@ -229,10 +230,10 @@ function App() {
             <About />
           </Route>
 
-          <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
+          {/* <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
             <Navbar loggedin={loggedin} handleLogout={handleLogout} />
             <SavedNewsHeader />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
           <Route>
             <Redirect to='/' />
