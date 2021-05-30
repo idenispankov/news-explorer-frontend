@@ -33,7 +33,7 @@ export default class MainApi {
   // "/articles/:articleId",
 
   removeArticle(articleId) {
-    return fetch(this._baseUrl + `/articles/:${articleId}`, {
+    return fetch(this._baseUrl + '/articles/' + articleId, {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => {

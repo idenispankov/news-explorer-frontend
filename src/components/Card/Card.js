@@ -6,17 +6,14 @@ const Card = ({
   loggedin,
   handleSigninClick,
   article,
-  toggleArticle,
-  // keyword,
+  saveArticle,
+  isCardSaved,
 }) => {
-  const [isCardSaved, setIsCardSaved] = useState(false);
+  // const [isCardSaved, setIsCardSaved] = useState(false);
 
-  // const history = useHistory();
-  // const savedNewsRoute = history.location.pathname.includes('saved-news');
-
-  const onCardToggle = () => {
-    toggleArticle(article);
-    setIsCardSaved(!isCardSaved);
+  const onCardSave = () => {
+    saveArticle(article);
+    // setIsCardSaved(!isCardSaved);
   };
 
   const formatDate = (date) => {
@@ -37,7 +34,7 @@ const Card = ({
         <p className='card__footer'>{article.source.name}</p>
         <button
           className={`card__save-icon ${isCardSaved && 'card__saved-icon'}`}
-          onClick={onCardToggle}
+          onClick={onCardSave}
         ></button>
         {!loggedin && (
           <>
@@ -48,15 +45,6 @@ const Card = ({
             <p className='card__tooltip'>Sign in to save articles</p>
           </>
         )}
-        {/* {loggedin && savedNewsRoute && (
-          <>
-            <button className='card__delete-icon'></button>
-            <p className='card__tooltip'>Remove from saved</p>
-          </>
-        )} */}
-        {/* {savedNewsRoute && (
-          <p className='card__keyword'>{savedArticles.keyword}</p>
-        )} */}
       </div>
     </div>
   );

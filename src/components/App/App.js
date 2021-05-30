@@ -17,6 +17,7 @@ import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
 import MainApi from '../utils/MainApi';
 import SavedNews from '../SavedNews/SavedNews';
+import Card from '../Card/Card';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
@@ -44,6 +45,7 @@ function App() {
 
   const [savedArticles, setSavedArticles] = useState([]);
   // const [savedArticle, setSavedArticle] = useState(false);
+  const [isCardSaved, setIsCardSaved] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({ id: '', email: '' });
 
@@ -132,24 +134,25 @@ function App() {
       setKeyword(keyword);
       NewsApi.searchArticles(keyword)
         .then((res) => {
-          if (res && res.totalResults > 0) {
+          if (loggedin && res && res.totalResults > 0) {
+            localStorage.setItem(
+              'searchedArticles',
+              JSON.stringify(res.articles)
+            );
+            localStorage.setItem('keyword', keyword);
             setIsLoading(false);
             setSearchedArticles(res.articles);
             setIndex(1);
           } else if (res && res.totalResults === 0) {
             setIsLoading(false);
             setNotFound(true);
-          }
-          if (loggedin) {
-            localStorage.setItem(
-              'searchedArticles',
-              JSON.stringify(res.articles)
-            );
-            localStorage.setItem('keyword', keyword);
+            localStorage.removeItem('searchedArticles');
+            localStorage.removeItem('keyword');
           }
         })
         .catch((err) => console.log(err));
     } else {
+      setIsLoading(false);
       setNotFound(true);
       localStorage.removeItem('searchedArticles');
       localStorage.removeItem('keyword');
@@ -157,26 +160,37 @@ function App() {
   };
 
   // Save Article
-  const toggleArticle = (article) => {
-    const modifiedArticleDB = {
-      keyword: keyword,
-      title: article.title,
-      text: article.description,
-      date: article.publishedAt,
-      source: article.source.name,
-      link: article.url,
-      image: article.urlToImage,
-      owner: currentUser._id,
-    };
-    mainApi.saveArticle(modifiedArticleDB).then((res) => {
-      setSavedArticles(res);
-    });
-    const everySingleSavedArticle = savedArticles.map((singleItem) => {
-      return singleItem;
-    });
-    setSavedArticles(everySingleSavedArticle);
+  const saveArticle = (article) => {
+    mainApi
+      .saveArticle({
+        keyword: keyword,
+        title: article.title,
+        text: article.description,
+        date: article.publishedAt,
+        source: article.source.name,
+        link: article.url,
+        image: article.urlToImage,
+        owner: currentUser._id,
+      })
+      .then((res) => {
+        setSavedArticles([...savedArticles, res]);
+      })
+      .catch((err) => console.log(err));
   };
 
+  // DELETE
+  const deleteArticleFromSavedNews = (articleId) => {
+    if (token) {
+      mainApi.removeArticle(articleId).then(() => {
+        const newSavedArticles = savedArticles.filter((item) =>
+          item._id !== articleId ? item : null
+        );
+        setSavedArticles(newSavedArticles);
+      });
+    }
+  };
+
+  // Get token, currentUser, setLoggedin,  savedArticles, setSavedArticles array
   useEffect(() => {
     if (token) {
       auth
@@ -226,15 +240,21 @@ function App() {
               notFound={notFound}
               index={index}
               setIndex={setIndex}
-              toggleArticle={toggleArticle}
+              saveArticle={saveArticle}
               keyword={keyword}
+              isCardSaved={isCardSaved}
             />
             <About />
           </Route>
 
           <Route exact path='/saved-news' loggedin={loggedin}>
             <Navbar loggedin={loggedin} handleLogout={handleLogout} />
-            <SavedNews savedArticles={savedArticles} loggedin={loggedin} />
+            <SavedNews
+              savedArticles={savedArticles}
+              loggedin={loggedin}
+              deleteArticleFromSavedNews={deleteArticleFromSavedNews}
+              getSavedArticles={getSavedArticles}
+            />
           </Route>
 
           <Route>

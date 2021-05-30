@@ -11,8 +11,9 @@ const Main = ({
   notFound,
   index,
   setIndex,
-  toggleArticle,
+  saveArticle,
   keyword,
+  isCardSaved,
 }) => {
   const showMore = () => {
     setIndex(index + 1);
@@ -33,8 +34,9 @@ const Main = ({
                     loggedin={loggedin}
                     handleSigninClick={handleSigninClick}
                     article={article}
-                    toggleArticle={toggleArticle}
+                    saveArticle={saveArticle}
                     keyword={keyword}
+                    isCardSaved={isCardSaved}
                   />
                 </li>
               ))}
