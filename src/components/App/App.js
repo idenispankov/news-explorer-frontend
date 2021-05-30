@@ -16,6 +16,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
 import MainApi from '../utils/MainApi';
+import SavedNews from '../SavedNews/SavedNews';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
@@ -42,7 +43,7 @@ function App() {
   const [keyword, setKeyword] = useState();
 
   const [savedArticles, setSavedArticles] = useState([]);
-  const [isArticleSaved, setIsArticleSaved] = useState(false);
+  // const [savedArticle, setSavedArticle] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({ id: '', email: '' });
 
@@ -156,7 +157,7 @@ function App() {
   };
 
   // Save Article
-  const saveArticle = (article) => {
+  const toggleArticle = (article) => {
     const modifiedArticleDB = {
       keyword: keyword,
       title: article.title,
@@ -168,8 +169,12 @@ function App() {
       owner: currentUser._id,
     };
     mainApi.saveArticle(modifiedArticleDB).then((res) => {
-      setSavedArticles([...savedArticles, res]);
+      setSavedArticles(res);
     });
+    const everySingleSavedArticle = savedArticles.map((singleItem) => {
+      return singleItem;
+    });
+    setSavedArticles(everySingleSavedArticle);
   };
 
   useEffect(() => {
@@ -191,7 +196,7 @@ function App() {
     mainApi
       .getSavedArticles()
       .then((res) => {
-        setSavedArticles([...savedArticles, res]);
+        setSavedArticles(res);
       })
       .catch((err) => console.log(err));
   };
@@ -221,22 +226,16 @@ function App() {
               notFound={notFound}
               index={index}
               setIndex={setIndex}
-              saveArticle={saveArticle}
+              toggleArticle={toggleArticle}
               keyword={keyword}
-              isArticleSaved={isArticleSaved}
             />
             <About />
           </Route>
 
-          <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
+          <Route exact path='/saved-news' loggedin={loggedin}>
             <Navbar loggedin={loggedin} handleLogout={handleLogout} />
-            <SavedNewsHeader />
-            {/* <Main
-              loggedin={loggedin}
-              savedArticles={savedArticles}
-              keyword={keyword}
-            /> */}
-          </ProtectedRoute>
+            <SavedNews savedArticles={savedArticles} loggedin={loggedin} />
+          </Route>
 
           <Route>
             <Redirect to='/' />

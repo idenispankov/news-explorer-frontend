@@ -11,9 +11,8 @@ const Main = ({
   notFound,
   index,
   setIndex,
-  saveArticle,
+  toggleArticle,
   keyword,
-  isArticleSaved,
 }) => {
   const showMore = () => {
     setIndex(index + 1);
@@ -34,15 +33,15 @@ const Main = ({
                     loggedin={loggedin}
                     handleSigninClick={handleSigninClick}
                     article={article}
-                    saveArticle={saveArticle}
+                    toggleArticle={toggleArticle}
                     keyword={keyword}
-                    isArticleSaved={isArticleSaved}
                   />
                 </li>
               ))}
             </ul>
 
-            {searchedArticles.length && index * 3 <= searchedArticles.length ? (
+            {searchedArticles.length > 0 &&
+            index * 3 <= searchedArticles.length ? (
               <button className='main__button' onClick={showMore}>
                 Show more
               </button>
