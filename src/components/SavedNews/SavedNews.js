@@ -1,31 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import SavedCard from '../SavedCard/SavedCard';
-import { useContext, useEffect } from 'react';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { useEffect } from 'react';
+// import { CurrentUserContext } from '../../context/CurrentUserContext';
 import SavedCard from '../SavedCard/SavedCard';
+import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
+import Navbar from '../Navbar/Navbar';
 
 const SavedNews = ({
   savedArticles,
   deleteArticleFromSavedNews,
   getSavedArticles,
+  handleLogout,
+  loggedin,
 }) => {
-  const userContext = useContext(CurrentUserContext);
+  // const userContext = useContext(CurrentUserContext);
 
   useEffect(() => {
     getSavedArticles();
   }, []);
   return (
     <>
-      <section className='saved-news'>
-        <p className='saved-news__text'>Saved articles</p>
-        <h2 className='saved-news__heading'>
-          {userContext.name}, you have {savedArticles.length} saved articles
-        </h2>
-        <p className='saved-news__footer'>
-          By keywords: {savedArticles.map((item) => item.keyword + ', ')} and 2
-          other
-        </p>
-      </section>
+      <Navbar handleLogout={handleLogout} loggedin={loggedin} />
+      <SavedNewsHeader savedArticles={savedArticles} />
 
       {savedArticles.length > 0 && (
         <section className='main'>

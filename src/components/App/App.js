@@ -269,10 +269,10 @@ function App() {
               toggleArticle={toggleArticle}
               keyword={keyword}
               found={found}
-              // Navbar
+              // props for Navbar
               handleLogout={handleLogout}
               onSigninClick={handleSigninClick}
-              // Header
+              // props for Header
               searchForArticles={searchForArticles}
               inputEmpty={inputEmpty}
               setInputEmpty={setInputEmpty}
@@ -282,12 +282,13 @@ function App() {
           </Route>
 
           <Route exact path='/saved-news' loggedin={loggedin}>
-            <Navbar loggedin={loggedin} handleLogout={handleLogout} />
+            {/* <Navbar loggedin={loggedin} handleLogout={handleLogout} /> */}
             <SavedNews
               savedArticles={savedArticles}
               loggedin={loggedin}
               deleteArticleFromSavedNews={deleteArticleFromSavedNews}
               getSavedArticles={getSavedArticles}
+              handleLogout={handleLogout}
             />
           </Route>
 
