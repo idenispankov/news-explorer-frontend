@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import './App.css';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
@@ -17,7 +17,7 @@ import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
 import MainApi from '../utils/MainApi';
 import SavedNews from '../SavedNews/SavedNews';
-import Card from '../Card/Card';
+// import Card from '../Card/Card';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
@@ -39,15 +39,20 @@ function App() {
 
   const [inputEmpty, setInputEmpty] = useState(false); // Search Form Component
   const [notFound, setNotFound] = useState(false);
+  const [found, setFound] = useState(false);
   const [index, setIndex] = useState(0); // for show more button
   const [searchedArticles, setSearchedArticles] = useState([]);
   const [keyword, setKeyword] = useState();
 
   const [savedArticles, setSavedArticles] = useState([]);
-  // const [savedArticle, setSavedArticle] = useState(false);
-  const [isCardSaved, setIsCardSaved] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({ id: '', email: '' });
+
+  const location = useLocation();
+
+  useEffect(() => {
+    checkIfArticleSaved();
+  }, [location, savedArticles, loggedin]);
 
   //////////////////////////////// POPUPS
   const closeAllPopups = () => {
@@ -125,27 +130,56 @@ function App() {
 
   // ARTICLES SEARCHING
 
+  const checkIfArticleSaved = () => {
+    const newSearchedArticles = [...searchedArticles];
+    newSearchedArticles.forEach((item) => (item.isCardSaved = false));
+    console.log(newSearchedArticles, 'NEWSEARCHED START');
+    if (savedArticles.length > 0) {
+      newSearchedArticles.forEach((item) => {
+        savedArticles.forEach((savedArticle) => {
+          if (savedArticle.link === item.url) {
+            console.log(savedArticle.link === item.url, savedArticle.link);
+            item._id = savedArticle._id;
+            item.isCardSaved = true;
+          }
+        });
+      });
+      setSearchedArticles(newSearchedArticles);
+    } else {
+      newSearchedArticles.forEach((item) => {
+        item.isCardSaved = false;
+        item._id = null;
+      });
+    }
+  };
+
   const searchForArticles = (keyword) => {
     setSearchInput('');
     setNotFound(false);
+    setFound(false);
     setSearchedArticles([]);
     if (keyword) {
       setIsLoading(true);
       setKeyword(keyword);
       NewsApi.searchArticles(keyword)
         .then((res) => {
-          if (loggedin && res && res.totalResults > 0) {
+          console.log(res, 'RES');
+          if (res && res.totalResults > 0) {
             localStorage.setItem(
               'searchedArticles',
               JSON.stringify(res.articles)
             );
             localStorage.setItem('keyword', keyword);
             setIsLoading(false);
+            console.log(res.articles, 'RES ARTICLES');
             setSearchedArticles(res.articles);
+            setFound(true);
+            checkIfArticleSaved();
             setIndex(1);
           } else if (res && res.totalResults === 0) {
             setIsLoading(false);
             setNotFound(true);
+            setFound(false);
             localStorage.removeItem('searchedArticles');
             localStorage.removeItem('keyword');
           }
@@ -178,7 +212,19 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  // DELETE
+  // TOGGLE ARTCILE
+  const toggleArticle = (card) => {
+    if (loggedin) {
+      if (!card.isCardSaved) {
+        saveArticle(card);
+      } else {
+        card.isCardSaved = false;
+        deleteArticleFromSavedNews(card._id);
+      }
+    }
+  };
+
+  // DELETE WORKING
   const deleteArticleFromSavedNews = (articleId) => {
     if (token) {
       mainApi.removeArticle(articleId).then(() => {
@@ -240,9 +286,9 @@ function App() {
               notFound={notFound}
               index={index}
               setIndex={setIndex}
-              saveArticle={saveArticle}
+              toggleArticle={toggleArticle}
               keyword={keyword}
-              isCardSaved={isCardSaved}
+              found={found}
             />
             <About />
           </Route>

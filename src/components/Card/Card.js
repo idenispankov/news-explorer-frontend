@@ -1,19 +1,16 @@
 import './Card.css';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 const Card = ({
   loggedin,
   handleSigninClick,
   article,
-  saveArticle,
+  // saveArticle,
+  toggleArticle,
   isCardSaved,
 }) => {
-  // const [isCardSaved, setIsCardSaved] = useState(false);
-
-  const onCardSave = () => {
-    saveArticle(article);
-    // setIsCardSaved(!isCardSaved);
+  const onCardToggle = () => {
+    toggleArticle(article);
   };
 
   const formatDate = (date) => {
@@ -34,7 +31,7 @@ const Card = ({
         <p className='card__footer'>{article.source.name}</p>
         <button
           className={`card__save-icon ${isCardSaved && 'card__saved-icon'}`}
-          onClick={onCardSave}
+          onClick={onCardToggle}
         ></button>
         {!loggedin && (
           <>

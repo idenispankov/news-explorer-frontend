@@ -11,9 +11,10 @@ const Main = ({
   notFound,
   index,
   setIndex,
-  saveArticle,
+  // saveArticle,
+  toggleArticle,
   keyword,
-  isCardSaved,
+  found,
 }) => {
   const showMore = () => {
     setIndex(index + 1);
@@ -28,18 +29,20 @@ const Main = ({
           <div className='main__container'>
             <h2 className='main__title'>Search Results</h2>
             <ul className='cards__list'>
-              {searchedArticles.slice(0, index * 3).map((article, i) => (
-                <li className='card' key={i}>
-                  <Card
-                    loggedin={loggedin}
-                    handleSigninClick={handleSigninClick}
-                    article={article}
-                    saveArticle={saveArticle}
-                    keyword={keyword}
-                    isCardSaved={isCardSaved}
-                  />
-                </li>
-              ))}
+              {found &&
+                searchedArticles.slice(0, index * 3).map((article, i) => (
+                  <li className='card' key={i}>
+                    <Card
+                      loggedin={loggedin}
+                      handleSigninClick={handleSigninClick}
+                      article={article}
+                      // saveArticle={saveArticle}
+                      toggleArticle={toggleArticle}
+                      keyword={keyword}
+                      isCardSaved={article.isCardSaved}
+                    />
+                  </li>
+                ))}
             </ul>
 
             {searchedArticles.length > 0 &&
