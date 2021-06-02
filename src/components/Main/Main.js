@@ -2,6 +2,9 @@ import './Main.css';
 import Card from '../Card/Card.js';
 import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
+import Header from '../Header/Header';
+import Navbar from '../Navbar/Navbar';
+import About from '../About/About';
 
 const Main = ({
   loggedin,
@@ -14,6 +17,13 @@ const Main = ({
   toggleArticle,
   keyword,
   found,
+  searchForArticles,
+  inputEmpty,
+  setInputEmpty,
+  searchInput,
+  setSearchInput,
+
+  handleLogout,
 }) => {
   const showMore = () => {
     setIndex(index + 1);
@@ -21,6 +31,18 @@ const Main = ({
 
   return (
     <>
+      <Navbar
+        loggedin={loggedin}
+        handleLogout={handleLogout}
+        onSigninClick={handleSigninClick}
+      />
+      <Header
+        searchForArticles={searchForArticles}
+        inputEmpty={inputEmpty}
+        setInputEmpty={setInputEmpty}
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+      />
       {isLoading && <Preloader />}
 
       {searchedArticles.length > 0 && (
@@ -54,6 +76,7 @@ const Main = ({
       )}
 
       {notFound && <NotFound />}
+      <About />
     </>
   );
 };

@@ -3,10 +3,7 @@ import { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import './App.css';
 // import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Header from '../Header/Header';
-import About from '../About/About';
 import Footer from '../Footer/Footer';
-// import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -261,18 +258,6 @@ function App() {
       <div className='app'>
         <Switch>
           <Route exact path='/'>
-            <Navbar
-              loggedin={loggedin}
-              handleLogout={handleLogout}
-              onSigninClick={handleSigninClick}
-            />
-            <Header
-              searchForArticles={searchForArticles}
-              inputEmpty={inputEmpty}
-              setInputEmpty={setInputEmpty}
-              searchInput={searchInput}
-              setSearchInput={setSearchInput}
-            />
             <Main
               loggedin={loggedin}
               isLoading={isLoading}
@@ -284,8 +269,16 @@ function App() {
               toggleArticle={toggleArticle}
               keyword={keyword}
               found={found}
+              // Navbar
+              handleLogout={handleLogout}
+              onSigninClick={handleSigninClick}
+              // Header
+              searchForArticles={searchForArticles}
+              inputEmpty={inputEmpty}
+              setInputEmpty={setInputEmpty}
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
             />
-            <About />
           </Route>
 
           <Route exact path='/saved-news' loggedin={loggedin}>

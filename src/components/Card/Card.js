@@ -1,11 +1,9 @@
 import './Card.css';
-import { useState } from 'react';
 
 const Card = ({
   loggedin,
   handleSigninClick,
   article,
-  // saveArticle,
   toggleArticle,
   isCardSaved,
 }) => {
