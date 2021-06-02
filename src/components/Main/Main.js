@@ -11,7 +11,6 @@ const Main = ({
   notFound,
   index,
   setIndex,
-  // saveArticle,
   toggleArticle,
   keyword,
   found,
@@ -36,7 +35,6 @@ const Main = ({
                       loggedin={loggedin}
                       handleSigninClick={handleSigninClick}
                       article={article}
-                      // saveArticle={saveArticle}
                       toggleArticle={toggleArticle}
                       keyword={keyword}
                       isCardSaved={article.isCardSaved}
@@ -56,22 +54,6 @@ const Main = ({
       )}
 
       {notFound && <NotFound />}
-
-      {/* {loggedin && savedNewsRoute && (
-        <section className='main'>
-          <div className='main__container'>
-            <ul className='cards__list'>
-              <li className='card'>
-                <Card
-                  loggedin={loggedin}
-                  savedNewsRoute={savedNewsRoute}
-                  savedArticles={savedArticles}
-                />
-              </li>
-            </ul>
-          </div>
-        </section>
-      )} */}
     </>
   );
 };

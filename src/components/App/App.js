@@ -2,11 +2,11 @@
 import { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import './App.css';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+// import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
+// import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -17,7 +17,6 @@ import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
 import MainApi from '../utils/MainApi';
 import SavedNews from '../SavedNews/SavedNews';
-// import Card from '../Card/Card';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
@@ -52,7 +51,7 @@ function App() {
 
   useEffect(() => {
     checkIfArticleSaved();
-  }, [location, savedArticles, loggedin]);
+  }, [location, savedArticles, found, loggedin]);
 
   //////////////////////////////// POPUPS
   const closeAllPopups = () => {
@@ -133,12 +132,10 @@ function App() {
   const checkIfArticleSaved = () => {
     const newSearchedArticles = [...searchedArticles];
     newSearchedArticles.forEach((item) => (item.isCardSaved = false));
-    console.log(newSearchedArticles, 'NEWSEARCHED START');
     if (savedArticles.length > 0) {
       newSearchedArticles.forEach((item) => {
         savedArticles.forEach((savedArticle) => {
           if (savedArticle.link === item.url) {
-            console.log(savedArticle.link === item.url, savedArticle.link);
             item._id = savedArticle._id;
             item.isCardSaved = true;
           }
@@ -163,7 +160,6 @@ function App() {
       setKeyword(keyword);
       NewsApi.searchArticles(keyword)
         .then((res) => {
-          console.log(res, 'RES');
           if (res && res.totalResults > 0) {
             localStorage.setItem(
               'searchedArticles',
@@ -171,7 +167,6 @@ function App() {
             );
             localStorage.setItem('keyword', keyword);
             setIsLoading(false);
-            console.log(res.articles, 'RES ARTICLES');
             setSearchedArticles(res.articles);
             setFound(true);
             checkIfArticleSaved();
