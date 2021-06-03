@@ -8,11 +8,8 @@ import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 const Login = ({
   values,
   errors,
-  isValid,
   submitError,
   onInputChange,
-  setIsLoginPopupOpen,
-  setIsRegisterPopupOpen,
   onClose,
   handleLogin,
   isPopupOpen,

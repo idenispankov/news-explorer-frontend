@@ -5,54 +5,59 @@ import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 
-const Register = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+const Register = ({
+  handleSigninClick,
+  onClose,
+  values,
+  errors,
+  submitError,
+  onInputChange,
+  handleRegister,
+  isPopupOpen,
+}) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const onSigninLinkClick = () => {
-    props.setIsRegisterPopupOpen(false);
-    props.setIsLoginPopupOpen(true);
+    handleSigninClick();
   };
 
   const onFormClose = () => {
-    props.onClose();
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+    onClose();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.handleRegister(email, password, name);
-    setEmail('');
-    setPassword('');
-    setName('');
+    handleRegister(values.email, values.password, values.username);
   };
 
   useEffect(() => {
-    if (email && password && name) {
+    if (
+      errors.email ||
+      errors.password ||
+      errors.name ||
+      values.email ||
+      values.password ||
+      values.name
+    ) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [email, password, name]);
+  }, [
+    errors.email,
+    errors.password,
+    errors.name,
+    values.email,
+    values.password,
+    values.name,
+  ]);
 
   return (
     <>
       <PopupWithForm
         formHeadingText='Sign up'
         onSubmit={handleSubmit}
-        isPopupOpen={props.isPopupOpen}
+        isPopupOpen={isPopupOpen}
       >
         <Input
           label='Email'
@@ -61,28 +66,32 @@ const Register = (props) => {
           name='email'
           minLength='2'
           maxLength='50'
-          handleChange={handleEmailChange}
-          value={email}
+          handleChange={onInputChange}
+          value={values.email || ''}
         />
+        <span className='form__span-error'>{errors.email}</span>
 
         <Input
           label='Password'
           type='password'
           placeholder='Enter password'
           name='password'
-          handleChange={handlePasswordChange}
-          value={password}
+          handleChange={onInputChange}
+          value={values.password || ''}
         />
+        <span className='form__span-error'>{errors.password}</span>
 
         <Input
           label='Username'
           type='text'
           placeholder='Enter your username'
           name='username'
-          handleChange={handleNameChange}
-          value={name}
+          handleChange={onInputChange}
+          value={values.username || ''}
         />
+        <span className='form__span-error'>{errors.username}</span>
 
+        <span className='submit__text-error'>{submitError}</span>
         <FormSubmitButton
           submitButtonText='Sign up'
           buttonDisabled={buttonDisabled}

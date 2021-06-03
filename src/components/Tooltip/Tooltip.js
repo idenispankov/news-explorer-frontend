@@ -1,20 +1,27 @@
 import CloseFormButton from '../CloseFormButton/CloseFormButton';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-const Tooltip = (props) => {
+const Tooltip = ({
+  handleSigninClick,
+  onClose,
+  setIsLoginPopupOpen,
+  isPopupOpen,
+  setIsTooltipOpen,
+}) => {
   const onFormClose = () => {
-    props.onClose();
+    onClose();
   };
 
   const onSigninLinkClick = () => {
-    props.setIsLoginPopupOpen(true);
-    props.setIsTooltipOpen(false);
+    handleSigninClick();
+    setIsLoginPopupOpen(true);
+    setIsTooltipOpen(false);
   };
 
   return (
     <PopupWithForm
       formHeadingText='Registration successfully completed!'
-      isPopupOpen={props.isPopupOpen}
+      isPopupOpen={isPopupOpen}
     >
       <p className='form__link' onClick={onSigninLinkClick}>
         Sign in

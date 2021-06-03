@@ -109,6 +109,7 @@ function App() {
   //////////////////////////// AUTHENTICATION
 
   const handleSigninClick = () => {
+    setIsRegisterPopupOpen(false);
     setIsLoginPopupOpen(true);
     setEventListener(true);
     resetForm();
@@ -117,6 +118,7 @@ function App() {
   const onSignupLinkClick = () => {
     setIsLoginPopupOpen(false);
     setIsRegisterPopupOpen(true);
+    setEventListener(true);
     resetForm();
   };
 
@@ -128,8 +130,7 @@ function App() {
           setIsRegisterPopupOpen(false);
           setIsTooltipOpen(true);
         } else if (res.message) {
-          setSubmitError(res.message);
-          console.log(res.message);
+          setSubmitError('This email is not available');
         }
       })
       .catch((err) => console.log(err));
@@ -145,7 +146,7 @@ function App() {
           setIsLoginPopupOpen(false);
         } else if (data.message) {
           setLoggedin(false);
-          setSubmitError(data.message);
+          setSubmitError('Wrong Email or Password');
         }
       })
       .catch((err) => console.log(err));
@@ -271,7 +272,6 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if (res._id) {
-            console.log(res);
             setLoggedin(true);
             setCurrentUser(res);
             getSavedArticles();
@@ -340,13 +340,10 @@ function App() {
       </div>
       <Login
         isPopupOpen={isLoginPopupOpen}
-        setIsLoginPopupOpen={setIsLoginPopupOpen}
-        setIsRegisterPopupOpen={setIsRegisterPopupOpen}
         handleLogin={handleLogin}
         onClose={closeAllPopups}
         values={values}
         errors={errors}
-        isValid={isValid}
         submitError={submitError}
         onInputChange={handleInputChange}
         onSignupLinkClick={onSignupLinkClick}
@@ -359,15 +356,16 @@ function App() {
         handleRegister={handleRegister}
         values={values}
         errors={errors}
-        isValid={isValid}
         submitError={submitError}
         onInputChange={handleInputChange}
+        handleSigninClick={handleSigninClick}
       />
       <Tooltip
         isPopupOpen={isTooltipOpen}
         onClose={closeAllPopups}
         setIsLoginPopupOpen={setIsLoginPopupOpen}
         setIsTooltipOpen={setIsTooltipOpen}
+        handleSigninClick={handleSigninClick}
       />
     </CurrentUserContext.Provider>
   );
