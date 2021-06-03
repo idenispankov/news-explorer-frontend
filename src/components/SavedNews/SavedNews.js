@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import SavedCard from '../SavedCard/SavedCard';
 import { useEffect } from 'react';
-// import { CurrentUserContext } from '../../context/CurrentUserContext';
 import SavedCard from '../SavedCard/SavedCard';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Navbar from '../Navbar/Navbar';
@@ -13,8 +12,6 @@ const SavedNews = ({
   handleLogout,
   loggedin,
 }) => {
-  // const userContext = useContext(CurrentUserContext);
-
   useEffect(() => {
     getSavedArticles();
   }, []);
@@ -47,5 +44,3 @@ const SavedNews = ({
 };
 
 export default SavedNews;
-
-// Temporary solution for keywords implemented

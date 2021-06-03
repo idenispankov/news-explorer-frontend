@@ -1,19 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import './App.css';
-// import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Footer from '../Footer/Footer';
-import Main from '../Main/Main';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
-import Tooltip from '../Tooltip/Tooltip';
-import Navbar from '../Navbar/Navbar';
+import { useState, useEffect, useCallback } from 'react';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
 import MainApi from '../utils/MainApi';
+// import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
+import Footer from '../Footer/Footer';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import Tooltip from '../Tooltip/Tooltip';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
@@ -33,18 +32,46 @@ function App() {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
 
-  const [inputEmpty, setInputEmpty] = useState(false); // Search Form Component
+  const [inputEmpty, setInputEmpty] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [found, setFound] = useState(false);
-  const [index, setIndex] = useState(0); // for show more button
+  const [index, setIndex] = useState(0);
   const [searchedArticles, setSearchedArticles] = useState([]);
   const [keyword, setKeyword] = useState();
-
   const [savedArticles, setSavedArticles] = useState([]);
-
   const [currentUser, setCurrentUser] = useState({ id: '', email: '' });
-
   const location = useLocation();
+
+  // Validation states
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  // FORM VALIDATION
+  const handleInputChange = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: target.validationMessage });
+    setIsValid(target.closest('form').checkValidity());
+    setSubmitError('');
+  };
+
+  const resetForm = useCallback(
+    (
+      newValues = { email: '', password: '', username: '' },
+      newErrors = {},
+      newIsValid = false
+    ) => {
+      setSubmitError('');
+      setValues(newValues);
+      setErrors(newErrors);
+      setIsValid(newIsValid);
+    },
+    [setValues, setErrors, setIsValid]
+  );
 
   useEffect(() => {
     checkIfArticleSaved();
@@ -84,6 +111,13 @@ function App() {
   const handleSigninClick = () => {
     setIsLoginPopupOpen(true);
     setEventListener(true);
+    resetForm();
+  };
+
+  const onSignupLinkClick = () => {
+    setIsLoginPopupOpen(false);
+    setIsRegisterPopupOpen(true);
+    resetForm();
   };
 
   const handleRegister = (email, password, name) => {
@@ -93,8 +127,9 @@ function App() {
         if (res.email) {
           setIsRegisterPopupOpen(false);
           setIsTooltipOpen(true);
-        } else if (!res.email) {
-          return;
+        } else if (res.message) {
+          setSubmitError(res.message);
+          console.log(res.message);
         }
       })
       .catch((err) => console.log(err));
@@ -108,8 +143,9 @@ function App() {
           setLoggedin(true);
           setToken(localStorage.getItem('jwt'));
           setIsLoginPopupOpen(false);
-        } else if (!data.email) {
+        } else if (data.message) {
           setLoggedin(false);
+          setSubmitError(data.message);
         }
       })
       .catch((err) => console.log(err));
@@ -204,18 +240,6 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  // TOGGLE ARTCILE
-  const toggleArticle = (card) => {
-    if (loggedin) {
-      if (!card.isCardSaved) {
-        saveArticle(card);
-      } else {
-        card.isCardSaved = false;
-        deleteArticleFromSavedNews(card._id);
-      }
-    }
-  };
-
   // DELETE WORKING
   const deleteArticleFromSavedNews = (articleId) => {
     if (token) {
@@ -228,16 +252,32 @@ function App() {
     }
   };
 
+  // TOGGLE ARTCILE
+  const toggleArticle = (card) => {
+    if (loggedin) {
+      if (!card.isCardSaved) {
+        saveArticle(card);
+      } else {
+        card.isCardSaved = false;
+        deleteArticleFromSavedNews(card._id);
+      }
+    }
+  };
+
   // Get token, currentUser, setLoggedin,  savedArticles, setSavedArticles array
   useEffect(() => {
     if (token) {
       auth
         .checkToken(token)
         .then((res) => {
-          if (res) {
+          if (res._id) {
+            console.log(res);
             setLoggedin(true);
             setCurrentUser(res);
             getSavedArticles();
+          } else {
+            setLoggedin(false);
+            setCurrentUser({ id: '', email: '' });
           }
         })
         .catch((err) => console.log(err));
@@ -304,6 +344,12 @@ function App() {
         setIsRegisterPopupOpen={setIsRegisterPopupOpen}
         handleLogin={handleLogin}
         onClose={closeAllPopups}
+        values={values}
+        errors={errors}
+        isValid={isValid}
+        submitError={submitError}
+        onInputChange={handleInputChange}
+        onSignupLinkClick={onSignupLinkClick}
       />
       <Register
         isPopupOpen={isRegisterPopupOpen}
@@ -311,6 +357,11 @@ function App() {
         setIsRegisterPopupOpen={setIsRegisterPopupOpen}
         setIsLoginPopupOpen={setIsLoginPopupOpen}
         handleRegister={handleRegister}
+        values={values}
+        errors={errors}
+        isValid={isValid}
+        submitError={submitError}
+        onInputChange={handleInputChange}
       />
       <Tooltip
         isPopupOpen={isTooltipOpen}
@@ -323,3 +374,10 @@ function App() {
 }
 
 export default App;
+
+// const NOTHING_FOUND = 'Nothing found';
+// const NOTHING_MATCHED = 'Sorry, but nothing matched your search criteria.';
+// const ENTER_KEYWORD = 'Please enter a keyword.';
+// const DATA_ERROR =
+//   'Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later.';
+// const BAD_INPUT = 'Bad input. Try again.';

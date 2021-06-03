@@ -5,50 +5,49 @@ import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
 
-const Login = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({
+  values,
+  errors,
+  isValid,
+  submitError,
+  onInputChange,
+  setIsLoginPopupOpen,
+  setIsRegisterPopupOpen,
+  onClose,
+  handleLogin,
+  isPopupOpen,
+  onSignupLinkClick,
+}) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const onSignupLinkClick = () => {
-    props.setIsLoginPopupOpen(false);
-    props.setIsRegisterPopupOpen(true);
+  const onSignup = () => {
+    onSignupLinkClick();
   };
 
   const onFormClose = () => {
-    props.onClose();
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    onClose();
   };
 
   // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.handleLogin(email, password);
-    setEmail('');
-    setPassword('');
+    handleLogin(values.email, values.password);
   };
 
   // Use Effect
   useEffect(() => {
-    if (email && password) {
-      setButtonDisabled(false);
-    } else {
+    if (errors.email || errors.password || !values.email || !values.password) {
       setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
     }
-  }, [email, password]);
+  }, [errors.email, errors.password, values.email, values.password]);
 
   return (
     <PopupWithForm
       formHeadingText='Sign in'
       onSubmit={handleSubmit}
-      isPopupOpen={props.isPopupOpen}
+      isPopupOpen={isPopupOpen}
     >
       <Input
         label='Email'
@@ -56,26 +55,29 @@ const Login = (props) => {
         placeholder='Email'
         name='email'
         maxLength='50'
-        handleChange={handleEmailChange}
-        value={email}
+        handleChange={onInputChange}
+        value={values.email || ''}
       />
+      <span className='form__span-error'>{errors.email}</span>
 
       <Input
         label='Password'
         type='password'
         placeholder='Password'
         name='password'
-        handleChange={handlePasswordChange}
-        value={password}
+        handleChange={onInputChange}
+        value={values.password || ''}
       />
+      <span className='form__span-error'>{errors.password}</span>
 
+      <span className='submit__text-error'>{submitError}</span>
       <FormSubmitButton
         submitButtonText='Sign in'
         buttonDisabled={buttonDisabled}
       />
       <p className='form__text'>
         or{' '}
-        <span className='form__link' onClick={onSignupLinkClick}>
+        <span className='form__link' onClick={onSignup}>
           Sign up
         </span>
       </p>
