@@ -33,7 +33,6 @@ function App() {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
 
-  const [inputEmpty, setInputEmpty] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [found, setFound] = useState(false);
   const [index, setIndex] = useState(0);
@@ -315,8 +314,6 @@ function App() {
               onSigninClick={handleSigninClick}
               // props for Header
               searchForArticles={searchForArticles}
-              inputEmpty={inputEmpty}
-              setInputEmpty={setInputEmpty}
               searchInput={searchInput}
               setSearchInput={setSearchInput}
             />
@@ -372,10 +369,3 @@ function App() {
 }
 
 export default App;
-
-// const NOTHING_FOUND = 'Nothing found';
-// const NOTHING_MATCHED = 'Sorry, but nothing matched your search criteria.';
-// const ENTER_KEYWORD = 'Please enter a keyword.';
-// const DATA_ERROR =
-//   'Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later.';
-// const BAD_INPUT = 'Bad input. Try again.';

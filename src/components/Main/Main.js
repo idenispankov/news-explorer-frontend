@@ -18,8 +18,6 @@ const Main = ({
   keyword,
   found,
   searchForArticles,
-  inputEmpty,
-  setInputEmpty,
   searchInput,
   setSearchInput,
 
@@ -38,8 +36,6 @@ const Main = ({
       />
       <Header
         searchForArticles={searchForArticles}
-        inputEmpty={inputEmpty}
-        setInputEmpty={setInputEmpty}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
       />
