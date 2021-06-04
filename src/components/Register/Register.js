@@ -104,7 +104,6 @@ const Register = ({
         </p>
         <CloseFormButton onClose={onFormClose} />
       </PopupWithForm>
-      )
     </>
   );
 };
