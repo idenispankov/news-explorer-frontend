@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 import { useState, useEffect, useCallback } from 'react';
@@ -6,7 +7,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../utils/auth';
 import NewsApi from '../utils/NewsApi';
 import MainApi from '../utils/MainApi';
-// import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
@@ -18,7 +19,7 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
 
   const mainApi = new MainApi({
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://enigmatic-citadel-92534.herokuapp.com',
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${token}`,
@@ -321,8 +322,7 @@ function App() {
             />
           </Route>
 
-          <Route exact path='/saved-news' loggedin={loggedin}>
-            {/* <Navbar loggedin={loggedin} handleLogout={handleLogout} /> */}
+          <ProtectedRoute exact path='/saved-news' loggedin={loggedin}>
             <SavedNews
               savedArticles={savedArticles}
               loggedin={loggedin}
@@ -330,7 +330,7 @@ function App() {
               getSavedArticles={getSavedArticles}
               handleLogout={handleLogout}
             />
-          </Route>
+          </ProtectedRoute>
 
           <Route>
             <Redirect to='/' />

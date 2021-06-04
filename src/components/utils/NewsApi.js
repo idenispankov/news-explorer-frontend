@@ -17,7 +17,7 @@ class NewsApi {
       this._baseUrl +
         `q=${keyword}&from${this.dateFrom()}&to=${
           this.dateTo
-        }&sortBypopularity&apiKey=53c68f38f9c242baacd37c44cb2d76eb`,
+        }&sortBypopularity&apiKey=eab01bb5989c40c7bd3efb7728a944be`,
       {
         headers: this._headers,
       }
@@ -34,7 +34,3 @@ class NewsApi {
 export default new NewsApi({
   baseUrl: 'https://nomoreparties.co/news/v2/everything?',
 });
-
-// eab01bb5989c40c7bd3efb7728a944be
-
-// 53c68f38f9c242baacd37c44cb2d76eb

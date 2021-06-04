@@ -19,6 +19,7 @@ const SearchForm = ({ searchForArticles, searchInput, setSearchInput }) => {
         placeholder='Enter topic'
         value={searchInput}
         onChange={handleChange}
+        autoComplete='off'
       />
 
       <button className='search__button'>Search</button>

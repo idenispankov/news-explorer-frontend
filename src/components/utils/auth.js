@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://enigmatic-citadel-92534.herokuapp.com';
 
 export const register = (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {
