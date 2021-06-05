@@ -1,14 +1,14 @@
 import './Navbar.css';
 import { useHistory, NavLink, withRouter } from 'react-router-dom';
-import { useState } from 'react';
-import LoginButton from '../LoginButton/LoginButton';
-import LogoutButton from '../LogoutButton/LogoutButton';
+import { useState, useContext } from 'react';
+import whiteLogoutIcon from '../../images/logout-light.png';
+import darkLogoutIcon from '../../images/logout-dark.svg';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-const Navbar = ({ loggedin, setLoggedin, isPopupOpen }) => {
+const Navbar = ({ loggedin, handleLogout, onSigninClick }) => {
   const history = useHistory();
   const isSavedNewsRoute = history.location.pathname.includes('saved-news');
-  const isSigninRoute = history.location.pathname.includes('signin');
-  const isRegisterRoute = history.location.pathname.includes('signup');
+  const currentUser = useContext(CurrentUserContext);
 
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
 
@@ -24,13 +24,15 @@ const Navbar = ({ loggedin, setLoggedin, isPopupOpen }) => {
     setIsHamburgerMenuOpen(false);
   };
 
+  const onLogoutClick = () => {
+    handleLogout();
+  };
+
   return (
     <div className='navbar__container'>
       <nav
         className={`navbar ${isSavedNewsRoute && 'navbar_type_white'} ${
           isHamburgerMenuOpen && 'navbar-dark'
-        } ${isSigninRoute && 'navbar_is-hidden'} ${
-          isRegisterRoute && 'navbar_is-hidden'
         }`}
       >
         <NavLink
@@ -68,12 +70,47 @@ const Navbar = ({ loggedin, setLoggedin, isPopupOpen }) => {
               Saved Articles
             </NavLink>
           )}
-          {!loggedin && <LoginButton />}
+
+          {/* Signin Button */}
+          {!loggedin && (
+            <button
+              className={`navbar__button navbar__button-signin`}
+              onClick={onSigninClick}
+            >
+              Sign in
+            </button>
+          )}
+
+          {/* Sign Out Button */}
           {loggedin && (
-            <LogoutButton
-              isSavedNewsRoute={isSavedNewsRoute}
-              setLoggedin={setLoggedin}
-            />
+            <button
+              className={`navbar__button navbar__button-logout ${
+                isSavedNewsRoute && 'navbar__button-logout-dark'
+              }`}
+            >
+              <p
+                className={`navbar__button-text ${
+                  isSavedNewsRoute && 'navbar__button-text-dark'
+                }`}
+              >
+                {currentUser.name}
+              </p>{' '}
+              <NavLink to='/' onClick={onLogoutClick}>
+                {isSavedNewsRoute ? (
+                  <img
+                    className='navbar__button-icon'
+                    alt='logout icon'
+                    src={darkLogoutIcon}
+                  />
+                ) : (
+                  <img
+                    className='navbar__button-icon'
+                    alt='logout icon'
+                    src={whiteLogoutIcon}
+                  />
+                )}
+              </NavLink>
+            </button>
           )}
         </div>
         <div

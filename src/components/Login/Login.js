@@ -1,54 +1,44 @@
 import './Login.css';
 import { useEffect, useState } from 'react';
-import { useHistory, NavLink } from 'react-router-dom';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import Input from '../Input/Input.js';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton.js';
 import CloseFormButton from '../CloseFormButton/CloseFormButton.js';
-import validateLogin from '../validateLogin';
 
-const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
-  const history = useHistory();
-
-  const [value, setValue] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
+const Login = ({
+  values,
+  errors,
+  submitError,
+  onInputChange,
+  onClose,
+  handleLogin,
+  isPopupOpen,
+  onSignupLinkClick,
+}) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [isValid, setIsValid] = useState(false);
 
-  // CLOSE MODAL
-  const onFormClose = () => {
-    history.push('/');
-    setIsPopupOpen(false);
+  const onSignup = () => {
+    onSignupLinkClick();
   };
 
-  const handleChange = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
+  const onFormClose = () => {
+    onClose();
   };
 
   // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors(validateLogin(value));
-    setIsValid(e.target.closest('form').checkValidity());
-    if (isValid) {
-      setIsPopupOpen(false);
-      setLoggedin(true);
-      history.push('/');
-    }
+    handleLogin(values.email, values.password);
   };
 
   // Use Effect
   useEffect(() => {
-    setIsPopupOpen(true);
-    if (value.email && value.password) {
-      setButtonDisabled(false);
-    } else {
+    if (errors.email || errors.password || !values.email || !values.password) {
       setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
     }
-  }, [value, setIsPopupOpen, isPopupOpen]);
+  }, [errors.email, errors.password, values.email, values.password]);
 
   return (
     <PopupWithForm
@@ -62,34 +52,31 @@ const Login = ({ setIsPopupOpen, isPopupOpen, setLoggedin }) => {
         placeholder='Email'
         name='email'
         maxLength='50'
-        handleChange={handleChange}
-        value={value.email}
-        isValid={isValid}
+        handleChange={onInputChange}
+        value={values.email || ''}
       />
-      {errors.email && <span className='form__span-error'>{errors.email}</span>}
+      <span className='form__span-error'>{errors.email}</span>
 
       <Input
         label='Password'
         type='password'
         placeholder='Password'
         name='password'
-        handleChange={handleChange}
-        value={value.password}
-        isValid={isValid}
+        handleChange={onInputChange}
+        value={values.password || ''}
       />
-      {errors.password && (
-        <span className='form__span-error'>{errors.password}</span>
-      )}
+      <span className='form__span-error'>{errors.password}</span>
 
+      <span className='submit__text-error'>{submitError}</span>
       <FormSubmitButton
         submitButtonText='Sign in'
         buttonDisabled={buttonDisabled}
       />
       <p className='form__text'>
         or{' '}
-        <NavLink to='/signup' className='form__link'>
+        <span className='form__link' onClick={onSignup}>
           Sign up
-        </NavLink>
+        </span>
       </p>
       <CloseFormButton onClose={onFormClose} />
     </PopupWithForm>

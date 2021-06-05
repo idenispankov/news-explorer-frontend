@@ -1,25 +1,13 @@
 import './SearchForm.css';
-import { useState } from 'react';
 
-const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
-  const [searchInput, setSearchInput] = useState('');
-
+const SearchForm = ({ searchForArticles, searchInput, setSearchInput }) => {
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setSearchInput('');
-    setTimeout(() => {
-      setIsSearchHappened(true);
-    }, 1000);
-    setTimeout(() => {
-      setIsLoading(true);
-    }, 0);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    searchForArticles(searchInput);
   };
 
   return (
@@ -31,7 +19,9 @@ const SearchForm = ({ setIsSearchHappened, setIsLoading }) => {
         placeholder='Enter topic'
         value={searchInput}
         onChange={handleChange}
+        autoComplete='off'
       />
+
       <button className='search__button'>Search</button>
     </form>
   );

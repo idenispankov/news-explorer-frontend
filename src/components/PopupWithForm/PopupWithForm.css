@@ -67,6 +67,12 @@
 .form__link {
   color: #2f71e5;
   text-decoration: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 /* Error Input */
@@ -78,13 +84,13 @@
   margin-bottom: 13px;
 }
 
-/* .submit__text-error {
+.submit__text-error {
   display: block;
   text-align: center;
   margin: 0;
   padding: 0;
   color: red;
-} */
+}
 
 @media screen and (max-width: 600px) {
   .form {

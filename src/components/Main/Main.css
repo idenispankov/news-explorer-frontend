@@ -6,6 +6,10 @@
   padding: 80px 104px 80px 104px;
 }
 
+.main__container_type-saved-news {
+  padding-top: 0;
+}
+
 .main__title {
   margin: 0;
   display: inline-block;
