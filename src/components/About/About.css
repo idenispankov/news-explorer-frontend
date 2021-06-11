@@ -8,6 +8,7 @@
   width: 464px;
   height: 464px;
   margin: 80px 56px 80px 104px;
+  border-radius: 50%;
 }
 
 .about__group {
