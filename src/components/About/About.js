@@ -1,5 +1,5 @@
 import './About.css';
-import author from '../../images/author.png';
+import author from '../../images/author.jpeg';
 
 const About = () => {
   return (
