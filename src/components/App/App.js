@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
-import { Helmet } from 'react-helmet';
 import { useState, useEffect, useCallback } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -297,26 +296,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='app'>
-        <Helmet>
-          <meta name='description' content='News Explorer React App' />
-          <meta
-            name='keywords'
-            content='Full-stack Web developer, News Explorer'
-          />
-          <meta name='title' property='og:title' content='News Explorer' />
-          <meta property='og:type' content='Website' />
-          <meta
-            name='image'
-            property='og:image'
-            content='%PUBLIC_URL%/banner.png'
-          />
-          <meta
-            name='description'
-            property='og:description'
-            content='News Explorer, fully functional, cross-compatible React app'
-          />
-          <meta name='author' content='Denis Pankov' />
-        </Helmet>
         <Switch>
           <Route exact path='/'>
             <Main
