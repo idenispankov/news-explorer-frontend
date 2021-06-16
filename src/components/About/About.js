@@ -8,12 +8,13 @@ const About = () => {
       <div className='about__group'>
         <h2 className='about__title'>About the author</h2>
         <p className='about__text'>
-          This block describes the project author. Here you should indicate your
-          name, what you do, and which development technologies you know.
+          Full Stack Web Developer (MERN), skilled in building fully responsive,
+          dynamic web apps. Excited about working with others to grow and
+          achieve common goals.
         </p>
         <p className='about__text'>
-          You can also talk about your experience with Practicum, what you
-          learned there, and how you can help potential customers.
+          HTML5, CSS3, BEM, Responsive design, JavaScript, React.js, Node.js,
+          Express.js, MongoDB, Postman, Git, GitHub, Figma, Jira, Kanban, Agile
         </p>
       </div>
     </section>
